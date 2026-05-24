@@ -694,12 +694,12 @@ body {
 
 /* 卡片选项列表（用户选「下一步走哪」） */
 .card-options {
-  margin-top: 14px;
-  padding-top: 12px;
+  margin-top: 10px;
+  padding-top: 10px;
   border-top: 1px solid var(--border);
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 4px;
   flex-shrink: 0;
 }
 .options-label {
@@ -718,7 +718,7 @@ body {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 6px;
-  padding: 8px 11px;
+  padding: 5px 11px;
   display: flex;
   align-items: center;
   gap: 8px;

@@ -35,14 +35,17 @@ const LAYOUT = {
   padX: 32,
 };
 
-// 一级 6 个分支固定方向（度数，0° = 上，顺时针 + ；避开均匀分布以减弱"中心辐射"感）
+// 一级 8 个分支固定方向（度数，0° = 上，顺时针 + ；不均匀分布以减弱"中心辐射"感）
+// 顺序对应 TREE_DATA.children 顺序：basics / tools / where-web / where-desktop / where-mobile / where-cli / where-server / where-hardware
 const ROOT_BRANCH_ANGLES = [
-  -135,   // 浏览器 → 左上
-  -75,    // 电脑   → 上偏左
-  -25,    // 手机   → 上偏右
-  35,     // 命令行 → 右下偏上
-  100,    // 服务   → 下偏右
-  165,    // 硬件   → 左下偏下
+  -160,   // [0] 先理解代码本身 → 上偏左
+  -100,   // [1] 写代码用什么工具 → 上偏左
+  -55,    // [2] 浏览器 → 上偏右
+  -15,    // [3] 电脑 → 上偏右
+  25,     // [4] 手机 → 右上
+  75,     // [5] 命令行 → 右
+  125,    // [6] 服务 → 右下
+  165,    // [7] 硬件 → 左下偏下
 ];
 
 function isMobileView() {
@@ -541,10 +544,13 @@ function openCard(nodeId) {
     pageInd.textContent = `${pageIdx + 1} / ${pages.length}`;
     prevBtn.disabled = pageIdx === 0;
     nextBtn.disabled = pageIdx === pages.length - 1;
+    const footerEl = card.querySelector('.card-footer');
     if (pages.length <= 1) {
+      if (footerEl) footerEl.style.display = 'none';
       pagerEl.style.visibility = 'hidden';
       pageLabel.textContent = '';
     } else {
+      if (footerEl) footerEl.style.display = '';
       pagerEl.style.visibility = '';
       pageLabel.textContent = '纸卷翻页';
     }
