@@ -662,8 +662,59 @@ const node_product_types = {
   emoji: "🎁",
   title: "不同类型产品的后端要什么",
   lightbulb: true,
-  concept: { name: "产品类型与所需后端能力", explain: "电商 / 社交 / 直播 / 游戏 / IM / SaaS / AI 套壳 / 数据 BI——每类有它特有的技术名词和系统。" },
+  concept: { name: "产品类型与所需后端能力", explain: "电商 / 社交 / 直播 / 游戏 / IM / SaaS / AI 套壳 / 数据 BI / 金融 / 医疗 / 出行 / 教育 / 笔记 / IoT / B2B / 区块链 / 政府 / 创作工具……每类有它特有的技术名词和系统。" },
   pages: [
+    { html: `
+      <p>常见产品类别 <strong>远不止 8 类</strong>。先找找你想做的属于哪一类——</p>
+      <div class="reveal-card">
+        <div class="reveal-q">点开看完整 20+ 类产品全景（含每类的代表产品）</div>
+        <button class="reveal-btn" type="button">展开 →</button>
+        <div class="reveal-a" hidden>
+          <p><strong>🛒 电商交易</strong>：淘宝 / 京东 / 拼多多 / Shopify / Etsy / 闲鱼 / 得物 / Temu / Shein</p>
+          <p><strong>💬 社交内容</strong>：微博 / 小红书 / 知乎 / Twitter / Threads / Reddit / 豆瓣 / 即刻</p>
+          <p><strong>🎬 视频直播音频</strong>：B 站 / 抖音 / YouTube / Netflix / Twitch / Spotify / 网易云音乐 / 小宇宙播客</p>
+          <p><strong>🎮 游戏后端</strong>：王者荣耀 / 原神 / CSGO / Apex / 蛋仔 / Steam / Roblox</p>
+          <p><strong>💭 通讯 IM</strong>：微信 / Discord / Slack / Telegram / 钉钉 / 飞书 / Signal</p>
+          <p><strong>🏢 SaaS 协作</strong>：Notion / Figma / Linear / Airtable / Jira / Salesforce / 飞书</p>
+          <p><strong>🤖 AI 套壳</strong>：ChatGPT / Claude / Perplexity / Character.ai / Midjourney / Suno / Runway / ElevenLabs</p>
+          <p><strong>📊 数据 BI</strong>：Tableau / Metabase / Looker / 内部看板 / Mixpanel</p>
+          <p><strong>💰 金融 FinTech</strong>：支付宝 / 招行 App / Robinhood / Stripe / 加密钱包 / 理财平台</p>
+          <p><strong>🏥 健康医疗</strong>：好大夫 / 丁香 / Keep / Strava / HealthKit / 心理咨询 App</p>
+          <p><strong>🚕 出行地图</strong>：滴滴 / 高德 / Uber / 共享单车 / Citymapper</p>
+          <p><strong>🍔 餐饮外卖物流</strong>：美团 / 饿了么 / 顺丰 / 京东物流 / DoorDash</p>
+          <p><strong>🏨 旅游住宿</strong>：携程 / Airbnb / Booking / 飞猪 / 马蜂窝</p>
+          <p><strong>🏠 房产二手</strong>：链家 / 贝壳 / 闲鱼 / 转转 / 58 同城</p>
+          <p><strong>💼 求职招聘</strong>：BOSS 直聘 / LinkedIn / 智联 / 拉勾</p>
+          <p><strong>📚 教育学习</strong>：网易云课堂 / Coursera / 多邻国 / 得到 / Khan Academy / 各种刷题 App</p>
+          <p><strong>📝 工具 / 笔记 / 个人</strong>：Obsidian / Bear / 番茄钟 / Todo / 翻译 / OCR / 计算器 / 习惯打卡</p>
+          <p><strong>🏘️ 智能家居 IoT</strong>：米家 / HomeKit / Google Home / Aqara</p>
+          <p><strong>🏭 B2B 工业 ERP</strong>：SAP / 用友 / 钉钉宜搭 / MES 制造 / 低代码平台</p>
+          <p><strong>🪙 区块链 Web3</strong>：MetaMask / OpenSea / Uniswap / Lens / NFT 市场</p>
+          <p><strong>🏛️ 政府公共服务</strong>：健康码 / 个税 / 医保 / 12345 / 国家政务</p>
+          <p><strong>🎨 创作工具</strong>：剪映 / Premiere / Photoshop / Lightroom / Figma / Procreate</p>
+          <p><strong>📧 邮件 / 日历</strong>：Outlook / Gmail / Apple Mail / 超人邮箱 / Spike</p>
+          <p><strong>🔍 搜索 / 浏览器</strong>：Google / 百度 / Bing / Brave / Arc / DuckDuckGo</p>
+          <p><strong>📰 资讯阅读</strong>：Feedly / 即刻 / Hacker News / Pocket / RSS 类</p>
+        </div>
+      </div>
+      <div class="matching-game">
+        <div class="match-hint">把「产品」连到「它属于哪类」↓</div>
+        <div class="match-rows">
+          <div class="match-col">
+            <div class="match-item" data-match="A">滴滴</div>
+            <div class="match-item" data-match="B">米家</div>
+            <div class="match-item" data-match="C">Midjourney</div>
+          </div>
+          <div class="match-col">
+            <div class="match-item" data-match="C">AI 套壳</div>
+            <div class="match-item" data-match="A">出行地图</div>
+            <div class="match-item" data-match="B">智能家居 IoT</div>
+          </div>
+        </div>
+        <div class="match-done">全对，往下翻看各类详细 →</div>
+      </div>
+      <p>下面 <strong>10 页</strong>展开讲：先 8 类最有代表性的，再 2 页扩展类别集合。每类点的都是「它特有的、跟别类不一样的」后端能力。</p>
+    ` },
     { html: `
       <p><strong>🛒 电商 / 交易类</strong>（淘宝、京东、Shopify、Etsy、各种小程序商城）</p>
       <div class="reveal-card">
@@ -673,7 +724,7 @@ const node_product_types = {
           ① 库存不能超卖 ② 钱不能算错 / 丢单 ③ 优惠玩法（满减 / 优惠券 / 限时折扣）规则极复杂 ④ 物流接口要对接好几家
         </div>
       </div>
-      <p>特殊名词：<em>SKU</em>（一个具体规格商品）、<em>库存预占</em>（下单先锁库存）、<em>订单状态机</em>（待支付/已支付/已发货/退款）、<em>支付回调</em>（钱到账后通知系统）、<em>风控</em>（防薅羊毛 / 刷单）、<em>推荐引擎</em>。</p>
+      <p>特殊名词（点 em 看解释）：<em>SKU</em> / <em>库存预占</em> / <em>订单状态机</em> / <em>支付回调</em> / <em>风控</em> / <em>推荐引擎</em></p>
       <div class="matching-game">
         <div class="match-hint">把「问题」和「对应技术」连起来 ↓</div>
         <div class="match-rows">
@@ -720,22 +771,20 @@ const node_product_types = {
           每个视频提前转成几种清晰度（自动切换），然后 push 到全球 <em>CDN</em> 节点。你看的时候从最近的节点拿——延迟低 + 不占源站带宽。
         </div>
       </div>
-      <p>特殊名词：<em>CDN</em>（内容分发网络）、<em>转码</em>（同一个视频出 4 种清晰度）、<em>HLS</em> / <em>DASH</em>（视频切片协议）、<em>RTMP</em>（直播推流）、<em>WebRTC</em>（实时音视频）、<em>DRM</em>（版权保护）、<em>弹幕系统</em>（万人同时发不能崩）。</p>
+      <p>特殊名词（点 em 看解释）：<em>CDN</em> / <em>转码</em> / <em>HLS</em> / <em>DASH</em> / <em>RTMP</em> / <em>WebRTC</em> / <em>DRM</em> / <em>弹幕系统</em></p>
       <div class="matching-game">
         <div class="match-hint">连一连 ↓</div>
         <div class="match-rows">
           <div class="match-col">
-            <div class="match-item" data-match="A">主播推流到平台</div>
-            <div class="match-item" data-match="B">观众拉视频看</div>
-            <div class="match-item" data-match="C">视频网站防盗版</div>
+            <div class="match-item" data-match="A">主播推流</div>
+            <div class="match-item" data-match="B">观众看视频</div>
           </div>
           <div class="match-col">
             <div class="match-item" data-match="B">CDN + HLS</div>
-            <div class="match-item" data-match="C">DRM</div>
-            <div class="match-item" data-match="A">RTMP 推流</div>
+            <div class="match-item" data-match="A">RTMP</div>
           </div>
         </div>
-        <div class="match-done">全对 →</div>
+        <div class="match-done">✓</div>
       </div>
     ` },
     { html: `
@@ -747,7 +796,7 @@ const node_product_types = {
           两种打法：① <em>帧同步</em>——只同步玩家操作，各自客户端按相同规则算出相同画面（MOBA 类常用）。② <em>状态同步</em>——服务器是唯一仲裁，所有人都根据服务器发的状态渲染（射击 / MMO 常用）。
         </div>
       </div>
-      <p>特殊名词：<em>匹配引擎</em>（按段位 / 延迟 / 等待时间凑齐人）、<em>帧同步</em> / <em>状态同步</em>、<em>录像回放</em>、<em>反外挂</em>（行为检测 + 内存校验）、<em>虚拟经济</em>（金币 / 钻石 / 商城）。</p>
+      <p>特殊名词（点 em 看解释）：<em>匹配引擎</em> / <em>帧同步</em> / <em>状态同步</em> / <em>录像回放</em> / <em>反外挂</em> / <em>虚拟经济</em> / <em>区服</em></p>
       <div class="quiz-card">
         <div class="quiz-q">"为什么我在国服打外服延迟那么高？"</div>
         <div class="quiz-opts">
@@ -767,7 +816,7 @@ const node_product_types = {
           手机和服务器之间一直保持着<em>长连接</em>（不是每次发消息才建连接）。你发的消息推服务器、服务器立刻把它推给对方那条长连接。
         </div>
       </div>
-      <p>特殊名词：<em>长连接</em>（<em>WebSocket</em> / <em>TCP 长连</em>）、<em>消息存储</em>（离线消息不丢）、<em>已读回执</em>、<em>群聊</em>（万人群消息扇出）、<em>E2EE 端到端加密</em>（服务器都看不到内容）、<em>WebRTC</em>（音视频通话）。</p>
+      <p>特殊名词（点 em 看解释）：<em>长连接</em> / <em>WebSocket</em> / <em>消息存储</em> / <em>已读回执</em> / <em>群聊</em>扇出 / <em>E2EE</em>端到端加密 / <em>WebRTC</em></p>
       <div class="matching-game">
         <div class="match-hint">连一连 ↓</div>
         <div class="match-rows">
@@ -794,7 +843,7 @@ const node_product_types = {
           要做<em>多租户</em>（每家公司数据严格隔离）、<em>角色权限</em>（员工不同等级看到的不一样）、<em>SSO 单点登录</em>（公司内部一套账号通用）、<em>审计日志</em>（合规需要）。这些都贵。
         </div>
       </div>
-      <p>特殊名词：<em>多租户</em>（一份代码服务多家公司）、<em>RBAC</em>（角色权限）、<em>SSO 单点登录</em> / <em>SAML</em>、<em>订阅计费</em>（<em>Stripe Billing</em> / <em>Paddle</em>）、<em>审计日志</em>、<em>实时协同</em>（多人同时改一个文档）、<em>CRDT</em>（冲突自动合并的数据结构）。</p>
+      <p>特殊名词（点 em 看解释）：<em>多租户</em> / <em>RBAC</em> / <em>SSO</em> / <em>SAML</em> / <em>OIDC</em> / <em>订阅计费</em>（<em>Stripe Billing</em> / <em>Paddle</em>） / <em>审计日志</em> / <em>实时协同</em> / <em>CRDT</em> / <em>OT</em></p>
       <div class="quiz-card">
         <div class="quiz-q">"Figma 多人同时改一个文件，为什么不会撞？"</div>
         <div class="quiz-opts">
@@ -814,22 +863,20 @@ const node_product_types = {
           AI 模型本身没学过你公司的资料。做法：把你公司文档切成小段、变成<em>embedding</em>向量存进<em>向量数据库</em>；用户问问题时先查最相关的几段、塞进 prompt 给 AI。这套叫 <em>RAG</em>（检索增强生成）。
         </div>
       </div>
-      <p>特殊名词：<em>LLM API</em>（调 OpenAI / Anthropic / Google）、<em>Streaming</em>（流式回复，字一个个吐）、<em>token 计费</em>、<em>Embedding</em>（把文字变成向量）、<em>向量数据库</em>（<em>Pinecone</em> / <em>Qdrant</em> / <em>Weaviate</em> / <em>pgvector</em>）、<em>RAG</em>（检索增强生成）、<em>Agent</em> / <em>Tool use</em>（让 AI 调外部工具）、<em>Prompt 工程</em>。</p>
+      <p>特殊名词（点 em 看解释）：<em>LLM API</em> / <em>Streaming</em> / <em>token 计费</em> / <em>Embedding</em> / <em>向量数据库</em>（<em>Pinecone</em> / <em>Qdrant</em> / <em>Weaviate</em>） / <em>RAG</em> / <em>Agent</em> / <em>Tool use</em> / <em>Prompt 工程</em></p>
       <div class="matching-game">
         <div class="match-hint">连一连 ↓</div>
         <div class="match-rows">
           <div class="match-col">
             <div class="match-item" data-match="A">让 AI 知道私有资料</div>
-            <div class="match-item" data-match="B">字一个个慢慢吐</div>
-            <div class="match-item" data-match="C">让 AI 调你写的 API</div>
+            <div class="match-item" data-match="B">让 AI 调你的 API</div>
           </div>
           <div class="match-col">
-            <div class="match-item" data-match="C">Tool use / Function calling</div>
+            <div class="match-item" data-match="B">Tool use</div>
             <div class="match-item" data-match="A">RAG + 向量数据库</div>
-            <div class="match-item" data-match="B">Streaming</div>
           </div>
         </div>
-        <div class="match-done">全对 →</div>
+        <div class="match-done">✓</div>
       </div>
     ` },
     { html: `
@@ -841,15 +888,62 @@ const node_product_types = {
           线上业务库（MySQL / PostgreSQL）的数据每天 / 每小时通过 <em>ETL</em> 流程"搬"到一个专门做分析的<em>数据仓库</em>（如 BigQuery / ClickHouse / Snowflake）；BI 工具（Tableau / Metabase / 自研看板）从数据仓库查、画图。
         </div>
       </div>
-      <p>特殊名词：<em>数据仓库</em>（<em>BigQuery</em> / <em>ClickHouse</em> / <em>Snowflake</em>）、<em>ETL</em>（Extract Transform Load 数据搬运）、<em>OLAP</em>（分析型数据库）vs <em>OLTP</em>（业务型）、<em>数据看板</em>（<em>Tableau</em> / <em>Metabase</em> / <em>Superset</em>）、<em>埋点</em>（前端记录用户行为）、<em>ECharts</em> / <em>Grafana</em>（画图库）。</p>
+      <p>特殊名词（点 em 看解释）：<em>数据仓库</em>（<em>BigQuery</em> / <em>ClickHouse</em> / <em>Snowflake</em>） / <em>ETL</em> / <em>OLAP</em> vs <em>OLTP</em> / <em>数据看板</em>（<em>Tableau</em> / <em>Metabase</em>） / <em>埋点</em> / <em>ECharts</em> / <em>Grafana</em></p>
       <div class="quiz-card">
-        <div class="quiz-q">"为什么不直接从业务数据库查数据画看板？"</div>
+        <div class="quiz-q">"为什么不直接从业务库画看板？"</div>
         <div class="quiz-opts">
-          <button class="quiz-opt" type="button" data-correct="false">省事，没必要分两个库</button>
-          <button class="quiz-opt" type="button" data-correct="true">复杂分析查询会把业务数据库拖垮，影响真实用户用产品</button>
+          <button class="quiz-opt" type="button" data-correct="false">省事</button>
+          <button class="quiz-opt" type="button" data-correct="true">大查询会拖垮业务库 / 影响真实用户</button>
           <button class="quiz-opt" type="button" data-correct="false">数据仓库免费</button>
         </div>
-        <div class="quiz-result"><em>OLTP</em>（业务数据库）扛在线请求；<em>OLAP</em>（数据仓库）扛大型聚合查询——两套库分工。</div>
+        <div class="quiz-result"><em>OLTP</em> 扛在线请求；<em>OLAP</em> 扛聚合查询——两套库分工。</div>
+      </div>
+    ` },
+    { html: `
+      <p><strong>扩展类别 1：金融 / 医疗 / 出行 / 物流 / 旅游 / 房产 / 求职 / 教育</strong>——比通用工具严苛得多。</p>
+      <div class="reveal-card">
+        <div class="reveal-q">点开看这 8 类各自最特殊的后端能力</div>
+        <button class="reveal-btn" type="button">展开 →</button>
+        <div class="reveal-a" hidden>
+          <p><strong>💰 金融 / FinTech</strong>（支付宝 / Robinhood / Stripe / 加密交易所）：强合规、<em>风控</em>反洗钱、<em>KYC</em>实名审核、清算对账（钱算到分）、灾备多活、监管报表、跨境支付。</p>
+          <p><strong>🏥 健康 / 医疗</strong>（挂号 / Keep / Strava / HealthKit）：个人健康数据强隐私（HIPAA / 国内等保）、医生-患者两端、保险对接、可穿戴设备同步、电子病历。</p>
+          <p><strong>🚕 出行 / 地图</strong>（滴滴 / Uber / 高德 / 共享单车）：实时定位、路径规划、地图瓦片渲染、司乘匹配、动态调度、ETA 预估、热力图、电子围栏。</p>
+          <p><strong>🍔 餐饮外卖 / 物流</strong>（美团 / 顺丰）：调度算法、骑手司机端实时通讯、订单状态机、订单-商家-配送三方协同、ETA、运力预测。</p>
+          <p><strong>🏨 旅游住宿</strong>（携程 / Airbnb / Booking）：库存日历、动态定价、合作方 GDS 接口对接、跨币种支付、不可改性高（机票酒店一改成本大）。</p>
+          <p><strong>🏠 房产二手</strong>（链家 / 贝壳 / 闲鱼 / 转转）：LBS 附近搜索、长聊系统、估价模型、看房预约、二手交易闭环、防欺诈。</p>
+          <p><strong>💼 求职招聘</strong>（BOSS / LinkedIn）：<em>简历解析</em>（PDF / Word 提取结构化数据）、双向匹配推荐、聊天功能、招聘流程管理、企业认证。</p>
+          <p><strong>📚 教育学习</strong>（Coursera / 多邻国 / 刷题 App）：视频播放（CDN + 防盗版）、测试 / 错题本、进度追踪、证书发放、答疑社区、间隔重复算法。</p>
+        </div>
+      </div>
+      <p>共同关键词：<strong>实时协同 + 物理世界规则 + 强合规</strong>——比纯线上社交难一个数量级。</p>
+    ` },
+    { html: `
+      <p><strong>扩展类别 2：工具 / 笔记 / 个人 / IoT / B2B / 区块链 / 政府 / 创作 / 邮件 / 搜索 / 资讯</strong>——这些类别有的极简（本地就够）、有的极重（强合规 / 大文件 / 复杂工作流）。</p>
+      <div class="reveal-card">
+        <div class="reveal-q">点开看这 11 类各自最关键的技术</div>
+        <button class="reveal-btn" type="button">展开 →</button>
+        <div class="reveal-a" hidden>
+          <p><strong>📝 工具 / 个人</strong>（番茄钟 / Todo / 翻译 / OCR / 计算器 / 习惯打卡）：本地存储就够，<strong>不一定需要后端</strong>；做大才加同步（账号 + 云端）+ 推送提醒。</p>
+          <p><strong>📓 笔记 / 知识库</strong>（Obsidian / Bear / Roam / 印象笔记）：Markdown、<em>双向链接</em>、本地存储 + 端到端加密同步、跨平台一致性、插件系统、Web Clipper。</p>
+          <p><strong>🏘️ 智能家居 / IoT 中控</strong>（米家 / HomeKit / Aqara）：设备配网（蓝牙 / Wi-Fi）、<em>长连接</em>控制、场景联动（"回家"自动开灯）、多用户分享、<em>Matter</em> 跨厂家协议。</p>
+          <p><strong>🏭 B2B 工业 ERP</strong>（SAP / 用友 / 宜搭 / MES）：复杂<em>工作流引擎</em>、审批流、报表、权限矩阵、定制能力、对接老 OA / 财务系统、低代码搭建。</p>
+          <p><strong>🪙 区块链 Web3</strong>（MetaMask / OpenSea / Uniswap）：链上交互（<em>智能合约</em>调用）、签名（私钥不出本机）、<em>Gas 费</em>、跨链桥、节点同步、链上数据索引（The Graph）、IPFS。</p>
+          <p><strong>🏛️ 政府 / 公共服务</strong>（健康码 / 个税 / 医保）：实名（身份证 / 公安认证）、超大稳定性（不能崩）、数据合规、<em>信创栈</em>（国产化）、不依赖外国云。</p>
+          <p><strong>🎨 创作工具</strong>（剪映 / Pr / Lightroom / Figma / Procreate）：大文件处理、<em>撤销 / 重做栈</em>、协作 / 同步、专业插件 SDK、本地 GPU 加速、版本历史。</p>
+          <p><strong>📧 邮件 / 日历</strong>（Outlook / Gmail / 超人邮箱）：<em>IMAP / SMTP</em> 协议、垃圾邮件过滤、附件、推送（push）、跨设备同步、统一收件箱。</p>
+          <p><strong>🔍 搜索 / 浏览器</strong>（Google / Brave / Arc）：爬虫 / 索引、排序（PageRank）、查询解析、广告系统、隐私保护。</p>
+          <p><strong>📰 资讯 / RSS / 阅读</strong>（Feedly / 即刻 / Pocket / Hacker News）：内容抓取、聚合、推送通知、稍后阅读、智能分类。</p>
+          <p><strong>🎙️ AIGC 生成</strong>（Suno 音乐 / Runway 视频 / HeyGen 数字人 / ElevenLabs 语音）：模型推理（GPU 集群）、任务队列、生成结果存储、版权水印、按使用量计费。</p>
+        </div>
+      </div>
+      <div class="quiz-card">
+        <div class="quiz-q">"我想做个习惯打卡 App，需要后端吗？"</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" type="button" data-correct="true">不一定——本地存储就够，做大才加云同步</button>
+          <button class="quiz-opt" type="button" data-correct="false">必须微服务架构</button>
+          <button class="quiz-opt" type="button" data-correct="false">必须区块链</button>
+        </div>
+        <div class="quiz-result">大多个人工具<strong>本地存储就够</strong>。后端是为多用户 / 多端同步 / 数据安全才加的——单机自用先别上。</div>
       </div>
     ` },
   ],

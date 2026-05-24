@@ -558,6 +558,11 @@ function openCard(nodeId) {
     closeTermTooltip();
     bindTermClicks(bodyEl);
     bindInteractiveWidgets(bodyEl);
+    // 翻页后内容高度变了，重新算 card 位置 + fitToScreen 锚定 active 节点
+    requestAnimationFrame(() => {
+      positionCard(card, entry);
+      fitToScreen();
+    });
   }
   update();
   renderOptions();
