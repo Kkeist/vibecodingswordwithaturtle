@@ -76,7 +76,7 @@ const node_error_debug = {
         <span class="ei-arrow">→</span>
         <span class="ei-emoji">🛠️</span><span class="ei-label">修</span>
       </div>
-      <p>程序里没修好的错误叫 <em>bug</em>（英文意思是"虫子"）。整个"找 bug + 修 bug" 的过程叫<em>调试</em>（英文 <em>debug</em>）。</p>
+      <p>程序里没修好的错误叫 <em>bug</em>。整个「找 bug + 修 bug」的过程叫<em>调试</em>（英文 <em>debug</em>）。</p>
       <p>常见报错关键词：</p>
       <ul>
         <li><em>TypeError</em>：类型错了（你把数字当函数调）</li>
@@ -583,10 +583,18 @@ const node_big_arch = {
   concept: { name: "大型服务架构", explain: "单体 / 微服务 / 网关 / 熔断 / 缓存 / 队列 / 分库分表 / 容器——为支撑百万级流量加的层层东西。" },
   pages: [
     { html: `
-      <p>看 vibe coding 评论说"完整电商系统要微服务架构、注册中心、熔断限流、分库分表、消息队列"——这都什么？</p>
-      <p>你做小项目，全装一个程序里就行，叫<em>单体应用</em>（<em>monolith</em>）。</p>
-      <p>用户量上几十万到几百万——单体扛不住，开始拆。</p>
-      <p>下面这些概念都是"为了扛大流量 / 不崩溃"加进来的。先翻几页看个大概，记住"小项目用不到"。</p>
+      <p>这一节是「<em>通用扩容技术</em>」——产品做大了（日活几十万、几百万）任何类型都可能撞上。</p>
+      <div class="quiz-card">
+        <div class="quiz-q">你做一个日活 5 千的工具站，下面哪种方案最合适？</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" type="button" data-correct="false">微服务架构 + 注册中心 + 网关 + 熔断限流</button>
+          <button class="quiz-opt" type="button" data-correct="true">单体应用 + 一台数据库 + Cloudflare / Vercel 部署</button>
+          <button class="quiz-opt" type="button" data-correct="false">分库分表 + Redis 集群 + Kafka 队列</button>
+        </div>
+        <div class="quiz-result">小项目上大型架构是<strong>给自己挖坑</strong>。AI 给你方案直接堆"微服务"——拒绝。</div>
+      </div>
+      <p>下面几页过一遍这些名词，知道是什么、什么时候真的需要就好。</p>
+      <p>不同类型产品（电商 / 社交 / 直播 / 游戏 / IM / AI 套壳……）各自<em>特有</em>的后端能力——是<strong>另一条灯泡</strong>（「🎁 不同类型产品的后端要什么」）。</p>
     ` },
     { html: `
       <p><strong>🧩 微服务 vs 单体</strong></p>
@@ -644,6 +652,205 @@ const node_big_arch = {
       <p><em>日志聚合</em>：<em>ELK</em>（Elasticsearch + Logstash + Kibana）、<em>Loki</em>。</p>
       <p><em>链路追踪</em>（<em>tracing</em>）：一次请求经过哪些服务、每段耗时多久。<em>Jaeger</em>、<em>SkyWalking</em>。</p>
       <p><strong>结语</strong>：这些都是"扛大流量"才要的。日活几千 / 几万的小项目，单体 + 一台数据库 + Cloudflare Pages / Vercel 部署就够了。看到 AI 给你方案直接上微服务——拒绝。</p>
+    ` },
+  ],
+  children: [],
+};
+
+const node_product_types = {
+  id: "product-types",
+  emoji: "🎁",
+  title: "不同类型产品的后端要什么",
+  lightbulb: true,
+  concept: { name: "产品类型与所需后端能力", explain: "电商 / 社交 / 直播 / 游戏 / IM / SaaS / AI 套壳 / 数据 BI——每类有它特有的技术名词和系统。" },
+  pages: [
+    { html: `
+      <p><strong>🛒 电商 / 交易类</strong>（淘宝、京东、Shopify、Etsy、各种小程序商城）</p>
+      <div class="reveal-card">
+        <div class="reveal-q">这类产品最难搞的是什么？想想再点击揭晓。</div>
+        <button class="reveal-btn" type="button">揭晓 →</button>
+        <div class="reveal-a" hidden>
+          ① 库存不能超卖 ② 钱不能算错 / 丢单 ③ 优惠玩法（满减 / 优惠券 / 限时折扣）规则极复杂 ④ 物流接口要对接好几家
+        </div>
+      </div>
+      <p>特殊名词：<em>SKU</em>（一个具体规格商品）、<em>库存预占</em>（下单先锁库存）、<em>订单状态机</em>（待支付/已支付/已发货/退款）、<em>支付回调</em>（钱到账后通知系统）、<em>风控</em>（防薅羊毛 / 刷单）、<em>推荐引擎</em>。</p>
+      <div class="matching-game">
+        <div class="match-hint">把「问题」和「对应技术」连起来 ↓</div>
+        <div class="match-rows">
+          <div class="match-col">
+            <div class="match-item" data-match="A">同时下单怕超卖</div>
+            <div class="match-item" data-match="B">订单要走多个阶段</div>
+            <div class="match-item" data-match="C">付完钱要继续发货</div>
+          </div>
+          <div class="match-col">
+            <div class="match-item" data-match="C">支付回调</div>
+            <div class="match-item" data-match="A">分布式锁 / 库存预占</div>
+            <div class="match-item" data-match="B">订单状态机</div>
+          </div>
+        </div>
+        <div class="match-done">全对，可以走了 →</div>
+      </div>
+    ` },
+    { html: `
+      <p><strong>💬 社交 / 内容平台类</strong>（微博、小红书、即刻、Twitter / X、知乎）</p>
+      <div class="reveal-card">
+        <div class="reveal-q">为什么打开微博能立刻看到几亿用户里你关注的最新动态？</div>
+        <button class="reveal-btn" type="button">揭晓 →</button>
+        <div class="reveal-a" hidden>
+          底下有 <em>Feed 流</em> 系统：要么"写扩散"（你发一条 → 复制到所有粉丝的收件箱）、要么"读扩散"（粉丝刷新时 → 拉取所有关注人最新发的）。明星用读扩散、普通用户用写扩散，混着来。
+        </div>
+      </div>
+      <p>特殊名词：<em>关系链</em>（关注 / 粉丝）、<em>Feed 流</em>（写扩散 vs 读扩散）、<em>推送系统</em>、<em>内容审核</em>（敏感词 / AI 鉴黄 / 人工复审）、<em>推荐算法</em>（协同过滤 / 用户画像）。</p>
+      <div class="quiz-card">
+        <div class="quiz-q">"我刷小红书首页那些'猜你喜欢'是怎么来的？"</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" type="button" data-correct="false">编辑手动挑的</button>
+          <button class="quiz-opt" type="button" data-correct="true">推荐算法看你的点赞 / 停留 / 搜索算出来的</button>
+          <button class="quiz-opt" type="button" data-correct="false">完全随机</button>
+        </div>
+        <div class="quiz-result">推荐算法 + 用户画像 + 协同过滤。大平台都靠这个。</div>
+      </div>
+    ` },
+    { html: `
+      <p><strong>🎬 视频 / 直播 / 音频类</strong>（B 站、抖音、YouTube、虎牙、Twitch、Spotify、播客）</p>
+      <div class="reveal-card">
+        <div class="reveal-q">为什么全世界看视频几乎不卡？</div>
+        <button class="reveal-btn" type="button">揭晓 →</button>
+        <div class="reveal-a" hidden>
+          每个视频提前转成几种清晰度（自动切换），然后 push 到全球 <em>CDN</em> 节点。你看的时候从最近的节点拿——延迟低 + 不占源站带宽。
+        </div>
+      </div>
+      <p>特殊名词：<em>CDN</em>（内容分发网络）、<em>转码</em>（同一个视频出 4 种清晰度）、<em>HLS</em> / <em>DASH</em>（视频切片协议）、<em>RTMP</em>（直播推流）、<em>WebRTC</em>（实时音视频）、<em>DRM</em>（版权保护）、<em>弹幕系统</em>（万人同时发不能崩）。</p>
+      <div class="matching-game">
+        <div class="match-hint">连一连 ↓</div>
+        <div class="match-rows">
+          <div class="match-col">
+            <div class="match-item" data-match="A">主播推流到平台</div>
+            <div class="match-item" data-match="B">观众拉视频看</div>
+            <div class="match-item" data-match="C">视频网站防盗版</div>
+          </div>
+          <div class="match-col">
+            <div class="match-item" data-match="B">CDN + HLS</div>
+            <div class="match-item" data-match="C">DRM</div>
+            <div class="match-item" data-match="A">RTMP 推流</div>
+          </div>
+        </div>
+        <div class="match-done">全对 →</div>
+      </div>
+    ` },
+    { html: `
+      <p><strong>🎮 游戏后端</strong>（王者荣耀、原神、CSGO、Fall Guys）</p>
+      <div class="reveal-card">
+        <div class="reveal-q">两人 PK 时，怎么保证你们看到的画面是一致的？</div>
+        <button class="reveal-btn" type="button">揭晓 →</button>
+        <div class="reveal-a" hidden>
+          两种打法：① <em>帧同步</em>——只同步玩家操作，各自客户端按相同规则算出相同画面（MOBA 类常用）。② <em>状态同步</em>——服务器是唯一仲裁，所有人都根据服务器发的状态渲染（射击 / MMO 常用）。
+        </div>
+      </div>
+      <p>特殊名词：<em>匹配引擎</em>（按段位 / 延迟 / 等待时间凑齐人）、<em>帧同步</em> / <em>状态同步</em>、<em>录像回放</em>、<em>反外挂</em>（行为检测 + 内存校验）、<em>虚拟经济</em>（金币 / 钻石 / 商城）。</p>
+      <div class="quiz-card">
+        <div class="quiz-q">"为什么我在国服打外服延迟那么高？"</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" type="button" data-correct="false">你电脑太慢</button>
+          <button class="quiz-opt" type="button" data-correct="true">游戏服务器在国外，每个数据包在地球上跑一圈才回来</button>
+          <button class="quiz-opt" type="button" data-correct="false">游戏 bug</button>
+        </div>
+        <div class="quiz-result">物理距离决定网络延迟下限。大厂用全球分布的<em>区服</em>就是为了解决这个。</div>
+      </div>
+    ` },
+    { html: `
+      <p><strong>💬 通讯 / IM 类</strong>（微信、QQ、Discord、Slack、Telegram、钉钉）</p>
+      <div class="reveal-card">
+        <div class="reveal-q">为什么微信发一条消息能秒到？</div>
+        <button class="reveal-btn" type="button">揭晓 →</button>
+        <div class="reveal-a" hidden>
+          手机和服务器之间一直保持着<em>长连接</em>（不是每次发消息才建连接）。你发的消息推服务器、服务器立刻把它推给对方那条长连接。
+        </div>
+      </div>
+      <p>特殊名词：<em>长连接</em>（<em>WebSocket</em> / <em>TCP 长连</em>）、<em>消息存储</em>（离线消息不丢）、<em>已读回执</em>、<em>群聊</em>（万人群消息扇出）、<em>E2EE 端到端加密</em>（服务器都看不到内容）、<em>WebRTC</em>（音视频通话）。</p>
+      <div class="matching-game">
+        <div class="match-hint">连一连 ↓</div>
+        <div class="match-rows">
+          <div class="match-col">
+            <div class="match-item" data-match="A">秒收消息</div>
+            <div class="match-item" data-match="B">视频通话</div>
+            <div class="match-item" data-match="C">只你和对方看得到</div>
+          </div>
+          <div class="match-col">
+            <div class="match-item" data-match="C">端到端加密</div>
+            <div class="match-item" data-match="A">WebSocket 长连</div>
+            <div class="match-item" data-match="B">WebRTC</div>
+          </div>
+        </div>
+        <div class="match-done">全对 →</div>
+      </div>
+    ` },
+    { html: `
+      <p><strong>🏢 SaaS / 协作工具类</strong>（Notion、Figma、Slack、飞书、Salesforce、Linear）</p>
+      <div class="reveal-card">
+        <div class="reveal-q">为什么这些"企业版"软件比个人版贵 10 倍？</div>
+        <button class="reveal-btn" type="button">揭晓 →</button>
+        <div class="reveal-a" hidden>
+          要做<em>多租户</em>（每家公司数据严格隔离）、<em>角色权限</em>（员工不同等级看到的不一样）、<em>SSO 单点登录</em>（公司内部一套账号通用）、<em>审计日志</em>（合规需要）。这些都贵。
+        </div>
+      </div>
+      <p>特殊名词：<em>多租户</em>（一份代码服务多家公司）、<em>RBAC</em>（角色权限）、<em>SSO 单点登录</em> / <em>SAML</em>、<em>订阅计费</em>（<em>Stripe Billing</em> / <em>Paddle</em>）、<em>审计日志</em>、<em>实时协同</em>（多人同时改一个文档）、<em>CRDT</em>（冲突自动合并的数据结构）。</p>
+      <div class="quiz-card">
+        <div class="quiz-q">"Figma 多人同时改一个文件，为什么不会撞？"</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" type="button" data-correct="false">谁先点谁优先</button>
+          <button class="quiz-opt" type="button" data-correct="true">用 CRDT 这种数学上自动合并的数据结构</button>
+          <button class="quiz-opt" type="button" data-correct="false">服务器排队处理</button>
+        </div>
+        <div class="quiz-result"><em>CRDT</em>（Conflict-free Replicated Data Type）允许各客户端各改各的，合并时数学上保证一致。Figma / Notion / 石墨都用它。</div>
+      </div>
+    ` },
+    { html: `
+      <p><strong>🤖 AI 套壳应用</strong>（基于 GPT / Claude / Gemini 做的 App——chatbot、文案工具、AI 客服、AI 写代码）</p>
+      <div class="reveal-card">
+        <div class="reveal-q">为什么 ChatGPT 不知道你公司内部文档？怎么让它知道？</div>
+        <button class="reveal-btn" type="button">揭晓 →</button>
+        <div class="reveal-a" hidden>
+          AI 模型本身没学过你公司的资料。做法：把你公司文档切成小段、变成<em>embedding</em>向量存进<em>向量数据库</em>；用户问问题时先查最相关的几段、塞进 prompt 给 AI。这套叫 <em>RAG</em>（检索增强生成）。
+        </div>
+      </div>
+      <p>特殊名词：<em>LLM API</em>（调 OpenAI / Anthropic / Google）、<em>Streaming</em>（流式回复，字一个个吐）、<em>token 计费</em>、<em>Embedding</em>（把文字变成向量）、<em>向量数据库</em>（<em>Pinecone</em> / <em>Qdrant</em> / <em>Weaviate</em> / <em>pgvector</em>）、<em>RAG</em>（检索增强生成）、<em>Agent</em> / <em>Tool use</em>（让 AI 调外部工具）、<em>Prompt 工程</em>。</p>
+      <div class="matching-game">
+        <div class="match-hint">连一连 ↓</div>
+        <div class="match-rows">
+          <div class="match-col">
+            <div class="match-item" data-match="A">让 AI 知道私有资料</div>
+            <div class="match-item" data-match="B">字一个个慢慢吐</div>
+            <div class="match-item" data-match="C">让 AI 调你写的 API</div>
+          </div>
+          <div class="match-col">
+            <div class="match-item" data-match="C">Tool use / Function calling</div>
+            <div class="match-item" data-match="A">RAG + 向量数据库</div>
+            <div class="match-item" data-match="B">Streaming</div>
+          </div>
+        </div>
+        <div class="match-done">全对 →</div>
+      </div>
+    ` },
+    { html: `
+      <p><strong>📊 数据 / BI / 后台分析</strong>（公司高层每天看的数据看板、报表系统、用户行为分析）</p>
+      <div class="reveal-card">
+        <div class="reveal-q">公司每天看的"昨日新增用户 / 留存率 / 销售额"，数据从哪来？</div>
+        <button class="reveal-btn" type="button">揭晓 →</button>
+        <div class="reveal-a" hidden>
+          线上业务库（MySQL / PostgreSQL）的数据每天 / 每小时通过 <em>ETL</em> 流程"搬"到一个专门做分析的<em>数据仓库</em>（如 BigQuery / ClickHouse / Snowflake）；BI 工具（Tableau / Metabase / 自研看板）从数据仓库查、画图。
+        </div>
+      </div>
+      <p>特殊名词：<em>数据仓库</em>（<em>BigQuery</em> / <em>ClickHouse</em> / <em>Snowflake</em>）、<em>ETL</em>（Extract Transform Load 数据搬运）、<em>OLAP</em>（分析型数据库）vs <em>OLTP</em>（业务型）、<em>数据看板</em>（<em>Tableau</em> / <em>Metabase</em> / <em>Superset</em>）、<em>埋点</em>（前端记录用户行为）、<em>ECharts</em> / <em>Grafana</em>（画图库）。</p>
+      <div class="quiz-card">
+        <div class="quiz-q">"为什么不直接从业务数据库查数据画看板？"</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" type="button" data-correct="false">省事，没必要分两个库</button>
+          <button class="quiz-opt" type="button" data-correct="true">复杂分析查询会把业务数据库拖垮，影响真实用户用产品</button>
+          <button class="quiz-opt" type="button" data-correct="false">数据仓库免费</button>
+        </div>
+        <div class="quiz-result"><em>OLTP</em>（业务数据库）扛在线请求；<em>OLAP</em>（数据仓库）扛大型聚合查询——两套库分工。</div>
+      </div>
     ` },
   ],
   children: [],
@@ -1052,7 +1259,7 @@ const node_pkg = {
 
 const node_python = {
   id: "python",
-  emoji: "🐍",
+  emoji: "🅿️",
   title: "Python",
   concept: { name: "Python", explain: "写脚本和数据处理最常用的语言。" },
   pages: [
@@ -1171,7 +1378,7 @@ const node_where_server = {
         <span class="ei-label">bot</span>
         <span class="ei-emoji">⏰</span>
         <span class="ei-label">签到</span>
-        <span class="ei-emoji">🕷️</span>
+        <span class="ei-emoji">🧬</span>
         <span class="ei-label">爬虫</span>
         <span class="ei-emoji">🧠</span>
         <span class="ei-label">AI 后端</span>
@@ -1180,7 +1387,7 @@ const node_where_server = {
       <p>用户不直接看到它，但它一直在工作。</p>
     ` },
   ],
-  children: [node_database_server, node_big_arch],
+  children: [node_database_server, node_product_types, node_big_arch],
 };
 
 // ====== 硬件分支链 ======
@@ -1345,7 +1552,7 @@ const TERM_GLOSSARY = {
   "浏览器": "运行网页的程序——Chrome、Safari、Edge 都是。",
   "前端": "用户能看到、能点的部分。跑在用户的浏览器里。",
   "后端": "用户看不到的部分。跑在你的服务器上，负责存数据、验证账号、收钱。",
-  "API": "程序之间约定的请求格式。调 GPT、调微信、查天气都是按对方的 API 发请求。",
+  "API": "两个程序之间「互相通话」的标准格式——你按对方写好的格式发请求，对方按格式回。调 GPT / 调微信 / 查天气都是按对方的 API 发请求。",
   "HTTP": "浏览器和服务器之间对话用的协议。网址前的 http:// 就是它。",
   // ---- JSON / 请求方法 / 状态码 ----
   "JSON": "网络上传数据最常用的格式：大括号 + 键值对 + 引号包字符串。",
@@ -1502,7 +1709,7 @@ const TERM_GLOSSARY = {
   "Context": "上下文——AI 一次能「看到」的所有内容。",
   "Token": "AI 把文字拆成的小块单位。API 按 token 收费。",
   "Context window": "AI 模型一次最多能容下多少 token。",
-  "LLM": "Large Language Model——大语言模型（Claude / GPT / Gemini 都是）。",
+  "LLM": "大语言模型——会说话写字答问题的 AI 统称（Claude / ChatGPT / Gemini / DeepSeek 都是）。",
   "hallucination": "AI 一本正经编不存在的东西（函数名、库名、API）。",
   // ---- 浏览器扩展 / 小程序 / 游戏 ----
   "extension": "浏览器扩展——装在 Chrome / Edge 上的 mini 程序。",
@@ -1526,58 +1733,58 @@ const TERM_GLOSSARY = {
   // ---- 大型架构 ----
   "单体应用": "所有功能都装一个程序里。简单但难扩展。英文 monolith。",
   "monolith": "单体应用——所有功能装一个程序里。",
-  "微服务": "把大系统拆成多个独立小服务各跑各的。英文 microservice。",
-  "microservice": "微服务——拆成独立小服务。",
+  "微服务": "把一个大系统拆成很多小程序、每个管一摊事（一个管用户、一个管订单、一个管支付），各自独立部署。一个挂了别的还活。",
+  "microservice": "微服务——把大系统拆成很多小程序各管一摊。",
   "注册中心": "微服务的「通讯录」——每个服务报自己在哪，别人来查地址。英文 registry。",
   "registry": "注册中心——微服务的通讯录。",
-  "服务发现": "微服务通过注册中心找到彼此地址的机制。",
+  "服务发现": "几十个小服务跑在不同机器上时，互相找到对方「在哪台机器、哪个端口」的机制——靠一个公共「通讯录」（注册中心）。",
   "Consul": "HashiCorp 的注册中心。",
   "Nacos": "阿里出的注册中心 + 配置中心。",
   "Eureka": "Netflix 出的注册中心，Java 生态。",
   "etcd": "分布式 KV 存储，常做注册中心。Kubernetes 内部就用它。",
-  "API gateway": "网关——所有外部请求先到的「前台」，再分发给后面的微服务。",
-  "网关": "API gateway——所有外部请求先到的「前台」。",
-  "Nginx": "又是 Web 服务器又是反向代理又是负载均衡的多面手，全球使用最广。",
+  "API gateway": "外面所有请求都先到的「前台」——它再分发给后面具体哪个服务来处理。中文叫网关。",
+  "网关": "外面所有请求都先到的「前台」——它再分发给后面具体哪个服务来处理。顺便做「验登录、限流量、写日志」等。",
+  "Nginx": "全球用得最多的「流量门卫」程序——接 Web 请求、转发给后端、把流量分摊到多台机器、缓存静态文件，一身多职。",
   "Kong": "基于 Nginx 的 API 网关。",
   "Spring Cloud Gateway": "Spring 生态的 API 网关。",
   "APISIX": "开源 API 网关，国内用得多。",
   "限流": "限制每秒最多接多少请求。英文 rate limit。防爬虫 / 防被刷爆。",
   "rate limit": "限流——限制单位时间请求量。",
-  "熔断": "下游一直挂就自动暂停调它，避免连锁崩溃。英文 circuit breaker。",
-  "circuit breaker": "熔断——断路器，自动暂停调挂的下游。",
+  "熔断": "下游服务一直挂了就自动暂停调它——好比家里电路出毛病时跳闸，避免拖垮整栋楼。",
+  "circuit breaker": "熔断的英文——好比家里跳闸，下游一直挂就自动暂停调它。",
   "降级": "核心服务挂了给用户返回兜底数据，不让整页崩。",
   "Sentinel": "阿里开源的限流熔断框架。",
   "Hystrix": "Netflix 出的熔断框架（已停止维护）。",
   "Resilience4j": "Java 生态的熔断库。",
   "缓存": "把热门数据先放内存里下次直接读，秒回。英文 cache。",
   "cache": "缓存——把热门数据放内存里。",
-  "消息队列": "异步任务的中转站——发了消息立刻回，后面的事慢慢处理。英文 message queue / MQ。",
-  "message queue": "消息队列——异步任务中转站。",
+  "消息队列": "中间一个「任务排队仓库」——你做完事就把「通知」塞进去回头继续，后面有别的服务慢慢从仓库里拿走处理。下单后发短信 / 写积分 / 推送都靠它异步做。",
+  "message queue": "消息队列——任务排队仓库，做完事丢通知进去，别的服务慢慢拿走处理。",
   "MQ": "消息队列（Message Queue）的缩写。",
   "解耦": "把强依赖的模块拆开，一方挂了不影响另一方。",
   "Kafka": "高吞吐量的分布式消息队列，LinkedIn 出的。",
   "RabbitMQ": "经典 AMQP 消息队列。",
   "RocketMQ": "阿里出的消息队列。",
   "NATS": "轻量高性能消息队列。",
-  "分表": "把一张大表按规则拆成多张小表分散查询压力。英文 sharding。",
+  "分表": "数据多到一张表扛不住——按规则把一张大表拆成多张小表（比如按用户 ID 拆 16 张订单表）分散查询压力。",
   "sharding": "分表 / 分片——把数据拆成多块。",
-  "分库": "把数据库拆到多台机器上。",
-  "读写分离": "写一台主库，读分散到多台从库。读多写少时能扛更多。",
+  "分库": "数据多到一台数据库机器扛不住——把数据拆到几台不同的数据库机器上各装一部分。",
+  "读写分离": "数据库分「主从」——写操作只去一台主库，读操作分散到几台从库（查数据远比写多）。读多写少的场景能扛更多。",
   "master": "主库——可读可写。",
   "slave": "从库——只读，数据从主库同步过来。",
   "replica": "副本——从库的别名。",
-  "container": "容器——把程序 + 依赖打包成一个标准盒子。",
-  "容器": "container——把程序 + 依赖打包成标准盒子。",
-  "Docker": "最流行的容器工具。",
-  "image": "镜像——装好的容器盒子的快照，能复制无数份。",
-  "镜像": "image——容器的快照模板。",
+  "container": "容器——程序 + 运行依赖打包成的标准盒子，搬到任何机器都能跑。Docker 出品。",
+  "容器": "把程序 + 它要的所有依赖打包成一个标准盒子，搬哪台机器都能跑。Docker 是最流行的容器工具。",
+  "Docker": "把程序 + 它运行需要的所有东西打包成一个标准盒子的工具——彻底解决「在我电脑能跑、在你电脑跑不了」。最流行。",
+  "image": "镜像——已经装好东西的容器盒子的「备份照片」，能复制无数份。你下载一次就能起 100 个一样的容器。",
+  "镜像": "已经装好东西的容器盒子的「备份照片」——下载一次就能复制无数份用。",
   "Kubernetes": "管理几百几千个容器的工具——挂了自动重启、流量大自动加机器。简称 K8s。",
   "K8s": "Kubernetes 缩写（K 和 s 之间 8 个字母）。",
-  "负载均衡": "一个入口把流量分摊给后面几台机器。英文 load balancer。",
-  "load balancer": "负载均衡——流量分摊器。",
-  "反向代理": "用户访问的不是真实服务器而是中间层，中间层再去问真实服务器。英文 reverse proxy。",
-  "reverse proxy": "反向代理——用户和真实服务器之间的中间层。",
-  "CDN": "Content Delivery Network——把静态文件分发到全球各地节点，用户从最近的拿。",
+  "负载均衡": "一个入口把蜂拥而来的请求分摊给后面几台机器，每台干一部分——一台扛不住的事多台一起扛。",
+  "load balancer": "负载均衡——把请求分摊给后面多台机器一起扛。",
+  "反向代理": "用户访问的不是真实服务器，而是中间一道「前台」——前台再去问后面的真实服务器、把结果转回来。能藏真实地址 + 加缓存 + 做路由。",
+  "reverse proxy": "反向代理——用户访问的是中间「前台」，前台再去问真实服务器拿结果。",
+  "CDN": "把图片 / 视频 / 网页这些不变的文件提前分发到全球各地节点。你打开网页时从离你最近的节点拿——加载快、还省主服务器带宽。",
   "Cloudflare": "全球最大的 CDN + 安全防护服务商。",
   "七牛": "国内 CDN + 对象存储服务商。",
   "阿里云 CDN": "阿里云的 CDN 服务。",
@@ -1603,6 +1810,94 @@ const TERM_GLOSSARY = {
   "传感器": "读环境数据的硬件零件——温度、湿度、距离、光。",
   "执行器": "做动作的硬件零件——点灯、转马达、发声。",
   "example.com": "样例占位域名，被设计为永远不解析到真实网站。",
+  // ---- 电商 / 交易 ----
+  "SKU": "Stock Keeping Unit，一个具体规格的商品单元（同一件衣服 S 码红色和 M 码黑色是两个 SKU）。",
+  "库存预占": "下单瞬间先把库存「锁住」，等付款再扣减——防止超卖。",
+  "订单状态机": "订单走的「轨道」：待支付 → 已支付 → 已发货 → 已完成 / 已退款。",
+  "支付回调": "用户付完钱后第三方支付（微信 / 支付宝 / Stripe）通知你系统「成功了」的请求。",
+  "风控": "防止恶意行为的系统——薅羊毛、刷单、洗钱、欺诈。",
+  "推荐引擎": "根据用户行为推它可能喜欢的商品 / 内容的系统。",
+  // ---- 社交 / 内容 ----
+  "关系链": "用户之间「关注 / 粉丝 / 好友」的关系数据。",
+  "Feed 流": "微博 / 小红书首页那串「最新动态」列表。两种做法：要么发布时复制到所有粉丝的收件箱、要么粉丝刷新时去拉所有关注人最新发的。",
+  "推送系统": "服务器主动把消息推给手机的系统（iOS 用 APNs / 安卓用 FCM）。",
+  "内容审核": "过滤违规内容——敏感词 + AI 鉴黄鉴政 + 人工复审。",
+  "推荐算法": "决定给你看什么的算法——记下你点过什么、停留多久、搜过什么，推它觉得你会喜欢的。抖音 / 小红书首页那种「猜你喜欢」就是它。",
+  // ---- 视频 / 直播 ----
+  "转码": "把一个视频文件转成多种清晰度 / 多种格式。",
+  "HLS": "苹果出的流媒体协议，把视频切成 10 秒小片让浏览器逐片下载。",
+  "DASH": "通用流媒体切片协议，和 HLS 类似但更开放。",
+  "RTMP": "Real-Time Messaging Protocol——直播推流最常用的协议。",
+  "WebRTC": "浏览器内的实时音视频通话技术。Google Meet / 腾讯会议都用。",
+  "DRM": "Digital Rights Management——数字版权保护，防视频被下载盗版。",
+  "弹幕系统": "万人同时发短消息漂屏幕上、还不能崩的系统。",
+  // ---- 游戏后端 ----
+  "匹配引擎": "按段位 / 延迟 / 等待时间凑齐对局玩家的系统。",
+  "帧同步": "游戏同步方式：只同步玩家操作，各客户端按相同规则算出相同画面。MOBA 类常用。",
+  "状态同步": "游戏同步方式：服务器是唯一仲裁，所有人按服务器发的状态渲染。射击 / MMO 常用。",
+  "录像回放": "存下整局游戏的操作 / 状态序列、后续能完整重播。",
+  "反外挂": "检测和封禁作弊行为——行为检测 + 内存校验 + 机器学习。",
+  "虚拟经济": "游戏内的金币 / 钻石 / 商城系统——也是大公司游戏收入的核心。",
+  "区服": "按地区分的游戏服务器组（国服 / 美服 / 亚服）。物理就近降低延迟。",
+  // ---- 通讯 / IM ----
+  "长连接": "手机和服务器之间一直保持着的连接——不是每次发消息都重新拨号。微信能秒收消息就靠它。",
+  "WebSocket": "浏览器和服务器之间保持的「一直开着的电话线」——一方有话立刻能跟另一方说，不用每次新建连接。微信聊天、实时弹幕都用。",
+  "TCP 长连": "比 WebSocket 更底层、原生 App 常用的长连接方式。",
+  "消息存储": "用户离线时消息要存住，上线后推给他——不能丢。",
+  "已读回执": "对方读了你消息的「已读」提示，要双方协议好。",
+  "群聊": "万人群消息怎么扇出（一条消息复制 9999 份还不能慢）是技术难题。",
+  "E2EE": "消息从你手机出去就加密、到对方手机才解密——中间所有服务器看到的都是乱码。哪怕黑客或运营商也拆不开。Signal / iMessage 这么干。",
+  "端到端加密": "消息从发送方手机出去就加密、到接收方手机才解密——中间任何服务器都看不到内容。微信不是端到端加密、Signal 是。",
+  // ---- SaaS / 协作 ----
+  "多租户": "同一套软件部署一份，同时给好几家公司用，每家看到的数据严格隔离——SaaS 软件的基础。",
+  "RBAC": "把用户分配一个「角色」（管理员 / 编辑 / 只读），给角色定权限——比给每个人单独定权限轻松 100 倍。",
+  "SSO": "公司一套账号通用所有内部系统——员工一次登录就能用所有公司软件，不用每个系统记一个密码。",
+  "SSO 单点登录": "公司一套账号通用所有内部系统——员工不用每个系统记一套密码、一次登录就走遍所有。",
+  "SAML": "企业「一套账号通用所有系统」的老牌协议——大公司内部用得多。",
+  "OIDC": "现代版「用第三方账号登录」的标准——你看到的「用 Google 账号登录」「用微信登录」按钮底下就是 OIDC。",
+  "订阅计费": "按月 / 按年自动扣费、试用 / 升级 / 退订的系统。",
+  "Stripe Billing": "Stripe 出的订阅计费 SaaS，省去自己写。",
+  "Paddle": "类似 Stripe Billing 的订阅计费服务，专做软件订阅。",
+  "审计日志": "记录「谁在什么时候做了什么」的不可改日志，合规需要。",
+  "实时协同": "多人同时编辑一个文档不打架的能力——Figma / Notion / Google Docs 的核心。",
+  "CRDT": "一种神奇的数据结构——好多人同时改一份文档时各改各的，最终无论谁先谁后总能合出一致的结果，不会撞。Figma / Notion 多人协作就是靠它。",
+  "OT": "另一种「多人同时改不撞」的老算法，Google Docs 早期版本用。比 CRDT 更老。",
+  // ---- AI 套壳 ----
+  "LLM API": "调用大模型 AI 的接口——你的程序发一段话给 OpenAI / Anthropic / Google，对方算完把 AI 的回答返回给你。按字数收钱。",
+  "Streaming": "AI 一边想一边把字一个一个吐出来给你看，不用等它全部想完才出现。ChatGPT 那种「打字机效果」就是 Streaming。",
+  "流式输出": "AI 一边想一边把字一个个吐出来给你看——打字机效果。英文 Streaming。",
+  "token 计费": "AI API 按「字数」收费——1 个中文字约算 1.5 个 token，1 个英文词约算 1.3 个 token。你发给 AI 的字 + AI 回的字都收钱。",
+  "Embedding": "把一段文字算成一串数字（几百个），含义相近的文字算出来的数字串也相近——电脑用这套数字串就能比「哪两段意思接近」，做「按意思找相似内容」。",
+  "向量数据库": "专门存「被算成数字串的文字」的数据库，能秒查「哪几段文字的含义最接近这一句」——AI 应用做「按意思搜内容」的标配。",
+  "Pinecone": "云上向量数据库服务，AI 创业公司常用。",
+  "Qdrant": "开源向量数据库，可以自己搭。",
+  "Weaviate": "开源向量数据库，功能丰富。",
+  "pgvector": "PostgreSQL 的向量扩展——已有 Postgres 直接加，不用单独搭。",
+  "RAG": "让 AI 知道你公司私有资料的标准做法——把资料按段落收进一个特殊数据库，用户问问题时先找最相关的几段贴到 AI 的指令里再让它回答。AI 本来不知道你的内部资料，靠这套就知道了。",
+  "Agent": "能自己规划任务、调用工具、走多步推理才把事情完成的 AI——不是「问一句答一句」，更像一个能动脑做事的小助手。",
+  "Tool use": "让 AI 能调你写好的程序——比如 AI 想查天气，它告诉你「我要调 get_weather('北京')」，你跑完把结果交给它，它接着答用户。也叫 Function calling。",
+  "Function calling": "AI 调你写的程序的能力——和 Tool use 是一回事，OpenAI 用这个叫法。",
+  "Prompt 工程": "把给 AI 的指令写得更精准、让它更听话、办事更准的技巧——拆步骤、给例子、定输出格式、说清角色，都属于这个。",
+  // ---- 数据 / BI ----
+  "数据仓库": "专门给「运营 / 老板看数据看板」用的大型数据库，和业务数据库分开——做大型统计查询时不会拖慢用户用产品。",
+  "BigQuery": "Google 出的云数据仓库，按查询量计费。",
+  "ClickHouse": "开源列式数据库，做实时大数据分析极快。",
+  "Snowflake": "云数据仓库平台，企业 BI 主流之一。",
+  "ETL": "把业务数据「搬 + 清洗 + 装」到分析专用大库的标准流程。每天 / 每小时跑一遍，把线上业务库的数据更新到数据仓库里供老板看报表。",
+  "ELT": "和 ETL 类似的「搬数据 + 装数据 + 清洗」流程，只是顺序不同：先把数据搬装进数据仓库，再用数据仓库自己的算力做清洗。云数仓时代主流做法。",
+  "OLTP": "做日常业务用的数据库（用户登录、下单、发评论这种小而快的请求）——MySQL / PostgreSQL 都是这类。",
+  "OLAP": "做大型统计分析用的数据库（「过去 90 天每天新增多少用户」这种聚合大查询）——BigQuery / ClickHouse 都是这类。",
+  "数据看板": "公司高层 / 运营每天看的图表页面——指标 / 趋势 / 报警。",
+  "Tableau": "经典商业 BI 工具，画图能力强。",
+  "Metabase": "开源 BI 工具，免费起步。",
+  "Superset": "Apache 出的开源 BI 工具。",
+  "埋点": "在前端 / 后端代码里埋记录用户行为的代码（点了什么 / 看了多久 / 从哪进来的）。",
+  "ECharts": "百度出的开源图表库，画图常用。",
+  // ---- 通用补充 ----
+  "分布式锁": "多台服务器同时操作同一资源时用的锁——常用 Redis 实现。",
+  "幂等": "同一个操作做多次和做一次效果一样（重复支付不会扣两次钱）。",
+  "服务发现": "几十个小服务跑在不同机器上时，互相找到对方「在哪台机器、哪个端口」的机制——靠一个公共「通讯录」（注册中心）。",
+  "Webhook": "事情发生时对方主动通知你的「反向接口」。比如用户付钱后，Stripe 自动发一个请求告诉你「有人付了 50 块」——你不用一直去问它「付了没」。",
 };
 
 // ====== root ======

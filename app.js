@@ -554,9 +554,10 @@ function openCard(nodeId) {
       pagerEl.style.visibility = '';
       pageLabel.textContent = '纸卷翻页';
     }
-    // 重新绑定术语点击解释
+    // 重新绑定术语点击解释 + 互动 widget
     closeTermTooltip();
     bindTermClicks(bodyEl);
+    bindInteractiveWidgets(bodyEl);
   }
   update();
   renderOptions();
@@ -736,6 +737,92 @@ function closeTermTooltip() {
     setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, 180);
     STATE.termTooltipEl = null;
   }
+}
+
+// ---------- 互动小游戏 widget ----------
+// 在卡片 body 渲染后调用：扫 .reveal-card / .matching-game / .quiz-card，bind 交互
+function bindInteractiveWidgets(bodyEl) {
+  if (!bodyEl) return;
+
+  // (1) 点击揭晓 reveal-card
+  bodyEl.querySelectorAll('.reveal-card').forEach(card => {
+    const btn = card.querySelector('.reveal-btn');
+    const answer = card.querySelector('.reveal-a');
+    if (!btn || !answer) return;
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      card.classList.add('revealed');
+      answer.hidden = false;
+    });
+  });
+
+  // (2) 连连看 matching-game：左右两列，data-match 相同的算配对
+  bodyEl.querySelectorAll('.matching-game').forEach(game => {
+    let selected = null;  // 当前选中的 item
+    const items = game.querySelectorAll('.match-item');
+    const total = items.length / 2;
+    let matchedCount = 0;
+    items.forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (item.classList.contains('matched')) return;
+        if (selected === item) {
+          item.classList.remove('selected');
+          selected = null;
+          return;
+        }
+        if (!selected) {
+          item.classList.add('selected');
+          selected = item;
+          return;
+        }
+        // 第二个点击——检查是否配对
+        const a = selected, b = item;
+        const sameSide = a.parentNode === b.parentNode;
+        if (sameSide) {
+          // 同列再点—— switch 选中
+          a.classList.remove('selected');
+          b.classList.add('selected');
+          selected = b;
+          return;
+        }
+        if (a.dataset.match === b.dataset.match) {
+          a.classList.remove('selected');
+          a.classList.add('matched');
+          b.classList.add('matched');
+          selected = null;
+          matchedCount++;
+          if (matchedCount === total) game.classList.add('done');
+        } else {
+          a.classList.add('wrong');
+          b.classList.add('wrong');
+          setTimeout(() => {
+            a.classList.remove('wrong', 'selected');
+            b.classList.remove('wrong');
+          }, 350);
+          selected = null;
+        }
+      });
+    });
+  });
+
+  // (3) 场景选择题 quiz-card：data-correct="true" 是对的
+  bodyEl.querySelectorAll('.quiz-card').forEach(quiz => {
+    const opts = quiz.querySelectorAll('.quiz-opt');
+    opts.forEach(opt => {
+      opt.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (quiz.classList.contains('answered')) return;
+        quiz.classList.add('answered');
+        const correct = opt.dataset.correct === 'true';
+        opt.classList.add(correct ? 'correct' : 'wrong');
+        // 不管选什么，正确答案都高亮
+        opts.forEach(o => {
+          if (o.dataset.correct === 'true') o.classList.add('correct');
+        });
+      });
+    });
+  });
 }
 
 // ---------- 重置 ----------
