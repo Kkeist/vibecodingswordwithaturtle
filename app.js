@@ -889,6 +889,8 @@ function setTailPosition(tail, side, cardX, cardY, w, h, nodeX, nodeY, scale) {
 }
 
 function closeCard(silent) {
+  // 主卡片关闭 → example 第二张卡也一起关（宝宝原话：例子在原始被关闭的时候也会被一起关闭）
+  closeExampleModalSync();
   if (STATE.cardEl) {
     const el = STATE.cardEl;
     el.classList.remove('show');
