@@ -1548,21 +1548,21 @@ body {
 /* ========== 全局搜索：浮动按钮 + 搜索卡片 + 跳转结果浮按钮 ========== */
 .search-toggle {
   position: fixed;
-  top: 18px;
-  right: calc(50px + 30px);  /* 笔记本 toggle 左侧 */
+  left: 18px;
+  bottom: 18px;
   z-index: 80;
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 18px;
-  padding: 7px 14px 7px 12px;
+  border-radius: 22px;
+  padding: 8px 16px 8px 14px;
   cursor: pointer;
   font-family: inherit;
-  font-size: 12.5px;
+  font-size: 13px;
   color: var(--text-soft);
   display: flex;
   align-items: center;
   gap: 6px;
-  box-shadow: 0 2px 6px rgba(74, 61, 42, 0.08);
+  box-shadow: 0 4px 12px rgba(74, 61, 42, 0.12);
   transition: all 0.18s var(--ease-soft);
 }
 .search-toggle:hover {
@@ -1574,8 +1574,8 @@ body {
 
 .search-card {
   position: fixed;
-  top: 64px;
-  right: 18px;
+  left: 18px;
+  bottom: 72px;  /* search-toggle 上方 */
   width: min(380px, calc(100vw - 36px));
   max-height: min(70vh, 540px);
   background: var(--bg-card);
@@ -1729,11 +1729,11 @@ body {
   flex-shrink: 0;
 }
 
-/* 跳到结果后右下角浮按钮：上一个 / 下一个 */
+/* 跳到结果后浮按钮：上一个 / 下一个（避开右下笔记本侧栏，放左下偏中） */
 .search-nav {
   position: fixed;
-  right: 18px;
-  bottom: 18px;
+  left: 18px;
+  bottom: 64px;  /* search-toggle 正上方 */
   z-index: 75;
   background: var(--bg-card);
   border: 1px solid var(--border);
@@ -1775,14 +1775,14 @@ body {
 /* 移动端微调 */
 @media (max-width: 720px) {
   .search-toggle-text { display: none; }
-  .search-toggle { padding: 8px 10px; }
+  .search-toggle { padding: 8px 10px; left: 12px; bottom: 12px; }
   .search-card {
     width: calc(100vw - 24px);
-    right: 12px;
-    top: 56px;
+    left: 12px;
+    bottom: 64px;
     max-height: 70vh;
   }
-  .search-nav { right: 12px; bottom: 12px; }
+  .search-nav { left: 12px; bottom: 56px; }
 }
 
 /* ========== 移动端 ========== */
