@@ -436,7 +436,9 @@ function fitToScreen() {
   const tx = targetCx - anchorEntry.x;
   const ty = targetCy - anchorEntry.y;
   applyViewTransform(tx, ty, 1, true);
-  if (STATE.activeCardId && STATE.cardEl) {
+  // 卡片已显示（不是 openCard 首次隐藏中）才在 transition 完成后跟随 reposition
+  // 否则会跟 openCard 内的延迟显示打架，造成「先错位再瞬移」
+  if (STATE.activeCardId && STATE.cardEl && STATE.cardEl.style.visibility !== 'hidden') {
     setTimeout(() => positionCard(STATE.cardEl, STATE.nodes.get(STATE.activeCardId)), 420);
   }
 }
@@ -573,14 +575,23 @@ function openCard(nodeId) {
   card.addEventListener('click', (e) => e.stopPropagation());
 
   $('#card-root').appendChild(card);
-  positionCard(card, entry);
+  // 初始隐藏：等节点 spawn transition + viewTransform 都稳定再算位置 + 显示
+  // 避免「先在错位置显示，再瞬移到正确位置」的卡顿感
+  card.style.visibility = 'hidden';
 
   STATE.cardEl = card;
   STATE.activeCardId = nodeId;
 
-  requestAnimationFrame(() => card.classList.add('show'));
-  // active 变了 → 把这个节点 fit 到画面中央，让卡片 + 节点在 viewport 里
-  setTimeout(fitToScreen, 40);
+  // 切 active 节点先 fit 到画面中央（viewTransform 0.4s transition）
+  fitToScreen();
+
+  // 等节点 + 整图 transition 完成再算最终位置 + 一次性显示
+  setTimeout(() => {
+    if (STATE.cardEl !== card) return;  // 期间被关 / 换了就不再动
+    positionCard(card, entry);
+    card.style.visibility = '';
+    card.classList.add('show');
+  }, 440);
 }
 
 function positionCard(card, entry) {
@@ -749,15 +760,22 @@ function closeTermTooltip() {
 function bindInteractiveWidgets(bodyEl) {
   if (!bodyEl) return;
 
-  // (1) 点击揭晓 reveal-card
+  // (1) 点击揭晓 reveal-card —— toggle：展开 / 收起
   bodyEl.querySelectorAll('.reveal-card').forEach(card => {
     const btn = card.querySelector('.reveal-btn');
     const answer = card.querySelector('.reveal-a');
     if (!btn || !answer) return;
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
-      card.classList.add('revealed');
-      answer.hidden = false;
+      const revealed = card.classList.toggle('revealed');
+      answer.hidden = !revealed;
+      btn.textContent = revealed ? '收起 ←' : '展开 →';
+      // 内容高度变了，重新算卡片位置（不让卡片冲出视口或盖住节点）
+      setTimeout(() => {
+        if (STATE.cardEl && STATE.activeCardId) {
+          positionCard(STATE.cardEl, STATE.nodes.get(STATE.activeCardId));
+        }
+      }, 30);
     });
   });
 

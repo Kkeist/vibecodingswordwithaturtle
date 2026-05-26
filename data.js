@@ -662,288 +662,24 @@ const node_product_types = {
   emoji: "🎁",
   title: "不同类型产品的后端要什么",
   lightbulb: true,
-  concept: { name: "产品类型与所需后端能力", explain: "电商 / 社交 / 直播 / 游戏 / IM / SaaS / AI 套壳 / 数据 BI / 金融 / 医疗 / 出行 / 教育 / 笔记 / IoT / B2B / 区块链 / 政府 / 创作工具……每类有它特有的技术名词和系统。" },
+  concept: { name: "产品类型与后端能力", explain: "不同类型的产品要的后端能力差很多——按方向挑一类看它特有的技术。" },
   pages: [
     { html: `
-      <p>常见产品类别 <strong>远不止 8 类</strong>。先找找你想做的属于哪一类——</p>
-      <div class="reveal-card">
-        <div class="reveal-q">点开看完整 20+ 类产品全景（含每类的代表产品）</div>
-        <button class="reveal-btn" type="button">展开 →</button>
-        <div class="reveal-a" hidden>
-          <p><strong>🛒 电商交易</strong>：淘宝 / 京东 / 拼多多 / Shopify / Etsy / 闲鱼 / 得物 / Temu / Shein</p>
-          <p><strong>💬 社交内容</strong>：微博 / 小红书 / 知乎 / Twitter / Threads / Reddit / 豆瓣 / 即刻</p>
-          <p><strong>🎬 视频直播音频</strong>：B 站 / 抖音 / YouTube / Netflix / Twitch / Spotify / 网易云音乐 / 小宇宙播客</p>
-          <p><strong>🎮 游戏后端</strong>：王者荣耀 / 原神 / CSGO / Apex / 蛋仔 / Steam / Roblox</p>
-          <p><strong>💭 通讯 IM</strong>：微信 / Discord / Slack / Telegram / 钉钉 / 飞书 / Signal</p>
-          <p><strong>🏢 SaaS 协作</strong>：Notion / Figma / Linear / Airtable / Jira / Salesforce / 飞书</p>
-          <p><strong>🤖 AI 套壳</strong>：ChatGPT / Claude / Perplexity / Character.ai / Midjourney / Suno / Runway / ElevenLabs</p>
-          <p><strong>📊 数据 BI</strong>：Tableau / Metabase / Looker / 内部看板 / Mixpanel</p>
-          <p><strong>💰 金融 FinTech</strong>：支付宝 / 招行 App / Robinhood / Stripe / 加密钱包 / 理财平台</p>
-          <p><strong>🏥 健康医疗</strong>：好大夫 / 丁香 / Keep / Strava / HealthKit / 心理咨询 App</p>
-          <p><strong>🚕 出行地图</strong>：滴滴 / 高德 / Uber / 共享单车 / Citymapper</p>
-          <p><strong>🍔 餐饮外卖物流</strong>：美团 / 饿了么 / 顺丰 / 京东物流 / DoorDash</p>
-          <p><strong>🏨 旅游住宿</strong>：携程 / Airbnb / Booking / 飞猪 / 马蜂窝</p>
-          <p><strong>🏠 房产二手</strong>：链家 / 贝壳 / 闲鱼 / 转转 / 58 同城</p>
-          <p><strong>💼 求职招聘</strong>：BOSS 直聘 / LinkedIn / 智联 / 拉勾</p>
-          <p><strong>📚 教育学习</strong>：网易云课堂 / Coursera / 多邻国 / 得到 / Khan Academy / 各种刷题 App</p>
-          <p><strong>📝 工具 / 笔记 / 个人</strong>：Obsidian / Bear / 番茄钟 / Todo / 翻译 / OCR / 计算器 / 习惯打卡</p>
-          <p><strong>🏘️ 智能家居 IoT</strong>：米家 / HomeKit / Google Home / Aqara</p>
-          <p><strong>🏭 B2B 工业 ERP</strong>：SAP / 用友 / 钉钉宜搭 / MES 制造 / 低代码平台</p>
-          <p><strong>🪙 区块链 Web3</strong>：MetaMask / OpenSea / Uniswap / Lens / NFT 市场</p>
-          <p><strong>🏛️ 政府公共服务</strong>：健康码 / 个税 / 医保 / 12345 / 国家政务</p>
-          <p><strong>🎨 创作工具</strong>：剪映 / Premiere / Photoshop / Lightroom / Figma / Procreate</p>
-          <p><strong>📧 邮件 / 日历</strong>：Outlook / Gmail / Apple Mail / 超人邮箱 / Spike</p>
-          <p><strong>🔍 搜索 / 浏览器</strong>：Google / 百度 / Bing / Brave / Arc / DuckDuckGo</p>
-          <p><strong>📰 资讯阅读</strong>：Feedly / 即刻 / Hacker News / Pocket / RSS 类</p>
-        </div>
+      <p>不同类型产品要的<em>后端</em>能力差很多——电商要管库存、社交要 <em>Feed 流</em>、游戏要同步、金融要风控。</p>
+      <p><strong>你想做的产品偏哪个大方向？</strong>挑一个继续看，每条只给那一类特有的东西。</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">🛍️</span><span class="ei-label">消费交易</span>
+        <span class="ei-arrow">/</span>
+        <span class="ei-emoji">💬</span><span class="ei-label">社交内容</span>
+        <span class="ei-arrow">/</span>
+        <span class="ei-emoji">🎮</span><span class="ei-label">强体验</span>
       </div>
-      <div class="matching-game">
-        <div class="match-hint">把「产品」连到「它属于哪类」↓</div>
-        <div class="match-rows">
-          <div class="match-col">
-            <div class="match-item" data-match="A">滴滴</div>
-            <div class="match-item" data-match="B">米家</div>
-            <div class="match-item" data-match="C">Midjourney</div>
-          </div>
-          <div class="match-col">
-            <div class="match-item" data-match="C">AI 套壳</div>
-            <div class="match-item" data-match="A">出行地图</div>
-            <div class="match-item" data-match="B">智能家居 IoT</div>
-          </div>
-        </div>
-        <div class="match-done">全对，往下翻看各类详细 →</div>
-      </div>
-      <p>下面 <strong>10 页</strong>展开讲：先 8 类最有代表性的，再 2 页扩展类别集合。每类点的都是「它特有的、跟别类不一样的」后端能力。</p>
-    ` },
-    { html: `
-      <p><strong>🛒 电商 / 交易类</strong>（淘宝、京东、Shopify、Etsy、各种小程序商城）</p>
-      <div class="reveal-card">
-        <div class="reveal-q">这类产品最难搞的是什么？想想再点击揭晓。</div>
-        <button class="reveal-btn" type="button">揭晓 →</button>
-        <div class="reveal-a" hidden>
-          ① 库存不能超卖 ② 钱不能算错 / 丢单 ③ 优惠玩法（满减 / 优惠券 / 限时折扣）规则极复杂 ④ 物流接口要对接好几家
-        </div>
-      </div>
-      <p>特殊名词（点 em 看解释）：<em>SKU</em> / <em>库存预占</em> / <em>订单状态机</em> / <em>支付回调</em> / <em>风控</em> / <em>推荐引擎</em></p>
-      <div class="matching-game">
-        <div class="match-hint">把「问题」和「对应技术」连起来 ↓</div>
-        <div class="match-rows">
-          <div class="match-col">
-            <div class="match-item" data-match="A">同时下单怕超卖</div>
-            <div class="match-item" data-match="B">订单要走多个阶段</div>
-            <div class="match-item" data-match="C">付完钱要继续发货</div>
-          </div>
-          <div class="match-col">
-            <div class="match-item" data-match="C">支付回调</div>
-            <div class="match-item" data-match="A">分布式锁 / 库存预占</div>
-            <div class="match-item" data-match="B">订单状态机</div>
-          </div>
-        </div>
-        <div class="match-done">全对，可以走了 →</div>
-      </div>
-    ` },
-    { html: `
-      <p><strong>💬 社交 / 内容平台类</strong>（微博、小红书、即刻、Twitter / X、知乎）</p>
-      <div class="reveal-card">
-        <div class="reveal-q">为什么打开微博能立刻看到几亿用户里你关注的最新动态？</div>
-        <button class="reveal-btn" type="button">揭晓 →</button>
-        <div class="reveal-a" hidden>
-          底下有 <em>Feed 流</em> 系统：要么"写扩散"（你发一条 → 复制到所有粉丝的收件箱）、要么"读扩散"（粉丝刷新时 → 拉取所有关注人最新发的）。明星用读扩散、普通用户用写扩散，混着来。
-        </div>
-      </div>
-      <p>特殊名词：<em>关系链</em>（关注 / 粉丝）、<em>Feed 流</em>（写扩散 vs 读扩散）、<em>推送系统</em>、<em>内容审核</em>（敏感词 / AI 鉴黄 / 人工复审）、<em>推荐算法</em>（协同过滤 / 用户画像）。</p>
-      <div class="quiz-card">
-        <div class="quiz-q">"我刷小红书首页那些'猜你喜欢'是怎么来的？"</div>
-        <div class="quiz-opts">
-          <button class="quiz-opt" type="button" data-correct="false">编辑手动挑的</button>
-          <button class="quiz-opt" type="button" data-correct="true">推荐算法看你的点赞 / 停留 / 搜索算出来的</button>
-          <button class="quiz-opt" type="button" data-correct="false">完全随机</button>
-        </div>
-        <div class="quiz-result">推荐算法 + 用户画像 + 协同过滤。大平台都靠这个。</div>
-      </div>
-    ` },
-    { html: `
-      <p><strong>🎬 视频 / 直播 / 音频类</strong>（B 站、抖音、YouTube、虎牙、Twitch、Spotify、播客）</p>
-      <div class="reveal-card">
-        <div class="reveal-q">为什么全世界看视频几乎不卡？</div>
-        <button class="reveal-btn" type="button">揭晓 →</button>
-        <div class="reveal-a" hidden>
-          每个视频提前转成几种清晰度（自动切换），然后 push 到全球 <em>CDN</em> 节点。你看的时候从最近的节点拿——延迟低 + 不占源站带宽。
-        </div>
-      </div>
-      <p>特殊名词（点 em 看解释）：<em>CDN</em> / <em>转码</em> / <em>HLS</em> / <em>DASH</em> / <em>RTMP</em> / <em>WebRTC</em> / <em>DRM</em> / <em>弹幕系统</em></p>
-      <div class="matching-game">
-        <div class="match-hint">连一连 ↓</div>
-        <div class="match-rows">
-          <div class="match-col">
-            <div class="match-item" data-match="A">主播推流</div>
-            <div class="match-item" data-match="B">观众看视频</div>
-          </div>
-          <div class="match-col">
-            <div class="match-item" data-match="B">CDN + HLS</div>
-            <div class="match-item" data-match="A">RTMP</div>
-          </div>
-        </div>
-        <div class="match-done">✓</div>
-      </div>
-    ` },
-    { html: `
-      <p><strong>🎮 游戏后端</strong>（王者荣耀、原神、CSGO、Fall Guys）</p>
-      <div class="reveal-card">
-        <div class="reveal-q">两人 PK 时，怎么保证你们看到的画面是一致的？</div>
-        <button class="reveal-btn" type="button">揭晓 →</button>
-        <div class="reveal-a" hidden>
-          两种打法：① <em>帧同步</em>——只同步玩家操作，各自客户端按相同规则算出相同画面（MOBA 类常用）。② <em>状态同步</em>——服务器是唯一仲裁，所有人都根据服务器发的状态渲染（射击 / MMO 常用）。
-        </div>
-      </div>
-      <p>特殊名词（点 em 看解释）：<em>匹配引擎</em> / <em>帧同步</em> / <em>状态同步</em> / <em>录像回放</em> / <em>反外挂</em> / <em>虚拟经济</em> / <em>区服</em></p>
-      <div class="quiz-card">
-        <div class="quiz-q">"为什么我在国服打外服延迟那么高？"</div>
-        <div class="quiz-opts">
-          <button class="quiz-opt" type="button" data-correct="false">你电脑太慢</button>
-          <button class="quiz-opt" type="button" data-correct="true">游戏服务器在国外，每个数据包在地球上跑一圈才回来</button>
-          <button class="quiz-opt" type="button" data-correct="false">游戏 bug</button>
-        </div>
-        <div class="quiz-result">物理距离决定网络延迟下限。大厂用全球分布的<em>区服</em>就是为了解决这个。</div>
-      </div>
-    ` },
-    { html: `
-      <p><strong>💬 通讯 / IM 类</strong>（微信、QQ、Discord、Slack、Telegram、钉钉）</p>
-      <div class="reveal-card">
-        <div class="reveal-q">为什么微信发一条消息能秒到？</div>
-        <button class="reveal-btn" type="button">揭晓 →</button>
-        <div class="reveal-a" hidden>
-          手机和服务器之间一直保持着<em>长连接</em>（不是每次发消息才建连接）。你发的消息推服务器、服务器立刻把它推给对方那条长连接。
-        </div>
-      </div>
-      <p>特殊名词（点 em 看解释）：<em>长连接</em> / <em>WebSocket</em> / <em>消息存储</em> / <em>已读回执</em> / <em>群聊</em>扇出 / <em>E2EE</em>端到端加密 / <em>WebRTC</em></p>
-      <div class="matching-game">
-        <div class="match-hint">连一连 ↓</div>
-        <div class="match-rows">
-          <div class="match-col">
-            <div class="match-item" data-match="A">秒收消息</div>
-            <div class="match-item" data-match="B">视频通话</div>
-            <div class="match-item" data-match="C">只你和对方看得到</div>
-          </div>
-          <div class="match-col">
-            <div class="match-item" data-match="C">端到端加密</div>
-            <div class="match-item" data-match="A">WebSocket 长连</div>
-            <div class="match-item" data-match="B">WebRTC</div>
-          </div>
-        </div>
-        <div class="match-done">全对 →</div>
-      </div>
-    ` },
-    { html: `
-      <p><strong>🏢 SaaS / 协作工具类</strong>（Notion、Figma、Slack、飞书、Salesforce、Linear）</p>
-      <div class="reveal-card">
-        <div class="reveal-q">为什么这些"企业版"软件比个人版贵 10 倍？</div>
-        <button class="reveal-btn" type="button">揭晓 →</button>
-        <div class="reveal-a" hidden>
-          要做<em>多租户</em>（每家公司数据严格隔离）、<em>角色权限</em>（员工不同等级看到的不一样）、<em>SSO 单点登录</em>（公司内部一套账号通用）、<em>审计日志</em>（合规需要）。这些都贵。
-        </div>
-      </div>
-      <p>特殊名词（点 em 看解释）：<em>多租户</em> / <em>RBAC</em> / <em>SSO</em> / <em>SAML</em> / <em>OIDC</em> / <em>订阅计费</em>（<em>Stripe Billing</em> / <em>Paddle</em>） / <em>审计日志</em> / <em>实时协同</em> / <em>CRDT</em> / <em>OT</em></p>
-      <div class="quiz-card">
-        <div class="quiz-q">"Figma 多人同时改一个文件，为什么不会撞？"</div>
-        <div class="quiz-opts">
-          <button class="quiz-opt" type="button" data-correct="false">谁先点谁优先</button>
-          <button class="quiz-opt" type="button" data-correct="true">用 CRDT 这种数学上自动合并的数据结构</button>
-          <button class="quiz-opt" type="button" data-correct="false">服务器排队处理</button>
-        </div>
-        <div class="quiz-result"><em>CRDT</em>（Conflict-free Replicated Data Type）允许各客户端各改各的，合并时数学上保证一致。Figma / Notion / 石墨都用它。</div>
-      </div>
-    ` },
-    { html: `
-      <p><strong>🤖 AI 套壳应用</strong>（基于 GPT / Claude / Gemini 做的 App——chatbot、文案工具、AI 客服、AI 写代码）</p>
-      <div class="reveal-card">
-        <div class="reveal-q">为什么 ChatGPT 不知道你公司内部文档？怎么让它知道？</div>
-        <button class="reveal-btn" type="button">揭晓 →</button>
-        <div class="reveal-a" hidden>
-          AI 模型本身没学过你公司的资料。做法：把你公司文档切成小段、变成<em>embedding</em>向量存进<em>向量数据库</em>；用户问问题时先查最相关的几段、塞进 prompt 给 AI。这套叫 <em>RAG</em>（检索增强生成）。
-        </div>
-      </div>
-      <p>特殊名词（点 em 看解释）：<em>LLM API</em> / <em>Streaming</em> / <em>token 计费</em> / <em>Embedding</em> / <em>向量数据库</em>（<em>Pinecone</em> / <em>Qdrant</em> / <em>Weaviate</em>） / <em>RAG</em> / <em>Agent</em> / <em>Tool use</em> / <em>Prompt 工程</em></p>
-      <div class="matching-game">
-        <div class="match-hint">连一连 ↓</div>
-        <div class="match-rows">
-          <div class="match-col">
-            <div class="match-item" data-match="A">让 AI 知道私有资料</div>
-            <div class="match-item" data-match="B">让 AI 调你的 API</div>
-          </div>
-          <div class="match-col">
-            <div class="match-item" data-match="B">Tool use</div>
-            <div class="match-item" data-match="A">RAG + 向量数据库</div>
-          </div>
-        </div>
-        <div class="match-done">✓</div>
-      </div>
-    ` },
-    { html: `
-      <p><strong>📊 数据 / BI / 后台分析</strong>（公司高层每天看的数据看板、报表系统、用户行为分析）</p>
-      <div class="reveal-card">
-        <div class="reveal-q">公司每天看的"昨日新增用户 / 留存率 / 销售额"，数据从哪来？</div>
-        <button class="reveal-btn" type="button">揭晓 →</button>
-        <div class="reveal-a" hidden>
-          线上业务库（MySQL / PostgreSQL）的数据每天 / 每小时通过 <em>ETL</em> 流程"搬"到一个专门做分析的<em>数据仓库</em>（如 BigQuery / ClickHouse / Snowflake）；BI 工具（Tableau / Metabase / 自研看板）从数据仓库查、画图。
-        </div>
-      </div>
-      <p>特殊名词（点 em 看解释）：<em>数据仓库</em>（<em>BigQuery</em> / <em>ClickHouse</em> / <em>Snowflake</em>） / <em>ETL</em> / <em>OLAP</em> vs <em>OLTP</em> / <em>数据看板</em>（<em>Tableau</em> / <em>Metabase</em>） / <em>埋点</em> / <em>ECharts</em> / <em>Grafana</em></p>
-      <div class="quiz-card">
-        <div class="quiz-q">"为什么不直接从业务库画看板？"</div>
-        <div class="quiz-opts">
-          <button class="quiz-opt" type="button" data-correct="false">省事</button>
-          <button class="quiz-opt" type="button" data-correct="true">大查询会拖垮业务库 / 影响真实用户</button>
-          <button class="quiz-opt" type="button" data-correct="false">数据仓库免费</button>
-        </div>
-        <div class="quiz-result"><em>OLTP</em> 扛在线请求；<em>OLAP</em> 扛聚合查询——两套库分工。</div>
-      </div>
-    ` },
-    { html: `
-      <p><strong>扩展类别 1：金融 / 医疗 / 出行 / 物流 / 旅游 / 房产 / 求职 / 教育</strong>——比通用工具严苛得多。</p>
-      <div class="reveal-card">
-        <div class="reveal-q">点开看这 8 类各自最特殊的后端能力</div>
-        <button class="reveal-btn" type="button">展开 →</button>
-        <div class="reveal-a" hidden>
-          <p><strong>💰 金融 / FinTech</strong>（支付宝 / Robinhood / Stripe / 加密交易所）：强合规、<em>风控</em>反洗钱、<em>KYC</em>实名审核、清算对账（钱算到分）、灾备多活、监管报表、跨境支付。</p>
-          <p><strong>🏥 健康 / 医疗</strong>（挂号 / Keep / Strava / HealthKit）：个人健康数据强隐私（HIPAA / 国内等保）、医生-患者两端、保险对接、可穿戴设备同步、电子病历。</p>
-          <p><strong>🚕 出行 / 地图</strong>（滴滴 / Uber / 高德 / 共享单车）：实时定位、路径规划、地图瓦片渲染、司乘匹配、动态调度、ETA 预估、热力图、电子围栏。</p>
-          <p><strong>🍔 餐饮外卖 / 物流</strong>（美团 / 顺丰）：调度算法、骑手司机端实时通讯、订单状态机、订单-商家-配送三方协同、ETA、运力预测。</p>
-          <p><strong>🏨 旅游住宿</strong>（携程 / Airbnb / Booking）：库存日历、动态定价、合作方 GDS 接口对接、跨币种支付、不可改性高（机票酒店一改成本大）。</p>
-          <p><strong>🏠 房产二手</strong>（链家 / 贝壳 / 闲鱼 / 转转）：LBS 附近搜索、长聊系统、估价模型、看房预约、二手交易闭环、防欺诈。</p>
-          <p><strong>💼 求职招聘</strong>（BOSS / LinkedIn）：<em>简历解析</em>（PDF / Word 提取结构化数据）、双向匹配推荐、聊天功能、招聘流程管理、企业认证。</p>
-          <p><strong>📚 教育学习</strong>（Coursera / 多邻国 / 刷题 App）：视频播放（CDN + 防盗版）、测试 / 错题本、进度追踪、证书发放、答疑社区、间隔重复算法。</p>
-        </div>
-      </div>
-      <p>共同关键词：<strong>实时协同 + 物理世界规则 + 强合规</strong>——比纯线上社交难一个数量级。</p>
-    ` },
-    { html: `
-      <p><strong>扩展类别 2：工具 / 笔记 / 个人 / IoT / B2B / 区块链 / 政府 / 创作 / 邮件 / 搜索 / 资讯</strong>——这些类别有的极简（本地就够）、有的极重（强合规 / 大文件 / 复杂工作流）。</p>
-      <div class="reveal-card">
-        <div class="reveal-q">点开看这 11 类各自最关键的技术</div>
-        <button class="reveal-btn" type="button">展开 →</button>
-        <div class="reveal-a" hidden>
-          <p><strong>📝 工具 / 个人</strong>（番茄钟 / Todo / 翻译 / OCR / 计算器 / 习惯打卡）：本地存储就够，<strong>不一定需要后端</strong>；做大才加同步（账号 + 云端）+ 推送提醒。</p>
-          <p><strong>📓 笔记 / 知识库</strong>（Obsidian / Bear / Roam / 印象笔记）：Markdown、<em>双向链接</em>、本地存储 + 端到端加密同步、跨平台一致性、插件系统、Web Clipper。</p>
-          <p><strong>🏘️ 智能家居 / IoT 中控</strong>（米家 / HomeKit / Aqara）：设备配网（蓝牙 / Wi-Fi）、<em>长连接</em>控制、场景联动（"回家"自动开灯）、多用户分享、<em>Matter</em> 跨厂家协议。</p>
-          <p><strong>🏭 B2B 工业 ERP</strong>（SAP / 用友 / 宜搭 / MES）：复杂<em>工作流引擎</em>、审批流、报表、权限矩阵、定制能力、对接老 OA / 财务系统、低代码搭建。</p>
-          <p><strong>🪙 区块链 Web3</strong>（MetaMask / OpenSea / Uniswap）：链上交互（<em>智能合约</em>调用）、签名（私钥不出本机）、<em>Gas 费</em>、跨链桥、节点同步、链上数据索引（The Graph）、IPFS。</p>
-          <p><strong>🏛️ 政府 / 公共服务</strong>（健康码 / 个税 / 医保）：实名（身份证 / 公安认证）、超大稳定性（不能崩）、数据合规、<em>信创栈</em>（国产化）、不依赖外国云。</p>
-          <p><strong>🎨 创作工具</strong>（剪映 / Pr / Lightroom / Figma / Procreate）：大文件处理、<em>撤销 / 重做栈</em>、协作 / 同步、专业插件 SDK、本地 GPU 加速、版本历史。</p>
-          <p><strong>📧 邮件 / 日历</strong>（Outlook / Gmail / 超人邮箱）：<em>IMAP / SMTP</em> 协议、垃圾邮件过滤、附件、推送（push）、跨设备同步、统一收件箱。</p>
-          <p><strong>🔍 搜索 / 浏览器</strong>（Google / Brave / Arc）：爬虫 / 索引、排序（PageRank）、查询解析、广告系统、隐私保护。</p>
-          <p><strong>📰 资讯 / RSS / 阅读</strong>（Feedly / 即刻 / Pocket / Hacker News）：内容抓取、聚合、推送通知、稍后阅读、智能分类。</p>
-          <p><strong>🎙️ AIGC 生成</strong>（Suno 音乐 / Runway 视频 / HeyGen 数字人 / ElevenLabs 语音）：模型推理（GPU 集群）、任务队列、生成结果存储、版权水印、按使用量计费。</p>
-        </div>
-      </div>
-      <div class="quiz-card">
-        <div class="quiz-q">"我想做个习惯打卡 App，需要后端吗？"</div>
-        <div class="quiz-opts">
-          <button class="quiz-opt" type="button" data-correct="true">不一定——本地存储就够，做大才加云同步</button>
-          <button class="quiz-opt" type="button" data-correct="false">必须微服务架构</button>
-          <button class="quiz-opt" type="button" data-correct="false">必须区块链</button>
-        </div>
-        <div class="quiz-result">大多个人工具<strong>本地存储就够</strong>。后端是为多用户 / 多端同步 / 数据安全才加的——单机自用先别上。</div>
+      <div class="emoji-illust">
+        <span class="ei-emoji">🏢</span><span class="ei-label">工作工具</span>
+        <span class="ei-arrow">/</span>
+        <span class="ei-emoji">🔐</span><span class="ei-label">强合规</span>
+        <span class="ei-arrow">/</span>
+        <span class="ei-emoji">🔮</span><span class="ei-label">前沿 / 个人</span>
       </div>
     ` },
   ],
@@ -1569,6 +1305,100 @@ const node_where_hardware = {
   children: [node_board],
 };
 
+// ============================================================
+// 平台分支：基础链 + 工具链走完后，到这里挑平台
+// 包含 6 个 where-* 主选项 + 多端 / 语言细分灯泡支线
+// ============================================================
+
+const node_cross_platform = {
+  id: "cross-platform",
+  emoji: "🔄",
+  title: "想一次跑多个平台？",
+  lightbulb: true,
+  concept: { name: "多端 / 跨平台", explain: "同一份代码同时跑在浏览器 / iOS / Android / 桌面——叫多端 / 跨平台。" },
+  pages: [
+    { html: `
+      <p>想做的东西不是只跑一个地方——浏览器 / iOS / Android / 桌面同时都要？</p>
+      <p>这叫<em>多端</em>（也叫<em>跨平台</em>）。常见做法：</p>
+      <ul>
+        <li><em>React Native</em> / <em>Flutter</em>：一套代码同时出 iOS + Android App</li>
+        <li><em>Electron</em> / <em>Tauri</em>：把网页代码包成 Windows / Mac 桌面 App</li>
+        <li><em>响应式网页</em>：一份 HTML/CSS 自动适配电脑 + 手机浏览器</li>
+        <li><em>uni-app</em> / <em>Taro</em>：一套代码出微信小程序 + App + H5 网页</li>
+      </ul>
+      <p>代价：每个平台都有自己的细节差异，跨平台框架能抹平 80-90%，剩下还是要分别处理。</p>
+      <p>vibecoder 起步建议：先挑一个最重要的平台做，做完了再考虑要不要多端。</p>
+    ` },
+  ],
+  children: [],
+};
+
+const node_lang_choice = {
+  id: "lang-choice",
+  emoji: "🔤",
+  title: "用什么编程语言？",
+  lightbulb: true,
+  concept: { name: "编程语言选择", explain: "不同平台 / 不同用途适合不同语言——按要做的东西挑。" },
+  pages: [
+    { html: `
+      <p>挑语言不是看"哪个好"——是看"做的东西适合用哪个"。</p>
+      <ul>
+        <li><em>JavaScript</em> / <em>TypeScript</em>：网页前端 / 跨平台 App / Node 后端——覆盖最广</li>
+        <li><em>Python</em>：脚本 / 爬虫 / AI / 数据分析——非软件人最好上手</li>
+        <li><em>Swift</em>：iOS / Mac 原生 App 专用</li>
+        <li><em>Kotlin</em>：Android 原生 App 专用</li>
+        <li><em>C / C++</em>：嵌入式硬件 / 性能要求极高的场景</li>
+        <li><em>Go</em> / <em>Rust</em>：后端服务 / 系统编程 / 性能 + 安全</li>
+        <li><em>Solidity</em>：写智能合约（区块链）专用</li>
+      </ul>
+      <p>vibecoder 起步推荐两个：</p>
+      <ul>
+        <li>想做网页 / App / 桌面：<em>JavaScript</em>（一套语言通吃前后端 + 多端）</li>
+        <li>想做脚本 / 数据 / AI 工具：<em>Python</em>（语法最像人话）</li>
+      </ul>
+    ` },
+  ],
+  children: [],
+};
+
+const node_platform_pick = {
+  id: "platform-pick",
+  emoji: "🎯",
+  title: "挑平台开始做",
+  concept: { name: "平台选择", explain: "你的东西最后要让用户在哪里用——浏览器 / 电脑 / 手机 / 命令行 / 服务器 / 硬件。" },
+  pages: [
+    { html: `
+      <p>基础 + 工具搞清楚了。现在想一想：</p>
+      <p><strong>你要做的东西，最后是给用户跑在哪里？</strong></p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">🌐</span><span class="ei-label">网页</span>
+        <span class="ei-arrow">/</span>
+        <span class="ei-emoji">💻</span><span class="ei-label">桌面</span>
+        <span class="ei-arrow">/</span>
+        <span class="ei-emoji">📱</span><span class="ei-label">手机</span>
+        <span class="ei-arrow">/</span>
+        <span class="ei-emoji">⌨️</span><span class="ei-label">命令行</span>
+        <span class="ei-arrow">/</span>
+        <span class="ei-emoji">☁️</span><span class="ei-label">服务器</span>
+        <span class="ei-arrow">/</span>
+        <span class="ei-emoji">🔌</span><span class="ei-label">硬件</span>
+      </div>
+      <p>不同平台 → 用的<em>编程语言</em>、<em>框架</em>、<em>部署方式</em>都不一样。挑一个开始走。</p>
+      <p>实在不确定？看灯泡支线「想一次跑多个平台？」+「用什么编程语言？」帮你定。</p>
+    ` },
+  ],
+  children: [
+    node_where_web,
+    node_where_desktop,
+    node_where_mobile,
+    node_where_cli,
+    node_where_server,
+    node_where_hardware,
+    node_cross_platform,
+    node_lang_choice,
+  ],
+};
+
 // ====== 术语解释表 ======
 const TERM_GLOSSARY = {
   // ---- 基础代码概念 ----
@@ -1992,6 +1822,27 @@ const TERM_GLOSSARY = {
   "幂等": "同一个操作做多次和做一次效果一样（重复支付不会扣两次钱）。",
   "服务发现": "几十个小服务跑在不同机器上时，互相找到对方「在哪台机器、哪个端口」的机制——靠一个公共「通讯录」（注册中心）。",
   "Webhook": "事情发生时对方主动通知你的「反向接口」。比如用户付钱后，Stripe 自动发一个请求告诉你「有人付了 50 块」——你不用一直去问它「付了没」。",
+  // ---- 产品类后端能力（拆树后新增） ----
+  "KYC": "Know Your Customer——金融行业的实名审核流程，证明你是真人 + 这账号是你 + 资金来源合法。",
+  "HIPAA": "美国医疗隐私法。任何医疗 / 健康数据的存储、传输、共享都要满足这套规定，违规罚得很重。",
+  "LBS": "Location-Based Service——基于位置的服务。地图 / 附近搜索 / 共享单车 / 打车都属于这类。",
+  "路径规划": "从 A 点到 B 点算出最快路线的算法（含路况 / 红绿灯 / 限行）。高德 / 滴滴 / Google Maps 都靠它。",
+  "司乘匹配": "叫车时把「附近的可用司机」和「等车的乘客」撮合到一起的算法。要平衡等待时间、距离、司机收益。",
+  "ETA": "Estimated Time of Arrival——预计到达时间。骑手离我多久、车到机场多久、外卖几点送到。",
+  "电子围栏": "在地图上画一个虚拟边界——设备 / 用户进入 / 离开就触发动作。共享单车判断「是不是停在禁停区」用它。",
+  "GDS": "全球分销系统。机票 / 酒店行业的中央库存数据库——OTA 都是从这里查实时库存、改签退票也要回这里。",
+  "简历解析": "用 OCR + NLP 模型从 PDF / Word 简历里抽出工作经历、技能、教育、地点等结构化字段。",
+  "间隔重复": "Spaced Repetition——根据你对每个知识点的答对 / 答错记录，动态算「下次什么时候让你再复习」。多邻国 / Anki 的核心算法。",
+  "IMAP": "邮箱客户端从服务器收信的协议。比 POP3 强：邮件留在服务器、多设备能同步状态。",
+  "SMTP": "发邮件的协议——客户端把邮件交给发件服务器、服务器再投递给收件方。",
+  "PageRank": "Google 早期排序算法的核心思路：一个网页被越多「高质量」网页链接到 → 它就越重要。",
+  "智能合约": "部署在区块链上、按写好的规则自动执行的程序——没人能改、谁满足条件就自动转账 / 发 NFT。Solidity 写。",
+  "Gas 费": "在区块链上做一笔交易要付的「算力费」——付给帮你验证 + 写区块的矿工 / 验证者，按这笔交易占的计算量算。",
+  "Matter": "智能家居跨厂家协议（Apple + Google + 三星 + 小米合搞）——让不同品牌设备能互通。",
+  "双向链接": "笔记 A 链到笔记 B 时，B 也自动显示「被 A 引用了」——Obsidian / Roam / 飞书文档都有。",
+  "Markdown": "用 # / * / [] 这种符号写格式化文档的轻量标记语言。GitHub / Notion / Obsidian 都用。",
+  "本地存储": "数据直接存在用户浏览器 / 手机上，不传服务器。番茄钟 / Todo 这类自用工具可以本地存就够。浏览器里常用 IndexedDB。",
+  "IndexedDB": "浏览器内置的本地数据库——能存大量结构化数据，比 localStorage 强很多。",
 };
 
 // ====== root ======
@@ -2003,18 +1854,773 @@ const TREE_DATA = {
   pages: [
     {
       html: `
-        <p>头两条是<strong>基础准备</strong>（代码概念 / 开发工具）；底下 6 条按<strong>跑在哪</strong>分。挑一条开始。</p>
+        <p>不管你最后想做的东西跑在哪——<strong>先要懂一点代码本身 + 开发工具</strong>。</p>
+        <p>这部分是<strong>所有路径的公共前置</strong>，走完会自动把你带到「挑平台」那一步。</p>
       `,
     },
   ],
   children: [
     node_basics_entry,
-    node_tools_entry,
-    node_where_web,
-    node_where_desktop,
-    node_where_mobile,
-    node_where_cli,
-    node_where_server,
-    node_where_hardware,
   ],
 };
+
+// ============================================================
+// children 接续：基础链尾 → 工具入口；工具链尾 → 平台中转
+// 用赋值是因为 platform_pick 在 npm 之后定义（forward reference）
+// ============================================================
+node_console_log.children = [node_tools_entry];
+node_npm.children = [node_platform_pick];
+
+// ============================================================
+// PRODUCT_TYPES_SUBTREE
+// node_product_types 的分支拆分：6 大方向 → 每个大类挂具体产品类节点。
+// 每个产品类节点 1 页 ≤ 80 字 + 1 个互动 widget；叶子节点（children: []）。
+// 之前 v12c 用单节点 11 页 + reveal-card 一次性倾倒 25 类的设计已废弃，
+// 因为违反"每页只给一点点、按分支逐渐分类"原则（宝宝 v13 反馈）。
+// ============================================================
+
+// ---- 大类 1：消费交易类 ----
+
+const node_pt_ecommerce = {
+  id: "pt-ecommerce",
+  emoji: "🛒",
+  title: "电商 / 交易",
+  concept: { name: "电商交易后端", explain: "卖货收钱型——淘宝 / 京东 / Shopify / Etsy。" },
+  pages: [
+    { html: `
+      <p>卖货收钱型——淘宝 / 京东 / Shopify / Etsy。</p>
+      <p>四个最难搞的：① 库存不能超卖 ② 钱不能算错 / 丢单 ③ 满减 / 优惠券规则极复杂 ④ 物流要对接好几家。</p>
+      <p>关键词：<em>SKU</em> / <em>库存预占</em> / <em>订单状态机</em> / <em>支付回调</em> / <em>风控</em>。</p>
+      <div class="matching-game">
+        <div class="match-hint">把「问题」连「对应技术」↓</div>
+        <div class="match-rows">
+          <div class="match-col">
+            <div class="match-item" data-match="A">同时下单怕超卖</div>
+            <div class="match-item" data-match="B">订单要走多个阶段</div>
+            <div class="match-item" data-match="C">付完钱要继续发货</div>
+          </div>
+          <div class="match-col">
+            <div class="match-item" data-match="C">支付回调</div>
+            <div class="match-item" data-match="A">分布式锁 / 库存预占</div>
+            <div class="match-item" data-match="B">订单状态机</div>
+          </div>
+        </div>
+        <div class="match-done">✓</div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_pt_delivery = {
+  id: "pt-delivery",
+  emoji: "🍔",
+  title: "外卖 / 物流",
+  concept: { name: "外卖物流后端", explain: "实时调度型——美团 / 饿了么 / 顺丰 / DoorDash。" },
+  pages: [
+    { html: `
+      <p>实时调度型——美团 / 饿了么 / 顺丰 / DoorDash。</p>
+      <p>关键词：<em>调度算法</em> / 骑手司机端<em>长连接</em> / <em>订单状态机</em> / 三方（用户-商家-骑手）协同 / <em>ETA</em> 预估 / 运力预测。</p>
+      <div class="reveal-card">
+        <div class="reveal-q">美团骑手怎么知道下一单接谁？</div>
+        <button class="reveal-btn" type="button">揭晓 →</button>
+        <div class="reveal-a" hidden>
+          后台<em>调度算法</em>实时算：每个骑手当前位置、手上几单、顺路系数、商家出餐时间——综合算出"派给谁送得最快"。订单状态更新通过长连接秒级推给骑手手机。
+        </div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_pt_travel = {
+  id: "pt-travel",
+  emoji: "🏨",
+  title: "旅游 / 住宿",
+  concept: { name: "旅游住宿后端", explain: "库存复杂型——携程 / Airbnb / Booking / 飞猪。" },
+  pages: [
+    { html: `
+      <p>库存复杂型——携程 / Airbnb / Booking / 飞猪。</p>
+      <p>关键词：库存日历（每日不同价 / 不同剩余）/ 动态定价 / 合作方 <em>GDS</em> 接口对接 / 跨币种支付 / 改签退款规则极复杂。</p>
+      <div class="quiz-card">
+        <div class="quiz-q">"为什么订完机票要改签很贵？"</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" type="button" data-correct="false">系统懒得改</button>
+          <button class="quiz-opt" type="button" data-correct="true">机票库存在航司 GDS 那边、改签要重新走他们的流程 + 退原座位</button>
+          <button class="quiz-opt" type="button" data-correct="false">是 OTA 故意黑钱</button>
+        </div>
+        <div class="quiz-result">机票后面是航司 <em>GDS</em>（全球分销系统）——OTA 只是中间商，改签退票要走完一整圈跨系统流程。</div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_pt_property = {
+  id: "pt-property",
+  emoji: "🏠",
+  title: "房产 / 二手",
+  concept: { name: "房产二手后端", explain: "本地交易型——链家 / 贝壳 / 闲鱼 / 转转 / 58 同城。" },
+  pages: [
+    { html: `
+      <p>本地交易型——链家 / 贝壳 / 闲鱼 / 转转 / 58 同城。</p>
+      <p>关键词：<em>LBS</em>（附近搜索）/ 长聊系统 / 估价模型 / 看房预约 / 二手交易闭环 / 防欺诈。</p>
+      <div class="reveal-card">
+        <div class="reveal-q">闲鱼怎么知道你附近有什么在卖？</div>
+        <button class="reveal-btn" type="button">揭晓 →</button>
+        <div class="reveal-a" hidden>
+          每个商品上架时带经纬度坐标存进<em>地理索引</em>（比如 PostgreSQL 的 PostGIS、Redis GEO）。你打开 App 时定位 → 索引秒查"距离你 5km 内的商品" → 按距离 / 时间 / 热度排序返回。这一类技术统称 <em>LBS</em>（基于位置的服务）。
+        </div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_pt_mobility = {
+  id: "pt-mobility",
+  emoji: "🚕",
+  title: "出行 / 地图",
+  concept: { name: "出行地图后端", explain: "实时位置型——滴滴 / Uber / 高德 / 共享单车。" },
+  pages: [
+    { html: `
+      <p>实时位置型——滴滴 / Uber / 高德 / 共享单车。</p>
+      <p>关键词：实时定位上报 / <em>路径规划</em> / 地图瓦片渲染 / <em>司乘匹配</em> / 动态调度 / <em>ETA</em> 预估 / 热力图 / <em>电子围栏</em>。</p>
+      <div class="matching-game">
+        <div class="match-hint">连一连 ↓</div>
+        <div class="match-rows">
+          <div class="match-col">
+            <div class="match-item" data-match="A">叫到车</div>
+            <div class="match-item" data-match="B">导航最快路径</div>
+            <div class="match-item" data-match="C">还共享单车判断在不在停车区</div>
+          </div>
+          <div class="match-col">
+            <div class="match-item" data-match="C">电子围栏</div>
+            <div class="match-item" data-match="A">司乘匹配</div>
+            <div class="match-item" data-match="B">路径规划</div>
+          </div>
+        </div>
+        <div class="match-done">✓</div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_pt_consumer = {
+  id: "pt-consumer",
+  emoji: "🛍️",
+  title: "消费 / 交易类",
+  concept: { name: "消费交易类产品", explain: "面向消费者卖东西 / 提供本地服务的产品——共同点是订单 / 钱 / 物理世界对接。" },
+  pages: [
+    { html: `
+      <p>面向消费者、有<strong>订单 + 钱 + 物理世界对接</strong>的产品都归这一类。</p>
+      <p>共同特点：库存 / 状态机 / 支付 / 多方协同。</p>
+      <p>选一个你最像的看 →</p>
+    ` },
+  ],
+  children: [],
+};
+
+// ---- 大类 2：社交内容类 ----
+
+const node_pt_social_feed = {
+  id: "pt-social-feed",
+  emoji: "💭",
+  title: "社交 / 内容",
+  concept: { name: "社交内容后端", explain: "关系链 + Feed 流型——微博 / 小红书 / 知乎 / Twitter。" },
+  pages: [
+    { html: `
+      <p>关系链 + Feed 流型——微博 / 小红书 / 知乎 / Twitter / Threads。</p>
+      <p>关键词：<em>关系链</em>（关注 / 粉丝）/ <em>Feed 流</em>（写扩散 vs 读扩散）/ <em>推送系统</em> / <em>内容审核</em> / <em>推荐算法</em>。</p>
+      <div class="quiz-card">
+        <div class="quiz-q">"我刷小红书首页那些'猜你喜欢'是怎么来的？"</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" type="button" data-correct="false">编辑手动挑的</button>
+          <button class="quiz-opt" type="button" data-correct="true">推荐算法看你的点赞 / 停留 / 搜索算出来的</button>
+          <button class="quiz-opt" type="button" data-correct="false">完全随机</button>
+        </div>
+        <div class="quiz-result"><em>推荐算法</em> + 用户画像 + 协同过滤。大平台都靠这个。</div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_pt_im = {
+  id: "pt-im",
+  emoji: "📨",
+  title: "通讯 / IM",
+  concept: { name: "通讯 IM 后端", explain: "实时消息型——微信 / Discord / Slack / Telegram / 钉钉 / 飞书。" },
+  pages: [
+    { html: `
+      <p>实时消息型——微信 / Discord / Slack / Telegram / 钉钉 / 飞书。</p>
+      <p>关键词：<em>长连接</em> / <em>WebSocket</em> / 消息存储 / 已读回执 / 群聊扇出 / <em>E2EE</em>（端到端加密）/ <em>WebRTC</em>。</p>
+      <div class="reveal-card">
+        <div class="reveal-q">为什么微信发一条消息能秒到？</div>
+        <button class="reveal-btn" type="button">揭晓 →</button>
+        <div class="reveal-a" hidden>
+          手机和服务器之间一直保持<em>长连接</em>（不是每次发消息才建连接）。你发消息推到服务器、服务器立刻把它推给对方那条长连接——一来一回毫秒级。
+        </div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_pt_video = {
+  id: "pt-video",
+  emoji: "🎬",
+  title: "视频 / 直播 / 音频",
+  concept: { name: "视频直播音频后端", explain: "大文件分发型——B 站 / 抖音 / YouTube / Twitch / Spotify。" },
+  pages: [
+    { html: `
+      <p>大文件分发型——B 站 / 抖音 / YouTube / Twitch / Spotify / 播客。</p>
+      <p>关键词：<em>CDN</em> / <em>转码</em> / <em>HLS</em> / <em>DASH</em>（点播协议）/ <em>RTMP</em>（直播推流）/ <em>WebRTC</em>（实时通话）/ <em>DRM</em> / <em>弹幕系统</em>。</p>
+      <div class="reveal-card">
+        <div class="reveal-q">为什么全世界看 YouTube 几乎不卡？</div>
+        <button class="reveal-btn" type="button">揭晓 →</button>
+        <div class="reveal-a" hidden>
+          每个视频提前<em>转码</em>成几种清晰度（自动切换），然后 push 到全球 <em>CDN</em> 节点。你看的时候从最近的节点拿——延迟低 + 不占源站带宽。
+        </div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_pt_news = {
+  id: "pt-news",
+  emoji: "📰",
+  title: "资讯 / 阅读",
+  concept: { name: "资讯阅读后端", explain: "内容聚合型——Feedly / Pocket / 即刻 / Hacker News / RSS 类。" },
+  pages: [
+    { html: `
+      <p>内容聚合型——Feedly / Pocket / 即刻 / Hacker News / RSS 类。</p>
+      <p>关键词：内容抓取（爬虫 + RSS 订阅）/ 聚合 / 推送通知 / 稍后阅读 / 智能分类 / 个性化排序。</p>
+      <div class="quiz-card">
+        <div class="quiz-q">"Feedly 怎么从几千个网站抓最新文章？"</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" type="button" data-correct="false">编辑天天手动复制</button>
+          <button class="quiz-opt" type="button" data-correct="true">订阅每个网站的 RSS / Atom 源，定时拉取 + 增量更新</button>
+          <button class="quiz-opt" type="button" data-correct="false">用户自己上传</button>
+        </div>
+        <div class="quiz-result">RSS / Atom 是网站对外发布的"最新内容流"格式。聚合器订阅了之后就能自动拿到更新。</div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_pt_social = {
+  id: "pt-social",
+  emoji: "💬",
+  title: "社交 / 内容类",
+  concept: { name: "社交内容类产品", explain: "围绕内容生产 / 关系链 / 实时消息的产品——共同点是 Feed 流 + 长连接 + 推荐算法。" },
+  pages: [
+    { html: `
+      <p>围绕<strong>内容生产 + 关系链 + 实时通讯</strong>的产品都归这一类。</p>
+      <p>共同特点：用户产生内容、需要分发 / 推送 / 推荐，常带实时性。</p>
+      <p>选一个你最像的看 →</p>
+    ` },
+  ],
+  children: [],
+};
+
+// ---- 大类 3：强体验类 ----
+
+const node_pt_game = {
+  id: "pt-game",
+  emoji: "🎮",
+  title: "游戏后端",
+  concept: { name: "游戏后端", explain: "实时同步型——王者荣耀 / 原神 / CSGO / Fall Guys / Steam。" },
+  pages: [
+    { html: `
+      <p>实时同步型——王者荣耀 / 原神 / CSGO / Fall Guys / Steam。</p>
+      <p>关键词：匹配引擎 / <em>帧同步</em> vs <em>状态同步</em> / 录像回放 / 反外挂 / 虚拟经济 / <em>区服</em>。</p>
+      <div class="reveal-card">
+        <div class="reveal-q">两人 PK 时怎么保证你们看到的画面是一致的？</div>
+        <button class="reveal-btn" type="button">揭晓 →</button>
+        <div class="reveal-a" hidden>
+          两种打法：① <em>帧同步</em>——只同步玩家操作，各自客户端按相同规则算出相同画面（MOBA 常用）。② <em>状态同步</em>——服务器是唯一仲裁，所有人按服务器发的状态渲染（射击 / MMO 常用）。
+        </div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_pt_aigc = {
+  id: "pt-aigc",
+  emoji: "🎙️",
+  title: "AIGC 生成",
+  concept: { name: "AIGC 生成后端", explain: "重计算生成型——Suno / Runway / HeyGen / ElevenLabs / Midjourney。" },
+  pages: [
+    { html: `
+      <p>重计算生成型——Suno（音乐）/ Runway（视频）/ HeyGen（数字人）/ ElevenLabs（语音）/ Midjourney。</p>
+      <p>关键词：GPU 集群推理 / 任务队列 / 生成结果存储 / 版权水印 / 按使用量计费。</p>
+      <div class="reveal-card">
+        <div class="reveal-q">为什么生成一张图 / 一段视频要排队几秒到几分钟？</div>
+        <button class="reveal-btn" type="button">揭晓 →</button>
+        <div class="reveal-a" hidden>
+          生成模型要在 GPU 上跑几亿次计算——每张 GPU 同时只能处理少量任务。后端把请求丢进<em>消息队列</em>，GPU worker 一个个拿出来跑、结果存对象存储、回调通知前端。
+        </div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_pt_creator = {
+  id: "pt-creator",
+  emoji: "🎨",
+  title: "创作工具",
+  concept: { name: "创作工具后端", explain: "大文件操作型——剪映 / Premiere / Photoshop / Lightroom / Figma / Procreate。" },
+  pages: [
+    { html: `
+      <p>大文件操作型——剪映 / Premiere / Photoshop / Lightroom / Figma / Procreate。</p>
+      <p>关键词：大文件处理 / 撤销 / 重做栈 / 协作 / 同步 / 专业插件 SDK / 本地 GPU 加速 / 版本历史。</p>
+      <div class="reveal-card">
+        <div class="reveal-q">Photoshop 撤销几十步几乎不卡，怎么做到的？</div>
+        <button class="reveal-btn" type="button">揭晓 →</button>
+        <div class="reveal-a" hidden>
+          每一步操作只记<strong>差量</strong>（这次改了哪几个像素 / 哪条路径），不是每次都存整张图。撤销 = 反向应用差量。栈里几十步加起来比一张原图还小。
+        </div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_pt_experience = {
+  id: "pt-experience",
+  emoji: "🎭",
+  title: "强体验 / 内容生产类",
+  concept: { name: "强体验类产品", explain: "重交互 / 重计算 / 大文件的产品——游戏 / AIGC / 创作工具。" },
+  pages: [
+    { html: `
+      <p>重<strong>交互 + 计算 + 大文件</strong>的产品都归这一类。</p>
+      <p>共同特点：客户端复杂、服务器算力 / 带宽要求高、对延迟敏感。</p>
+      <p>选一个你最像的看 →</p>
+    ` },
+  ],
+  children: [],
+};
+
+// ---- 大类 4：工作工具类 ----
+
+const node_pt_saas = {
+  id: "pt-saas",
+  emoji: "🏢",
+  title: "SaaS / 协作",
+  concept: { name: "SaaS 协作后端", explain: "企业订阅型——Notion / Figma / Slack / 飞书 / Linear / Salesforce。" },
+  pages: [
+    { html: `
+      <p>企业订阅型——Notion / Figma / Slack / 飞书 / Linear / Salesforce。</p>
+      <p>关键词：<em>多租户</em> / <em>RBAC</em> / <em>SSO</em> / 订阅计费（Stripe Billing）/ 审计日志 / 实时协同 / <em>CRDT</em>。</p>
+      <div class="quiz-card">
+        <div class="quiz-q">"Figma 多人同时改一个文件，为什么不会撞？"</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" type="button" data-correct="false">谁先点谁优先</button>
+          <button class="quiz-opt" type="button" data-correct="true">用 CRDT 这种数学上自动合并的数据结构</button>
+          <button class="quiz-opt" type="button" data-correct="false">服务器排队处理</button>
+        </div>
+        <div class="quiz-result"><em>CRDT</em> 允许各客户端各改各的，合并时数学上保证一致。Figma / Notion / 石墨都用它。</div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_pt_b2b = {
+  id: "pt-b2b",
+  emoji: "🏭",
+  title: "B2B 工业 / ERP",
+  concept: { name: "B2B ERP 后端", explain: "重流程定制型——SAP / 用友 / 钉钉宜搭 / MES 制造 / 低代码平台。" },
+  pages: [
+    { html: `
+      <p>重流程定制型——SAP / 用友 / 钉钉宜搭 / MES 制造 / 低代码平台。</p>
+      <p>关键词：复杂<em>工作流引擎</em> / 审批流 / 报表 / 权限矩阵 / 定制能力 / 对接老 OA / 财务系统。</p>
+      <div class="reveal-card">
+        <div class="reveal-q">为什么 SAP 卖一套要几百万到几千万？</div>
+        <button class="reveal-btn" type="button">揭晓 →</button>
+        <div class="reveal-a" hidden>
+          每家公司的流程都不一样——SAP 要支撑工作流引擎 + 审批配置 + 权限矩阵 + 报表 + 二次开发 + 对接老系统。一套上线要数百人月做配置 + 培训 + 数据迁移。
+        </div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_pt_bi = {
+  id: "pt-bi",
+  emoji: "📊",
+  title: "数据 / BI",
+  concept: { name: "数据 BI 后端", explain: "公司高层每天看的数据看板、报表系统、用户行为分析——Tableau / Metabase / Looker。" },
+  pages: [
+    { html: `
+      <p>报表分析型——公司高层每天看的数据看板、报表系统、用户行为分析。Tableau / Metabase / Looker / Mixpanel。</p>
+      <p>关键词：<em>数据仓库</em>（BigQuery / ClickHouse / Snowflake）/ <em>ETL</em> / <em>OLAP</em> vs <em>OLTP</em> / 数据看板 / <em>埋点</em>。</p>
+      <div class="quiz-card">
+        <div class="quiz-q">"为什么不直接从业务库画看板？"</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" type="button" data-correct="false">省事</button>
+          <button class="quiz-opt" type="button" data-correct="true">大查询会拖垮业务库 / 影响真实用户</button>
+          <button class="quiz-opt" type="button" data-correct="false">数据仓库免费</button>
+        </div>
+        <div class="quiz-result"><em>OLTP</em> 扛在线请求；<em>OLAP</em> 扛聚合查询——两套库分工。</div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_pt_hr = {
+  id: "pt-hr",
+  emoji: "💼",
+  title: "求职 / 招聘",
+  concept: { name: "求职招聘后端", explain: "双边匹配型——BOSS 直聘 / LinkedIn / 智联 / 拉勾。" },
+  pages: [
+    { html: `
+      <p>双边匹配型——BOSS 直聘 / LinkedIn / 智联 / 拉勾。</p>
+      <p>关键词：<em>简历解析</em> / 双向匹配推荐 / 聊天功能 / 招聘流程管理 / 企业认证。</p>
+      <div class="reveal-card">
+        <div class="reveal-q">你扔个 PDF 简历上去，BOSS 怎么知道你"3 年 Java 经验、住北京"？</div>
+        <button class="reveal-btn" type="button">揭晓 →</button>
+        <div class="reveal-a" hidden>
+          <em>简历解析</em>：用 OCR + NLP 模型从 PDF / Word 里抽出工作经历、技能、教育、地点 → 转成结构化字段存数据库 → 才能和岗位做匹配。
+        </div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_pt_edu = {
+  id: "pt-edu",
+  emoji: "📚",
+  title: "教育 / 学习",
+  concept: { name: "教育学习后端", explain: "学习进度型——Coursera / 多邻国 / 网易云课堂 / Khan Academy / 各种刷题 App。" },
+  pages: [
+    { html: `
+      <p>学习进度型——Coursera / 多邻国 / 网易云课堂 / Khan Academy / 各种刷题 App。</p>
+      <p>关键词：视频播放（<em>CDN</em> + 防盗版）/ 测试 / 错题本 / 进度追踪 / 证书发放 / 答疑社区 / <em>间隔重复</em> 算法。</p>
+      <div class="reveal-card">
+        <div class="reveal-q">多邻国 / Anki 为什么每天都让你复习一点旧的？</div>
+        <button class="reveal-btn" type="button">揭晓 →</button>
+        <div class="reveal-a" hidden>
+          <em>间隔重复</em>算法（SRS）：根据你每个知识点的答对 / 答错记录、动态算"下次什么时候让你再复习"——快忘的时候刚好再出现一次，记忆最深。
+        </div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_pt_email = {
+  id: "pt-email",
+  emoji: "📧",
+  title: "邮件 / 日历",
+  concept: { name: "邮件日历后端", explain: "标准协议型——Outlook / Gmail / Apple Mail / 超人邮箱 / Spike。" },
+  pages: [
+    { html: `
+      <p>标准协议型——Outlook / Gmail / Apple Mail / 超人邮箱 / Spike。</p>
+      <p>关键词：<em>IMAP</em> / <em>SMTP</em>（收发协议）/ 垃圾邮件过滤 / 附件 / 推送 / 跨设备同步 / 统一收件箱。</p>
+      <div class="matching-game">
+        <div class="match-hint">连一连邮件干啥用什么 ↓</div>
+        <div class="match-rows">
+          <div class="match-col">
+            <div class="match-item" data-match="A">从邮箱服务器收信</div>
+            <div class="match-item" data-match="B">把邮件发出去</div>
+            <div class="match-item" data-match="C">新邮件不用刷新就到</div>
+          </div>
+          <div class="match-col">
+            <div class="match-item" data-match="C">推送（IMAP IDLE）</div>
+            <div class="match-item" data-match="A">IMAP</div>
+            <div class="match-item" data-match="B">SMTP</div>
+          </div>
+        </div>
+        <div class="match-done">✓</div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_pt_search = {
+  id: "pt-search",
+  emoji: "🔍",
+  title: "搜索 / 浏览器",
+  concept: { name: "搜索浏览器后端", explain: "信息检索型——Google / 百度 / Bing / Brave / Arc / DuckDuckGo。" },
+  pages: [
+    { html: `
+      <p>信息检索型——Google / 百度 / Bing / Brave / Arc / DuckDuckGo。</p>
+      <p>关键词：爬虫 / 索引 / 排序（<em>PageRank</em>）/ 查询解析 / 广告系统 / 隐私保护。</p>
+      <div class="reveal-card">
+        <div class="reveal-q">你搜"咖啡店"——Google 怎么知道哪个网页该排第一？</div>
+        <button class="reveal-btn" type="button">揭晓 →</button>
+        <div class="reveal-a" hidden>
+          经典思路 <em>PageRank</em>：一个网页被越多"高质量"网页链接到 → 它就越重要。再加内容相关度 / 点击行为 / 几百个其他信号综合算出排序。
+        </div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_pt_work = {
+  id: "pt-work",
+  emoji: "🗂️",
+  title: "工作 / 工具类",
+  concept: { name: "工作工具类产品", explain: "面向公司 / 工作场景的产品——SaaS / ERP / BI / 招聘 / 教育 / 邮件 / 搜索。" },
+  pages: [
+    { html: `
+      <p>面向<strong>公司 / 工作 / 效率场景</strong>的产品都归这一类。</p>
+      <p>共同特点：多用户协同、流程 / 权限 / 报表是核心。</p>
+      <p>选一个你最像的看 →</p>
+    ` },
+  ],
+  children: [],
+};
+
+// ---- 大类 5：强合规重型 ----
+
+const node_pt_finance = {
+  id: "pt-finance",
+  emoji: "💰",
+  title: "金融 / FinTech",
+  concept: { name: "金融 FinTech 后端", explain: "强合规型——支付宝 / 招行 App / Robinhood / Stripe / 加密钱包。" },
+  pages: [
+    { html: `
+      <p>强合规型——支付宝 / 招行 App / Robinhood / Stripe / 加密钱包 / 理财平台。</p>
+      <p>关键词：强合规 / <em>风控</em>反洗钱 / <em>KYC</em> 实名审核 / 清算对账（钱算到分）/ 灾备多活 / 监管报表 / 跨境支付。</p>
+      <div class="reveal-card">
+        <div class="reveal-q">为什么银行 App 大额转账时要刷脸 + 短信码 + 提示"风控审核"？</div>
+        <button class="reveal-btn" type="button">揭晓 →</button>
+        <div class="reveal-a" hidden>
+          后台<em>风控</em>系统实时跑：你的设备 / 位置 / 金额 / 收款方风险 / 当日累计——任何一项异常就触发额外验证。<em>KYC</em>（Know Your Customer）+ 反洗钱是金融合规硬要求。
+        </div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_pt_medical = {
+  id: "pt-medical",
+  emoji: "🏥",
+  title: "健康 / 医疗",
+  concept: { name: "健康医疗后端", explain: "敏感数据型——好大夫 / 丁香 / Keep / Strava / HealthKit / 心理咨询 App。" },
+  pages: [
+    { html: `
+      <p>敏感数据型——好大夫 / 丁香 / Keep / Strava / HealthKit / 心理咨询 App。</p>
+      <p>关键词：个人健康数据强隐私（<em>HIPAA</em> / 国内等保）/ 医生-患者两端 / 保险对接 / 可穿戴设备同步 / 电子病历。</p>
+      <div class="quiz-card">
+        <div class="quiz-q">"为什么 Keep / Apple Health 不能随便把你心率数据分享给别的 App？"</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" type="button" data-correct="false">嫌麻烦</button>
+          <button class="quiz-opt" type="button" data-correct="true">受医疗隐私法规约束——任何健康数据流转都要明确授权 + 审计</button>
+          <button class="quiz-opt" type="button" data-correct="false">数据值钱不愿给</button>
+        </div>
+        <div class="quiz-result">美国叫 <em>HIPAA</em>、国内叫等保 + 个人信息保护法——医疗数据是最高级别敏感数据。</div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_pt_govt = {
+  id: "pt-govt",
+  emoji: "🏛️",
+  title: "政府 / 公共服务",
+  concept: { name: "政府公共服务后端", explain: "国家级稳定型——健康码 / 个税 / 医保 / 12345 / 国家政务。" },
+  pages: [
+    { html: `
+      <p>国家级稳定型——健康码 / 个税 / 医保 / 12345 / 国家政务。</p>
+      <p>关键词：实名（身份证 / 公安认证）/ 超大稳定性（不能崩）/ 数据合规 / 信创栈（国产化）/ 不依赖外国云。</p>
+      <div class="reveal-card">
+        <div class="reveal-q">健康码高峰时全国十几亿人同时扫，为什么从来不崩？</div>
+        <button class="reveal-btn" type="button">揭晓 →</button>
+        <div class="reveal-a" hidden>
+          多活灾备（一个机房挂了瞬间切到另一个）+ 全国按省分库分压 + 极简接口（只查不写复杂逻辑）+ 多级<em>缓存</em>挡住 99% 请求。
+        </div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_pt_regulated = {
+  id: "pt-regulated",
+  emoji: "🔐",
+  title: "强合规 / 重型类",
+  concept: { name: "强合规重型产品", explain: "受法律 / 行业监管的产品——金融 / 医疗 / 政府公共服务。" },
+  pages: [
+    { html: `
+      <p>受<strong>法律 / 行业监管</strong>的产品都归这一类。</p>
+      <p>共同特点：数据隐私要求极高、稳定性要求极高、合规审计是硬指标。</p>
+      <p>选一个你最像的看 →</p>
+    ` },
+  ],
+  children: [],
+};
+
+// ---- 大类 6：前沿 / 个人 ----
+
+const node_pt_ai_app = {
+  id: "pt-ai-app",
+  emoji: "🤖",
+  title: "AI 套壳应用",
+  concept: { name: "AI 套壳应用后端", explain: "基于 GPT / Claude / Gemini 做的应用——chatbot / 文案工具 / AI 客服 / AI 写代码。" },
+  pages: [
+    { html: `
+      <p>基于 GPT / Claude / Gemini 做的应用——chatbot / 文案工具 / AI 客服 / AI 写代码 / Perplexity / Character.ai。</p>
+      <p>关键词：<em>LLM API</em> / Streaming（流式返回）/ token 计费 / <em>Embedding</em> / <em>向量数据库</em> / <em>RAG</em>（检索增强）/ <em>Agent</em> / <em>Tool use</em>。</p>
+      <div class="matching-game">
+        <div class="match-hint">连一连 ↓</div>
+        <div class="match-rows">
+          <div class="match-col">
+            <div class="match-item" data-match="A">让 AI 知道你公司内部资料</div>
+            <div class="match-item" data-match="B">让 AI 能调你的 API 做事</div>
+          </div>
+          <div class="match-col">
+            <div class="match-item" data-match="B">Tool use</div>
+            <div class="match-item" data-match="A">RAG + 向量数据库</div>
+          </div>
+        </div>
+        <div class="match-done">✓</div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_pt_web3 = {
+  id: "pt-web3",
+  emoji: "🪙",
+  title: "区块链 / Web3",
+  concept: { name: "区块链 Web3 后端", explain: "链上交互型——MetaMask / OpenSea / Uniswap / Lens / NFT 市场。" },
+  pages: [
+    { html: `
+      <p>链上交互型——MetaMask / OpenSea / Uniswap / Lens / NFT 市场。</p>
+      <p>关键词：链上交互（<em>智能合约</em>调用）/ 签名（私钥不出本机）/ <em>Gas 费</em> / 跨链桥 / 节点同步 / 链上数据索引（The Graph）/ IPFS。</p>
+      <div class="reveal-card">
+        <div class="reveal-q">为什么用 MetaMask 转一笔小额都要付 <em>Gas 费</em>？</div>
+        <button class="reveal-btn" type="button">揭晓 →</button>
+        <div class="reveal-a" hidden>
+          区块链没有"中心服务器"——你的转账要让全网节点验证 + 写进新区块。出力的矿工 / 验证者要拿报酬——这就是 <em>Gas 费</em>，按你这笔交易占的计算量算。
+        </div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_pt_iot = {
+  id: "pt-iot",
+  emoji: "🏘️",
+  title: "IoT 智能家居",
+  concept: { name: "IoT 智能家居后端", explain: "设备控制型——米家 / HomeKit / Google Home / Aqara。" },
+  pages: [
+    { html: `
+      <p>设备控制型——米家 / HomeKit / Google Home / Aqara。</p>
+      <p>关键词：设备配网（蓝牙 / Wi-Fi）/ <em>长连接</em>控制 / 场景联动（"回家"自动开灯）/ 多用户分享 / <em>Matter</em>（跨厂家协议）。</p>
+      <div class="reveal-card">
+        <div class="reveal-q">米家怎么让全屋几十个设备一起响应"我回家了"？</div>
+        <button class="reveal-btn" type="button">揭晓 →</button>
+        <div class="reveal-a" hidden>
+          每个设备都和米家云保持<em>长连接</em>。你触发"回家"场景 → 云端按你预设的列表，给灯 / 空调 / 窗帘 / 音响各推一条指令——几乎同时响应。新出的 <em>Matter</em> 协议让不同厂家设备能互通。
+        </div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_pt_personal_tool = {
+  id: "pt-personal-tool",
+  emoji: "📝",
+  title: "工具 / 笔记 / 个人",
+  concept: { name: "个人工具后端", explain: "本地优先型——Obsidian / Bear / 番茄钟 / Todo / 翻译 / OCR / 计算器 / 习惯打卡。" },
+  pages: [
+    { html: `
+      <p>本地优先型——Obsidian / Bear / 番茄钟 / Todo / 翻译 / OCR / 计算器 / 习惯打卡。</p>
+      <p>关键词：<em>本地存储</em>就够（IndexedDB / SQLite）/ <em>Markdown</em> / <em>双向链接</em> / 做大才加云同步 / 端到端加密。</p>
+      <div class="quiz-card">
+        <div class="quiz-q">"我想做个习惯打卡 App，需要后端吗？"</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" type="button" data-correct="true">不一定——本地存储就够，做大才加云同步</button>
+          <button class="quiz-opt" type="button" data-correct="false">必须微服务架构</button>
+          <button class="quiz-opt" type="button" data-correct="false">必须区块链</button>
+        </div>
+        <div class="quiz-result">大多个人工具<strong>本地存储就够</strong>。后端是为多用户 / 多端同步 / 数据安全才加的——单机自用先别上。</div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_pt_emerging = {
+  id: "pt-emerging",
+  emoji: "🔮",
+  title: "前沿 / 个人类",
+  concept: { name: "前沿 / 个人类产品", explain: "新兴技术类 + 个人工具类——AI 套壳 / Web3 / IoT / 笔记打卡。" },
+  pages: [
+    { html: `
+      <p><strong>新兴技术 + 个人工具</strong>两类放一起：要么用最新模型 / 协议、要么足够简单本地就能跑。</p>
+      <p>选一个你最像的看 →</p>
+    ` },
+  ],
+  children: [],
+};
+
+// ---- 把 6 大类挂到 product_types 入口 + 各大类下挂具体产品类 ----
+
+node_pt_consumer.children = [
+  node_pt_ecommerce,
+  node_pt_delivery,
+  node_pt_travel,
+  node_pt_property,
+  node_pt_mobility,
+];
+node_pt_social.children = [
+  node_pt_social_feed,
+  node_pt_im,
+  node_pt_video,
+  node_pt_news,
+];
+node_pt_experience.children = [
+  node_pt_game,
+  node_pt_aigc,
+  node_pt_creator,
+];
+node_pt_work.children = [
+  node_pt_saas,
+  node_pt_b2b,
+  node_pt_bi,
+  node_pt_hr,
+  node_pt_edu,
+  node_pt_email,
+  node_pt_search,
+];
+node_pt_regulated.children = [
+  node_pt_finance,
+  node_pt_medical,
+  node_pt_govt,
+];
+node_pt_emerging.children = [
+  node_pt_ai_app,
+  node_pt_web3,
+  node_pt_iot,
+  node_pt_personal_tool,
+];
+
+node_product_types.children = [
+  node_pt_consumer,
+  node_pt_social,
+  node_pt_experience,
+  node_pt_work,
+  node_pt_regulated,
+  node_pt_emerging,
+];
