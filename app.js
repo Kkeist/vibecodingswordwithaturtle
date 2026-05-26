@@ -1135,18 +1135,21 @@ function positionExamplePopup(popup) {
 function bindInteractiveWidgets(bodyEl) {
   if (!bodyEl) return;
 
-  // (0) example-card 看真实例子 —— 点击打开并行第二张卡片，不是 toggle 展开（去掉 ↓ 暗示）
+  // (0) example-card 看真实例子 —— 点击切换并行第二张卡片（toggle：开 / 关）
   bodyEl.querySelectorAll('.example-card').forEach(card => {
     const btn = card.querySelector('.example-toggle');
     const content = card.querySelector('.example-content');
     if (!btn || !content) return;
-    // hide 掉原内联内容（只用按钮触发并行卡片）
     content.hidden = true;
-    // 按钮文字去掉 ↓ 暗示（不是 toggle 展开/收起）
     btn.textContent = '📖 看真实例子';
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
-      openExampleModal(content.innerHTML, STATE.activeCardId);
+      // 已开 + 是当前主卡片的 example → 关掉；否则开
+      if (STATE.examplePopupEl && STATE.examplePopupSourceId === STATE.activeCardId) {
+        closeExampleModal();
+      } else {
+        openExampleModal(content.innerHTML, STATE.activeCardId);
+      }
     });
   });
 
