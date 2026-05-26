@@ -949,55 +949,111 @@ function closeTermTooltip() {
 
 // ---------- 互动小游戏 widget ----------
 // 在卡片 body 渲染后调用：扫 .reveal-card / .matching-game / .quiz-card，bind 交互
-// example 独立弹窗：盖在主卡片上方，自带关闭 × + 自身滚动，不影响主卡片高度 / options 位置
+// example 第二张并行卡片：跟主卡片同款样式，放在主卡片旁边（不是中心遮罩弹窗）
 function openExampleModal(html, sourceCardId) {
   closeExampleModal();
-  const overlay = document.createElement('div');
-  overlay.className = 'example-overlay';
-  overlay.innerHTML = `
-    <div class="example-modal" role="dialog" aria-label="例子">
-      <div class="example-modal-head">
-        <span class="example-modal-title">📖 看例子</span>
-        <button class="example-modal-close" type="button" aria-label="关闭">×</button>
-      </div>
-      <div class="example-modal-body">${html}</div>
+  const card = document.createElement('div');
+  card.className = 'card example-card-popup';
+  card.innerHTML = `
+    <div class="card-header">
+      <div class="card-emoji" aria-hidden="true">📖</div>
+      <div class="card-title">看例子</div>
+      <button class="card-close" type="button" aria-label="关闭">×</button>
     </div>
+    <div class="card-body example-popup-body">${html}</div>
   `;
-  document.body.appendChild(overlay);
-  // 阻止点击穿透 + 关闭逻辑
-  overlay.addEventListener('click', (e) => {
-    if (e.target === overlay) closeExampleModal();
-  });
-  overlay.querySelector('.example-modal-close').addEventListener('click', (e) => {
+  $('#card-root').appendChild(card);
+  card.style.visibility = 'hidden';
+  card.querySelector('.card-close').addEventListener('click', (e) => {
     e.stopPropagation();
     closeExampleModal();
   });
-  overlay.querySelector('.example-modal').addEventListener('click', (e) => e.stopPropagation());
-  // 绑定 modal 内的术语 tooltip
-  const body = overlay.querySelector('.example-modal-body');
-  bindTermClicks(body);
-  // 进入动画
-  requestAnimationFrame(() => overlay.classList.add('show'));
-  STATE.exampleOverlay = overlay;
+  card.addEventListener('click', (e) => e.stopPropagation());
+  bindTermClicks(card.querySelector('.example-popup-body'));
+  STATE.examplePopupEl = card;
+  // 定位在主卡片旁边（同 positionCard 算法但避开主卡片）
+  requestAnimationFrame(() => {
+    positionExamplePopup(card);
+    card.style.visibility = '';
+    card.classList.add('show');
+  });
   // ESC 关闭
   const escHandler = (ev) => {
-    if (ev.key === 'Escape') { closeExampleModal(); document.removeEventListener('keydown', escHandler); }
+    if (ev.key === 'Escape') { closeExampleModal(); }
   };
   document.addEventListener('keydown', escHandler);
   STATE.exampleEscHandler = escHandler;
 }
 
 function closeExampleModal() {
-  if (STATE.exampleOverlay) {
-    const el = STATE.exampleOverlay;
+  if (STATE.examplePopupEl) {
+    const el = STATE.examplePopupEl;
     el.classList.remove('show');
     setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, 220);
-    STATE.exampleOverlay = null;
+    STATE.examplePopupEl = null;
   }
   if (STATE.exampleEscHandler) {
     document.removeEventListener('keydown', STATE.exampleEscHandler);
     STATE.exampleEscHandler = null;
   }
+}
+
+// 算 example 第二张卡片的位置：放在主卡片旁边，4 个候选位置（右/左/下/上）选最 fit 的
+function positionExamplePopup(popup) {
+  if (!popup) return;
+  popup.style.maxHeight = '';
+  popup.style.left = '0px';
+  popup.style.top = '0px';
+  const rect = popup.getBoundingClientRect();
+  const w = rect.width;
+  const hNatural = rect.height;
+  const viewW = STATE.canvasSize.w;
+  const viewH = STATE.canvasSize.h;
+  const area = getUsableArea();
+  const topReserve = area.y + 8;
+  const bottomReserve = viewH - (area.y + area.h);
+  const leftReserve = area.x + 8;
+  const rightReserve = viewW - (area.x + area.w);
+  const maxAvailH = Math.max(160, viewH - topReserve - bottomReserve - 16);
+  let h = hNatural;
+  if (hNatural > maxAvailH) {
+    popup.style.maxHeight = maxAvailH + 'px';
+    h = maxAvailH;
+  }
+  // 主卡片位置
+  const mainCard = STATE.cardEl;
+  const mr = mainCard ? mainCard.getBoundingClientRect() : null;
+  const gap = 12;
+  const candidates = [];
+  if (mr) {
+    // 主卡右边
+    candidates.push({ x: mr.right + gap, y: mr.top, side: 'right' });
+    // 主卡左边
+    candidates.push({ x: mr.left - w - gap, y: mr.top, side: 'left' });
+    // 主卡下方（同左对齐）
+    candidates.push({ x: mr.left, y: mr.bottom + gap, side: 'bottom' });
+    // 主卡上方
+    candidates.push({ x: mr.left, y: mr.top - h - gap, side: 'top' });
+  } else {
+    candidates.push({ x: (viewW - w) / 2, y: topReserve, side: 'center' });
+  }
+  function scoreFor(c) {
+    let overflow =
+      Math.max(0, leftReserve - c.x) +
+      Math.max(0, c.x + w - (viewW - rightReserve)) +
+      Math.max(0, topReserve - c.y) +
+      Math.max(0, c.y + h - (viewH - bottomReserve));
+    return overflow;
+  }
+  let best = candidates[0], bestScore = scoreFor(candidates[0]);
+  for (let i = 1; i < candidates.length; i++) {
+    const s = scoreFor(candidates[i]);
+    if (s < bestScore) { bestScore = s; best = candidates[i]; }
+  }
+  const finalX = Math.max(leftReserve, Math.min(viewW - rightReserve - w - 8, best.x));
+  const finalY = Math.max(topReserve, Math.min(viewH - bottomReserve - h - 8, best.y));
+  popup.style.left = finalX + 'px';
+  popup.style.top = finalY + 'px';
 }
 
 function bindInteractiveWidgets(bodyEl) {
