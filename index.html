@@ -19,7 +19,18 @@
   </header>
 
   <main id="canvas-wrapper" role="main">
-    <svg id="link-layer" aria-hidden="true"></svg>
+    <svg id="link-layer" aria-hidden="true">
+      <defs>
+        <!-- 直流箭头 marker：父只有 1 个子节点时，连线终点带这个箭头 -->
+        <marker id="arrow-direct" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse" markerUnits="userSpaceOnUse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#c97b4a" opacity="0.7"/>
+        </marker>
+        <!-- 直流箭头：visited 后高亮 -->
+        <marker id="arrow-direct-gold" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse" markerUnits="userSpaceOnUse">
+          <path d="M 0 0 L 10 5 L 0 10 z" fill="#c97b4a"/>
+        </marker>
+      </defs>
+    </svg>
     <div id="node-layer"></div>
   </main>
 
@@ -36,6 +47,11 @@
         <h2>笔记本</h2>
         <p>你一路点开圆圈，遇到的新概念会自动记在这里。</p>
       </header>
+      <div class="notebook-search" style="display:none">
+        <span class="notebook-search-icon" aria-hidden="true">🔍</span>
+        <input class="notebook-search-input" type="text" placeholder="搜笔记里的字" aria-label="搜索笔记本">
+        <button class="notebook-search-clear" type="button" aria-label="清空搜索" style="display:none">×</button>
+      </div>
       <ul class="notebook-list">
         <li class="empty-hint">还没收集任何概念。<br>点开下方的圆圈开始走吧。</li>
       </ul>

@@ -129,6 +129,20 @@ const node_func = {
       <p>给它的输入叫<em>参数</em>（英文 <em>parameter</em> 或 <em>argument</em>）。吐回的结果叫<em>返回值</em>（英文 <em>return value</em>）。</p>
       <p>"调用"一个函数 = 让它跑一次。例：<code>add(3, 5)</code> 让名为 add 的函数跑一次、传 3 和 5、它返回 8。</p>
       <p>AI 经常说"我把这段抽成一个函数"——意思是把重复出现的代码打包成一个可复用的小块。</p>
+      <div class="example-card">
+        <button class="example-toggle" data-closed-text="📖 看个生活例子 ↓" data-open-text="收起 ↑">📖 看个生活例子 ↓</button>
+        <div class="example-content" hidden>
+          <div class="ex-story">
+            <div class="ex-line"><span class="ex-emoji">🍳</span>函数像一份<strong>食谱</strong>：写一次，以后照着做无数次</div>
+            <div class="ex-line"><span class="ex-emoji">📥</span><strong>食材（参数）</strong>：2 个鸡蛋、1 勺糖</div>
+            <div class="ex-line"><span class="ex-emoji">⚙️</span><strong>食谱（函数体）</strong>：打散 → 加糖 → 下锅煎 3 分钟</div>
+            <div class="ex-line"><span class="ex-emoji">📤</span><strong>成品（返回值）</strong>：一份蛋饼</div>
+            <div class="ex-line" style="margin-top:6px"><span class="ex-emoji">🔄</span>下次想吃 → 不用重新发明，直接喊「按食谱做一份」（这就是"调用函数"）</div>
+            <div class="ex-line"><span class="ex-emoji">🧰</span>同一段代码反复写 4 次 → AI 会建议"抽成函数"= 写一份食谱，省事还少错</div>
+            <div class="ex-caption">想象登录功能：登录页要、注册后要、token 失效要、改密码后要——4 处都写一遍验证逻辑会乱。抽成 login() 函数 → 4 处只调用一次。</div>
+          </div>
+        </div>
+      </div>
     ` },
   ],
   children: [node_control_flow],
@@ -149,6 +163,19 @@ const node_oop = {
       <p><em>方法</em>（<em>method</em>）：实例能做的动作（用户.下单()、用户.改密码()）。</p>
       <p><em>继承</em>（<em>inherit</em>）：管理员「是一种」用户——继承用户类、再加自己独有的能力。</p>
       <p>这整套思路叫<em>面向对象编程</em>（<em>OOP</em>，Object-Oriented Programming）。</p>
+      <div class="example-card">
+        <button class="example-toggle" data-closed-text="📖 看个生活例子 ↓" data-open-text="收起 ↑">📖 看个生活例子 ↓</button>
+        <div class="example-content" hidden>
+          <div class="ex-story">
+            <div class="ex-line"><span class="ex-emoji">📋</span><strong>类</strong>像一张"用户档案模板"——上面写：每个用户都有【名字 / 头像 / 邮箱】+ 能做【发帖 / 改头像 / 拉黑别人】</div>
+            <div class="ex-line"><span class="ex-emoji">👤</span><strong>实例</strong>就是按模板填出来的<strong>一个具体用户</strong>：小明（头像🐶、邮箱 xx@x.com）</div>
+            <div class="ex-line"><span class="ex-emoji">👤</span>再造一个：小红（头像🐱、邮箱 yy@y.com）——同模板，不同数据</div>
+            <div class="ex-line"><span class="ex-emoji">🎬</span><strong>方法</strong>：小明.发帖("今天好开心") → 这就是让小明执行模板里的"发帖"动作</div>
+            <div class="ex-line"><span class="ex-emoji">👑</span><strong>继承</strong>：管理员模板 = 普通用户模板 + 多个"封号 / 删帖"动作。不用重写"发帖"那些（自动继承）</div>
+            <div class="ex-caption">这就是为啥微博能有几亿用户却用一套代码搞定——一个"用户类" 模板 + 几亿份"实例"数据。</div>
+          </div>
+        </div>
+      </div>
     ` },
   ],
   children: [],
@@ -169,6 +196,20 @@ const node_data_types = {
       <p><em>对象</em>（<em>object</em>）：一组带标签的属性，写作 { name: "小明", age: 10 }。</p>
       <p><em>null</em> / <em>undefined</em>：表示「没值 / 空」。两个有微妙差别但日常都当「空」理解。</p>
       <p>报错里出现「X is undefined」一般是：你以为某变量有值其实没有。</p>
+      <div class="example-card">
+        <button class="example-toggle" data-closed-text="📖 看个生活例子 ↓" data-open-text="收起 ↑">📖 看个生活例子 ↓</button>
+        <div class="example-content" hidden>
+          <div class="ex-story">
+            <div class="ex-line"><span class="ex-emoji">📝</span><strong>字符串</strong>：朋友圈那条文字"今天好开心"——任何文字都是字符串</div>
+            <div class="ex-line"><span class="ex-emoji">🔢</span><strong>数字</strong>：购物车里"3 件商品"的那个 3、订单金额 39.9</div>
+            <div class="ex-line"><span class="ex-emoji">✅</span><strong>布尔</strong>：你"是否已登录"——只有"是"或"否"两种</div>
+            <div class="ex-line"><span class="ex-emoji">📋</span><strong>数组</strong>：购物车里那一列商品，按顺序排好</div>
+            <div class="ex-line"><span class="ex-emoji">🪪</span><strong>对象</strong>：你的个人资料卡——名字、年龄、头像、生日都打包成一张</div>
+            <div class="ex-line"><span class="ex-emoji">🕳️</span><strong>null</strong>：还没填的"昵称"那一栏——什么都没有</div>
+            <div class="ex-caption">把"3"（字符串）当 3（数字）做加法 → 报错。AI 提示"类型不对"就是说你把这两种弄混了。</div>
+          </div>
+        </div>
+      </div>
     ` },
   ],
   children: [node_func, node_oop],
@@ -189,6 +230,20 @@ const node_stack_mem = {
       <p><em>栈溢出</em>（<em>stack overflow</em>）：函数 A 调 A 调 A 没尽头，栈塞满了——通常是写漏了"停止条件"。</p>
       <p><em>内存泄漏</em>（<em>memory leak</em>）：用过的内存没释放，越占越多，程序越跑越慢直到崩。</p>
       <p><em>调用栈</em>（<em>call stack</em>）：报错里那一串"在哪个函数被哪个函数调用"的轨迹——从下往上读 = 从外往里的调用顺序。</p>
+      <div class="example-card">
+        <button class="example-toggle" data-closed-text="📖 看个生活例子 ↓" data-open-text="收起 ↑">📖 看个生活例子 ↓</button>
+        <div class="example-content" hidden>
+          <div class="ex-story">
+            <div class="ex-line"><span class="ex-emoji">🥞</span><strong>栈</strong>像食堂叠盘子：来一个洗好的盘子<strong>放最上面</strong>，要用就从<strong>最上面</strong>拿</div>
+            <div class="ex-line"><span class="ex-emoji">📞</span>函数 A 叫了函数 B，B 又叫了 C → 盘子栈：[A → B → C]（C 在最上面正在跑）</div>
+            <div class="ex-line"><span class="ex-emoji">✅</span>C 跑完，弹出 → 盘子栈剩 [A → B]，回到 B 继续</div>
+            <div class="ex-line"><span class="ex-emoji">💥</span><strong>栈溢出</strong>：A 叫 A 叫 A...没尽头，盘子叠到天花板 → 崩。99% 是写循环忘了"停止条件"</div>
+            <div class="ex-line" style="margin-top:8px"><span class="ex-emoji">📦</span><strong>堆</strong>像仓库：大件东西（一整个数组、一个用户对象）丢仓库，用一个"地址条"指过去</div>
+            <div class="ex-line"><span class="ex-emoji">🧹</span><strong>内存泄漏</strong>：仓库里堆了不用的旧货，没人收走，仓库越来越满 → 程序越来越卡直到崩</div>
+            <div class="ex-caption">看报错的<strong>调用栈</strong>就是看"那叠盘子从下到上"——从最下（最先开始的函数）一路读到最上（出错的那个），就知道是哪条调用链断了。</div>
+          </div>
+        </div>
+      </div>
     ` },
   ],
   children: [],
@@ -209,6 +264,19 @@ const node_var = {
         <span class="ei-label">「小明」</span>
       </div>
       <p>之后写 <code>name</code> 就等于写 「小明」。改一次值，所有用到它的地方一起变。AI 说"声明一个变量"就是这个意思。</p>
+      <div class="example-card">
+        <button class="example-toggle" data-closed-text="📖 看个生活例子 ↓" data-open-text="收起 ↑">📖 看个生活例子 ↓</button>
+        <div class="example-content" hidden>
+          <div class="ex-story">
+            <div class="ex-line"><span class="ex-emoji">📮</span>想象有一排储物柜，每个柜子都有个名字牌</div>
+            <div class="ex-line"><span class="ex-emoji">🏷️</span>柜子<strong>「name」</strong>里装着「小明」</div>
+            <div class="ex-line"><span class="ex-emoji">🏷️</span>柜子<strong>「age」</strong>里装着数字 10</div>
+            <div class="ex-line"><span class="ex-emoji">💬</span>之后你说"name"，所有人都知道指那个柜子里的「小明」</div>
+            <div class="ex-line"><span class="ex-emoji">🔄</span>你把柜子<strong>「name」</strong>换成「小红」<span class="ex-arrow">→</span>所有提到 name 的地方一起变</div>
+            <div class="ex-caption">变量 = 装值的小柜子 + 上面的名字牌。代码里所有"用户名"、"购物车数量"、"是否登录"这些都是变量。</div>
+          </div>
+        </div>
+      </div>
     ` },
   ],
   children: [node_data_types, node_stack_mem],
@@ -378,6 +446,20 @@ const node_prompt = {
       <p><em>Context window</em>：模型一次最多能容下多少 token。Claude Opus 4.7 是 100 万 token，约一本厚书。</p>
       <p><em>LLM</em>（Large Language Model）：大语言模型——Claude、ChatGPT、Gemini、DeepSeek 这些 AI 的统称。</p>
       <p><em>幻觉</em>（<em>hallucination</em>）：AI 一本正经编不存在的东西（函数名、库名、API）——所以重要的事一定要让它跑命令验证。</p>
+      <div class="example-card">
+        <button class="example-toggle" data-closed-text="📖 看个生活例子 ↓" data-open-text="收起 ↑">📖 看个生活例子 ↓</button>
+        <div class="example-content" hidden>
+          <div class="ex-story">
+            <div class="ex-line"><span class="ex-emoji">💬</span><strong>提示词</strong> = 你给 AI 发的微信消息：写得越清楚，AI 越知道你要啥</div>
+            <div class="ex-line"><span class="ex-emoji">📜</span><strong>上下文</strong> = 你俩这一整段聊天记录：AI 只记得"这个窗口里"说过的话</div>
+            <div class="ex-line"><span class="ex-emoji">📏</span>每个 AI 都有<strong>记忆上限</strong>（比如 20 万字），超了就忘掉最前面的</div>
+            <div class="ex-line" style="margin-top:8px"><span class="ex-emoji">🪙</span><strong>token</strong> = AI 的"按字收费"单位，但不完全按汉字数</div>
+            <div class="ex-line"><span class="ex-emoji">🔢</span>大概：1 个汉字 ≈ 2 token，1 个英文单词 ≈ 1 token</div>
+            <div class="ex-line"><span class="ex-emoji">💸</span>发一段 1000 字的提示词 ≈ 烧 2000 token，AI 回 500 字又烧 1000——按 token 算钱</div>
+            <div class="ex-caption">所以提示词不是越长越好——又费钱、又把 AI 的记忆挤满，反而记不住后面的关键要求。</div>
+          </div>
+        </div>
+      </div>
     ` },
   ],
   children: [],
@@ -488,6 +570,20 @@ const node_localhost = {
         <li>临时分享：<em>ngrok</em> / <em>Cloudflare Tunnel</em> 打个隧道，把本机端口暴露成公网网址</li>
       </ul>
       <p>本机服务能不能进还跟<em>防火墙</em>（<em>firewall</em>）有关——公司 / 学校网络常拦截。</p>
+      <div class="example-card">
+        <button class="example-toggle" data-closed-text="📖 看个生活例子 ↓" data-open-text="收起 ↑">📖 看个生活例子 ↓</button>
+        <div class="example-content" hidden>
+          <div class="ex-story">
+            <div class="ex-line"><span class="ex-emoji">🏠</span><strong>localhost</strong> = "我自己这台电脑"的代号，等于在家门口贴张纸条只给自己看</div>
+            <div class="ex-line"><span class="ex-emoji">🚪</span><strong>端口号</strong>(:3000 / :8080) = 你家不同的房门，一个端口一个服务</div>
+            <div class="ex-line"><span class="ex-emoji">👀</span>所以 <code>localhost:3000</code> = "在我电脑的 3000 号门后面跑的网页"</div>
+            <div class="ex-line" style="margin-top:8px"><span class="ex-emoji">📱</span>把链接发给朋友——朋友的 <strong>localhost</strong> 是<strong>他自己的</strong>电脑，不是你的</div>
+            <div class="ex-line"><span class="ex-emoji">🚫</span>所以朋友点开是空白：他在自己家门口找，那当然没有</div>
+            <div class="ex-line"><span class="ex-emoji">🌐</span>要让别人看到，得部署到真服务器（Vercel / Netlify），拿个公网网址</div>
+            <div class="ex-caption">"我本地能跑啊"——程序员之间最经典的甩锅金句，因为 localhost 永远只代表"我自己"。</div>
+          </div>
+        </div>
+      </div>
     ` },
   ],
   children: [],
@@ -515,6 +611,19 @@ const node_env_apikey = {
       <p>代码里读 <code>process.env.OPENAI_API_KEY</code>，不直接写那串字符。</p>
       <p>同时把 <em>.env</em> 加进 <em>.gitignore</em>——告诉 Git 不要上传这个文件。</p>
       <p>真不小心传了？<strong>立刻去对方平台撤销那个 key 重新生成</strong>，删 commit 来不及（GitHub 历史里还在）。</p>
+      <div class="example-card">
+        <button class="example-toggle" data-closed-text="📖 看个生活例子 ↓" data-open-text="收起 ↑">📖 看个生活例子 ↓</button>
+        <div class="example-content" hidden>
+          <div class="ex-story">
+            <div class="ex-line"><span class="ex-emoji">🔑</span><strong>API key</strong> = 用别人家服务的"钥匙"：调 OpenAI、调高德地图都要拿钥匙刷一下</div>
+            <div class="ex-line"><span class="ex-emoji">💳</span>这把钥匙和你银行卡密码一样——谁拿到谁就能用你的额度刷钱</div>
+            <div class="ex-line" style="margin-top:8px"><span class="ex-emoji">😱</span>常见灾难：把 key 直接写代码里 → 上传 GitHub → 几小时后被盗刷几千刀</div>
+            <div class="ex-line"><span class="ex-emoji">📁</span>正确做法：把 key 写进一个叫 <strong>.env</strong> 的小本本，放电脑本地不上传</div>
+            <div class="ex-line"><span class="ex-emoji">🔌</span>代码里写"去环境变量拿 KEY"，而不是直接写出 key 长啥样</div>
+            <div class="ex-caption">让 AI 写代码时如果它直接把 sk-xxxx 写进去——立刻让它改成读 .env，不然你的钱包会哭。</div>
+          </div>
+        </div>
+      </div>
     ` },
   ],
   children: [],
@@ -550,6 +659,23 @@ const node_json_methods = {
         <li><em>429</em>：你调太频繁了，被限流</li>
         <li><em>500</em>：服务器自己崩了</li>
       </ul>
+      <div class="example-card">
+        <button class="example-toggle" data-closed-text="📖 看个生活例子 ↓" data-open-text="收起 ↑">📖 看个生活例子 ↓</button>
+        <div class="example-content" hidden>
+          <div class="ex-story">
+            <div class="ex-line"><span class="ex-emoji">📦</span><strong>JSON</strong> = 快递面单的标准写法：收件人、地址、电话一栏一栏写清楚</div>
+            <div class="ex-line"><span class="ex-emoji">🏷️</span>长这样：<code>{"姓名":"小明","年龄":10,"会员":true}</code>——前后端都认这个格式</div>
+            <div class="ex-line" style="margin-top:8px"><span class="ex-emoji">👀</span><strong>GET</strong> = 查快递（"我那件到哪了？"）</div>
+            <div class="ex-line"><span class="ex-emoji">📮</span><strong>POST</strong> = 寄新快递（"帮我寄这个出去"）</div>
+            <div class="ex-line"><span class="ex-emoji">✏️</span><strong>PUT</strong> = 改地址（"整张面单换新的"）</div>
+            <div class="ex-line"><span class="ex-emoji">🗑️</span><strong>DELETE</strong> = 取消订单</div>
+            <div class="ex-line" style="margin-top:8px"><span class="ex-emoji">✅</span><strong>200</strong> = 成功送到</div>
+            <div class="ex-line"><span class="ex-emoji">❓</span><strong>404</strong> = 地址不存在（写错了网址）</div>
+            <div class="ex-line"><span class="ex-emoji">💥</span><strong>500</strong> = 快递公司自己出事了（服务器崩了，不是你的锅）</div>
+            <div class="ex-caption">报错弹"404"就是网址打错或接口名拼错；弹"500"是后端炸了——找写后端的同事，不是你前端的问题。</div>
+          </div>
+        </div>
+      </div>
     ` },
   ],
   children: [],
@@ -818,6 +944,19 @@ const node_api_http = {
       <p>你按对方提供的格式发请求，对方按格式回——这种约定叫 <em>API</em>。</p>
       <p>底下用的对话协议叫 <em>HTTP</em>。网址前的 http:// 就是它。</p>
       <p>这是 vc 创作者最魔法的部分——会调 API 就能用上几百个公司的服务。</p>
+      <div class="example-card">
+        <button class="example-toggle" data-closed-text="📖 看个生活例子 ↓" data-open-text="收起 ↑">📖 看个生活例子 ↓</button>
+        <div class="example-content" hidden>
+          <div class="ex-story">
+            <div class="ex-line"><span class="ex-emoji">🍔</span>你在<strong>美团</strong>点外卖：手机 App 是"客人"，餐厅是"服务方"</div>
+            <div class="ex-line"><span class="ex-emoji">📋</span>两边约好一份<strong>菜单</strong>：写明能点啥、怎么点、加不加辣怎么标</div>
+            <div class="ex-line"><span class="ex-emoji">📞</span>这份"菜单 + 点单规则"就是 <strong>API</strong>——前端按规则下单，后端按规则做菜</div>
+            <div class="ex-line"><span class="ex-emoji">🚚</span>送菜的快递员就是 <strong>HTTP</strong>：负责把"订单"和"菜"在两边来回送</div>
+            <div class="ex-line"><span class="ex-emoji">👀</span><strong>GET</strong> = 翻菜单看有啥（只看不动）；<strong>POST</strong> = 真的下单（提交了就生效）</div>
+            <div class="ex-caption">没约好 API 就像客人用日语点单、厨房只懂中文——鸡同鸭讲，要么报错要么送错菜。</div>
+          </div>
+        </div>
+      </div>
     ` },
   ],
   children: [node_database_web, node_json_methods],
@@ -848,6 +987,20 @@ const node_fe_be = {
       <p><em>前端</em>：用户看到的部分，跑在浏览器里（<em>HTML</em> / <em>CSS</em> / <em>JS</em> 写的）。</p>
       <p><em>后端</em>：用户看不到的部分，跑在你的服务器上，管账号、存数据、收钱。</p>
       <p>做纯展示工具（番茄钟、计算器）只要前端就够。要存数据 / 多人共享 / 收钱就要加后端。</p>
+      <div class="example-card">
+        <button class="example-toggle" data-closed-text="📖 看个生活例子 ↓" data-open-text="收起 ↑">📖 看个生活例子 ↓</button>
+        <div class="example-content" hidden>
+          <div class="ex-story">
+            <div class="ex-line"><span class="ex-emoji">🍽️</span>开一家餐厅：<strong>前端 = 大堂</strong>，<strong>后端 = 后厨</strong></div>
+            <div class="ex-line" style="margin-top:8px"><span class="ex-emoji">👀</span><strong>前端</strong>：菜单好不好看、桌椅舒不舒服、服务员怎么记单——用户能看到摸到的</div>
+            <div class="ex-line"><span class="ex-emoji">🍳</span><strong>后端</strong>：菜怎么做、食材库存放哪、账单怎么算——用户看不见但必须干的活</div>
+            <div class="ex-line" style="margin-top:8px"><span class="ex-emoji">📝</span>你点"宫保鸡丁"<span class="ex-arrow">→</span>服务员（前端）把单递进厨房（后端）</div>
+            <div class="ex-line"><span class="ex-emoji">🍛</span>厨房炒好<span class="ex-arrow">→</span>服务员端出来摆好<span class="ex-arrow">→</span>你看到漂亮的成品</div>
+            <div class="ex-line" style="margin-top:8px"><span class="ex-emoji">💡</span>朋友圈点赞按钮 = 前端；"点赞数 +1 存进数据库" = 后端</div>
+            <div class="ex-caption">页面卡了找前端，"提交后数据没保存 / 别人看不到我发的"找后端——分清楚才不会冤枉人。</div>
+          </div>
+        </div>
+      </div>
     ` },
   ],
   children: [node_api_http, node_env_apikey],
@@ -1861,6 +2014,9 @@ const TREE_DATA = {
   ],
   children: [
     node_basics_entry,
+    { ref: "tools-entry", jump: true },
+    { ref: "platform-pick", jump: true },
+    { ref: "product-types", jump: true },
   ],
 };
 
@@ -2972,3 +3128,11 @@ node_product_types.children = [
   node_pt_regulated,
   node_pt_emerging,
 ];
+
+// ============================================================
+// v14：把这几个主题入口加进 SHARED_NODES，让 root 的"跳转选项"能引用它们
+// ref 机制：一个节点可被多父连入。这里 root 通过 ref 给用户提供"绕过基础链直接跳到主题"的快速入口
+// ============================================================
+SHARED_NODES["tools-entry"] = node_tools_entry;
+SHARED_NODES["platform-pick"] = node_platform_pick;
+SHARED_NODES["product-types"] = node_product_types;

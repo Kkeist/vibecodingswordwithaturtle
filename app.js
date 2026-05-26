@@ -17,6 +17,7 @@ const STATE = {
   viewTransform: { tx: 0, ty: 0, scale: 1 },
   notebook: [],      // [{ name, explain, fromNodeId }]
   notebookSeen: new Set(),  // 概念名去重
+  notebookFilter: '',       // 笔记本搜索关键字（小写）
   termTooltipEl: null,      // 当前打开的术语 tooltip
 };
 
@@ -35,17 +36,17 @@ const LAYOUT = {
   padX: 32,
 };
 
-// 一级 8 个分支固定方向（度数，0° = 上，顺时针 + ；不均匀分布以减弱"中心辐射"感）
-// 顺序对应 TREE_DATA.children 顺序：basics / tools / where-web / where-desktop / where-mobile / where-cli / where-server / where-hardware
+// root 子节点 spawn 时固定方向（度数，0° = 右，顺时针）
+// v14 顺序：basics_entry (主) + 3 jump (工具 / 平台 / 产品)。剩余角度备用以防加新跳转
 const ROOT_BRANCH_ANGLES = [
-  -160,   // [0] 先理解代码本身 → 上偏左
-  -100,   // [1] 写代码用什么工具 → 上偏左
-  -55,    // [2] 浏览器 → 上偏右
-  -15,    // [3] 电脑 → 上偏右
-  25,     // [4] 手机 → 右上
-  75,     // [5] 命令行 → 右
-  125,    // [6] 服务 → 右下
-  165,    // [7] 硬件 → 左下偏下
+  -90,    // [0] basics_entry → 正上方 主路径
+  -25,    // [1] tools-entry → 右上 跳转
+  50,     // [2] platform-pick → 右下 跳转
+  -150,   // [3] product-types → 左上 跳转
+  150,    // [4] 备用
+  -75,    // [5] 备用
+  90,     // [6] 备用
+  170,    // [7] 备用
 ];
 
 function isMobileView() {
@@ -118,6 +119,7 @@ function renderNode(entry, startX, startY) {
     <div class="node-disc"></div>
     <div class="node-emoji" aria-hidden="true">${entry.data.emoji}</div>
     <div class="node-title">${escapeHTML(entry.data.title)}</div>
+    <div class="node-badge" aria-hidden="true"></div>
   `;
   el.addEventListener('click', (e) => {
     e.stopPropagation();
@@ -125,6 +127,32 @@ function renderNode(entry, startX, startY) {
   });
   entry.el = el;
   layer.appendChild(el);
+  updateNodeBadge(entry);
+}
+
+// ---------- 节点角标：💡 新可点 / ! 还有路没走完 ----------
+// 规则：
+//   - 没 visited 且不是 root → 💡（刚 spawn 出来的新路径，提示可以点）
+//   - visited 且自己 children 还没全部 spawn → ! （还有支路没走）
+//   - 全部走完 / root 在初始等待 → 无
+function updateNodeBadge(entry) {
+  if (!entry.el) return;
+  const badge = entry.el.querySelector('.node-badge');
+  if (!badge) return;
+  const isRoot = !entry.parent;
+  const dataChildrenCount = (entry.data.children || []).length;
+  const spawnedCount = entry.children.length;
+  const hasUnspawned = dataChildrenCount > 0 && spawnedCount < dataChildrenCount;
+  // 类清空重判
+  badge.classList.remove('badge-lightbulb', 'badge-exclaim', 'show');
+  badge.textContent = '';
+  if (!entry.visited && !isRoot) {
+    badge.classList.add('badge-lightbulb', 'show');
+    badge.textContent = '💡';
+  } else if (entry.visited && hasUnspawned) {
+    badge.classList.add('badge-exclaim', 'show');
+    badge.textContent = '!';
+  }
 }
 
 // ---------- 连线 ----------
@@ -137,21 +165,65 @@ function renderLink(parent, child) {
   path.dataset.to = child.id;
   path.setAttribute('d', `M ${parent.x} ${parent.y} L ${parent.x} ${parent.y}`);
   svg.appendChild(path);
-  const info = { el: path, parent, child };
+  // 给每条连线随机一个曲线偏向 + 强度，让多条曲线看着自然不一样（宝宝"随意的曲线"）
+  const info = {
+    el: path, parent, child,
+    curveSign: Math.random() < 0.5 ? -1 : 1,
+    curveAmp: 0.15 + Math.random() * 0.18,  // 曲度 15%~33%
+  };
   if (!STATE.links.has(child.id)) STATE.links.set(child.id, []);
   STATE.links.get(child.id).push(info);
+  updateLinkArrow(parent);
   return info;
+}
+
+// 父 children.length === 1 = 直流连线加箭头；多 children = 分叉无箭头
+// 父 children 数变化时（spawn 新子）也要更新所有 incoming link 的箭头
+function updateLinkArrow(parent) {
+  if (!parent) return;
+  const isDirect = (parent.data.children || []).length === 1;
+  parent.children.forEach(child => {
+    const links = STATE.links.get(child.id);
+    if (!links) return;
+    links.forEach(li => {
+      if (li.parent !== parent) return;
+      li.el.classList.toggle('arrow-direct', isDirect);
+    });
+  });
 }
 
 function updateLinkPath(linkInfo) {
   const { el, parent, child } = linkInfo;
-  const x1 = parent.x, y1 = parent.y;
-  const x2 = child.x, y2 = child.y;
-  // 三次贝塞尔：父向上出，子从下方进 —— 弧线感
-  const dy = y2 - y1;
-  const c1y = y1 + dy * 0.45;
-  const c2y = y2 - dy * 0.45;
-  el.setAttribute('d', `M ${x1} ${y1} C ${x1} ${c1y}, ${x2} ${c2y}, ${x2} ${y2}`);
+  const parentR = getNodeSize(parent) / 2;
+  const childR = getNodeSize(child) / 2;
+  const dx = child.x - parent.x, dy = child.y - parent.y;
+  const dist = Math.hypot(dx, dy) || 1;
+  // 起点 / 终点都缩到节点边缘外，让连线两端不被 disc 遮（同时 marker-end 箭头清晰可见）
+  const isDirect = (parent.data.children || []).length === 1;
+  const startPull = parentR + 2;
+  const endPull = isDirect ? (childR + 8) : (childR + 2);
+  const x1 = parent.x + dx * (startPull / dist);
+  const y1 = parent.y + dy * (startPull / dist);
+  const x2 = parent.x + dx * ((dist - endPull) / dist);
+  const y2 = parent.y + dy * ((dist - endPull) / dist);
+
+  if (isDirect) {
+    // 直流（带箭头）= 直线（宝宝原话：箭头必须是直线哦，不能是弯的）
+    el.setAttribute('d', `M ${x1} ${y1} L ${x2} ${y2}`);
+  } else {
+    // 分叉（非箭头）= 随意曲线（宝宝原话：非箭头都是随意的曲线）
+    // 用法线方向偏置控制点，让任意角度的连线都有真正的弧度（水平方向不退化）
+    const segDist = Math.hypot(x2 - x1, y2 - y1) || 1;
+    const sign = linkInfo.curveSign || 1;
+    const amp = linkInfo.curveAmp || 0.22;
+    const nxN = -(y2 - y1) / segDist;  // 起点→终点向量的法线 X
+    const nyN = (x2 - x1) / segDist;   // 法线 Y
+    const offset = segDist * amp;
+    const mx = (x1 + x2) / 2, my = (y1 + y2) / 2;
+    const cpx = mx + nxN * offset * sign;
+    const cpy = my + nyN * offset * sign;
+    el.setAttribute('d', `M ${x1} ${y1} Q ${cpx} ${cpy}, ${x2} ${y2}`);
+  }
 }
 
 // ---------- 点击节点 ----------
@@ -161,6 +233,7 @@ function handleNodeClick(entry) {
   if (!entry.visited) {
     entry.visited = true;
     entry.el.classList.add('visited');
+    updateNodeBadge(entry);  // 💡 → ! 或 无
   }
   // 把所有进入它的连线（主父 + 所有 refParents）都点亮——展示「这条路也通到这里」
   const linkInfos = STATE.links.get(entry.id);
@@ -189,6 +262,7 @@ function handleOptionClick(parentEntry, optionIndex) {
       if (parentEntry.children.indexOf(childEntry) < 0) parentEntry.children.push(childEntry);
       renderLink(parentEntry, childEntry);
       applyLayoutToDOM();
+      updateNodeBadge(parentEntry);
     }
   } else {
     childEntry = spawnOneChild(parentEntry, item, optionIndex);
@@ -217,6 +291,8 @@ function spawnOneChild(parent, item, optionIndex) {
   layoutTree();
   applyLayoutToDOM();
   setTimeout(fitToScreen, 720);
+  // 父节点 children 数 +1 → 重算 ! 角标；新子默认 💡
+  updateNodeBadge(parent);
   return childEntry;
 }
 
@@ -241,19 +317,58 @@ function addToNotebook(entry) {
 function renderNotebook() {
   const list = $('.notebook-list');
   const countEl = $('.notebook-count');
+  const searchInput = $('.notebook-search-input');
+  const clearBtn = $('.notebook-search-clear');
   if (!list || !countEl) return;
   countEl.textContent = STATE.notebook.length;
   countEl.classList.toggle('empty', STATE.notebook.length === 0);
+  // 搜索框可见性 + 当前值
+  const hasItems = STATE.notebook.length > 0;
+  const searchWrap = $('.notebook-search');
+  if (searchWrap) searchWrap.style.display = hasItems ? '' : 'none';
+  if (searchInput && searchInput.value !== STATE.notebookFilter) {
+    searchInput.value = STATE.notebookFilter;
+  }
+  if (clearBtn) clearBtn.style.display = STATE.notebookFilter ? '' : 'none';
+
   if (STATE.notebook.length === 0) {
     list.innerHTML = '<li class="empty-hint">还没收集任何概念。<br>点开下方的圆圈开始走吧。</li>';
     return;
   }
-  list.innerHTML = STATE.notebook.map(c => `
+  const filter = STATE.notebookFilter.trim().toLowerCase();
+  const filtered = filter
+    ? STATE.notebook.filter(c =>
+        (c.name || '').toLowerCase().includes(filter) ||
+        (c.explain || '').toLowerCase().includes(filter)
+      )
+    : STATE.notebook;
+  if (filtered.length === 0) {
+    list.innerHTML = `<li class="empty-hint">没找到包含「${escapeHTML(STATE.notebookFilter)}」的概念。</li>`;
+    return;
+  }
+  list.innerHTML = filtered.map(c => `
     <li>
-      <div class="concept-name">${escapeHTML(c.name)}</div>
-      <div class="concept-explain">${escapeHTML(c.explain)}</div>
+      <div class="concept-name">${highlightMatch(c.name, filter)}</div>
+      <div class="concept-explain">${highlightMatch(c.explain, filter)}</div>
     </li>
   `).join('');
+}
+
+// 关键字高亮：匹配段用 <mark>，其它部分 escapeHTML
+function highlightMatch(text, filter) {
+  if (!text) return '';
+  if (!filter) return escapeHTML(text);
+  const lower = text.toLowerCase();
+  let result = '';
+  let i = 0;
+  while (i < text.length) {
+    const idx = lower.indexOf(filter, i);
+    if (idx < 0) { result += escapeHTML(text.slice(i)); break; }
+    result += escapeHTML(text.slice(i, idx));
+    result += '<mark>' + escapeHTML(text.slice(idx, idx + filter.length)) + '</mark>';
+    i = idx + filter.length;
+  }
+  return result;
 }
 
 function bindNotebook() {
@@ -263,7 +378,35 @@ function bindNotebook() {
   toggle.addEventListener('click', () => {
     const open = aside.classList.toggle('open');
     toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    // 打开抽屉时自动聚焦搜索框（更顺手）
+    if (open) {
+      const input = $('.notebook-search-input');
+      if (input) setTimeout(() => input.focus({ preventScroll: true }), 350);
+    }
+    // 注意：笔记本开/关 **不重新定位卡片**。宝宝原话「笔记本已出现就会遮挡，所以不要打开
+    // 笔记本的时候换那个 box 的位置」——遮挡是接受的代价，瞬移才是更糟的体验
   });
+  // 笔记本搜索框：input 事件实时过滤
+  const input = $('.notebook-search-input');
+  const clearBtn = $('.notebook-search-clear');
+  if (input) {
+    input.addEventListener('input', () => {
+      STATE.notebookFilter = input.value || '';
+      renderNotebook();
+    });
+    // 阻止冒泡到 wrapper（防止误触发拖动）
+    input.addEventListener('mousedown', (e) => e.stopPropagation());
+    input.addEventListener('touchstart', (e) => e.stopPropagation(), { passive: true });
+  }
+  if (clearBtn) {
+    clearBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      STATE.notebookFilter = '';
+      if (input) input.value = '';
+      renderNotebook();
+      if (input) input.focus();
+    });
+  }
   renderNotebook();
 }
 
@@ -328,10 +471,14 @@ function placeChildren(entry, parentAngle) {
   const baseLen = getNodeLen();
 
   if (mainChildren.length === 1) {
+    // 直流单子节点 = 紧贴父节点（"在旁边"），不再用长距离 chain
+    // 距离 = 节点直径 + ~30px 间隙，让直线连线箭头清晰且短
     const c = mainChildren[0];
+    const nodeR = getNodeR();
+    const directLen = nodeR * 2 + 30;
     const rad = parentAngle * Math.PI / 180;
-    c.x = entry.x + Math.sin(rad) * baseLen;
-    c.y = entry.y - Math.cos(rad) * baseLen;
+    c.x = entry.x + Math.sin(rad) * directLen;
+    c.y = entry.y - Math.cos(rad) * directLen;
     placeChildren(c, parentAngle);
   } else if (mainChildren.length > 1) {
     const N = mainChildren.length;
@@ -511,6 +658,8 @@ function openCard(nodeId) {
   const pagerEl = card.querySelector('.card-pager');
 
   // 渲染卡片底部「选项列表」：每个 child 是一个可点选项
+  // 视觉区分：主选项 / 灯泡支线 / 跳转（root 才有）
+  // 注意：单选项"直流"提示 = 地图上的连线带箭头标记（不在卡片内画箭头）
   function renderOptions() {
     const items = data.children || [];
     if (items.length === 0) {
@@ -518,18 +667,28 @@ function openCard(nodeId) {
       return;
     }
     const isRoot = !entry.parent;
-    optionsEl.innerHTML = '<div class="options-label">' + (isRoot ? '选一条路走：' : '接下来：') + '</div>' + items.map((item, i) => {
+    optionsEl.innerHTML = '<div class="options-label">' + (isRoot ? '想走的路：' : (items.length === 1 ? '接下来：' : '接下来：')) + '</div>' + items.map((item, i) => {
       const isLightbulb = !isRoot && !!item.lightbulb;
+      const isJump = !!item.jump;
       const itemData = item.ref ? SHARED_NODES[item.ref] : item;
       const existing = itemData ? STATE.nodes.get(itemData.id) : null;
       const visited = !!(existing && existing.visited);
       const cls = ['option'];
-      if (isLightbulb) cls.push('lightbulb');
+      if (isJump) cls.push('jump');
+      else if (isLightbulb) cls.push('lightbulb');
       else cls.push('main');
       if (visited) cls.push('visited');
-      const icon = isLightbulb ? '💡' : (itemData ? itemData.emoji : '');
+      let icon, subhint = '';
+      if (isJump) {
+        icon = itemData ? itemData.emoji : '⤴';
+        subhint = '<span class="opt-hint">跳转</span>';
+      } else if (isLightbulb) {
+        icon = '💡';
+        subhint = '<span class="opt-hint">支线</span>';
+      } else {
+        icon = itemData ? itemData.emoji : '';
+      }
       const label = itemData ? itemData.title : '?';
-      const subhint = isLightbulb ? '<span class="opt-hint">支线</span>' : '';
       return `<button class="${cls.join(' ')}" data-idx="${i}" type="button"><span class="opt-icon">${icon}</span><span class="opt-label">${escapeHTML(label)}</span>${subhint}</button>`;
     }).join('');
     optionsEl.querySelectorAll('.option').forEach(btn => {
@@ -597,12 +756,14 @@ function openCard(nodeId) {
 function positionCard(card, entry) {
   if (!card || !entry) return;
 
+  // 先清 max-height 让卡片自然测量
+  card.style.maxHeight = '';
   card.style.visibility = 'hidden';
   card.style.left = '0px';
   card.style.top = '0px';
   const rect = card.getBoundingClientRect();
-  const w = rect.width;
-  const h = rect.height;
+  const wNatural = rect.width;
+  const hNatural = rect.height;
 
   const screen = toScreenXY(entry);
   const cx = screen.x;
@@ -617,6 +778,16 @@ function positionCard(card, entry) {
   const bottomReserve = viewH - (area.y + area.h);
   const leftReserve = area.x + 8;
   const rightReserve = viewW - (area.x + area.w);
+  const maxAvailH = Math.max(160, viewH - topReserve - bottomReserve - 16);
+
+  // 限制卡片最大高度不超 viewport 可用区域，强保证不上下出画
+  // 字号不缩（宝宝原话：手机字小是绝对禁止）；过长内容由 card-body 自身处理
+  let h = hNatural;
+  if (hNatural > maxAvailH) {
+    card.style.maxHeight = maxAvailH + 'px';
+    h = maxAvailH;
+  }
+  const w = wNatural;
 
   const otherNodes = Array.from(STATE.nodes.values())
     .filter(n => n.id !== entry.id && n.el)
@@ -662,31 +833,52 @@ function positionCard(card, entry) {
   card.style.top = finalY + 'px';
   card.style.visibility = '';
 
+  // 内容可继续下滑时（scrollHeight > clientHeight 且未滚到底部）显示底部"还有内容"提示
+  const body = card.querySelector('.card-body');
+  if (body) {
+    const updateCut = () => {
+      const canScroll = body.scrollHeight > body.clientHeight + 2;
+      const atBottom = body.scrollTop + body.clientHeight >= body.scrollHeight - 4;
+      body.classList.toggle('cut', canScroll && !atBottom);
+    };
+    requestAnimationFrame(updateCut);
+    if (!body.dataset.scrollHinted) {
+      body.dataset.scrollHinted = '1';
+      body.addEventListener('scroll', updateCut, { passive: true });
+    }
+  }
+
   const tail = card.querySelector('.card-tail');
-  if (tail) setTailPosition(tail, best.side, finalX, finalY, w, h, cx, cy);
+  if (tail) setTailPosition(tail, best.side, finalX, finalY, w, h, cx, cy, 1);
 }
 
-function setTailPosition(tail, side, cardX, cardY, w, h, nodeX, nodeY) {
+function setTailPosition(tail, side, cardX, cardY, w, h, nodeX, nodeY, scale) {
   tail.style.display = '';
+  const s = scale || 1;
+  // nodeX/Y 是视口坐标；cardX/Y 是 card.style.left/top (layout 坐标)
+  // tail 的 left/top 在 card 内部 layout 坐标系（自然尺寸下，scale 后跟着缩）
+  // 视觉对位：cardX + tailLeft * s = nodeX → tailLeft = (nodeX - cardX) / s
+  const layoutOffsetX = (nodeX - cardX) / s - 7;
+  const layoutOffsetY = (nodeY - cardY) / s - 7;
   switch (side) {
     case 'top':
-      tail.style.left = Math.max(10, Math.min(w - 22, nodeX - cardX - 7)) + 'px';
+      tail.style.left = Math.max(10, Math.min(w - 22, layoutOffsetX)) + 'px';
       tail.style.top = (h - 7) + 'px';
       tail.style.transform = 'rotate(225deg)';
       break;
     case 'bottom':
-      tail.style.left = Math.max(10, Math.min(w - 22, nodeX - cardX - 7)) + 'px';
+      tail.style.left = Math.max(10, Math.min(w - 22, layoutOffsetX)) + 'px';
       tail.style.top = '-7px';
       tail.style.transform = 'rotate(45deg)';
       break;
     case 'right':
       tail.style.left = '-7px';
-      tail.style.top = Math.max(10, Math.min(h - 22, nodeY - cardY - 7)) + 'px';
+      tail.style.top = Math.max(10, Math.min(h - 22, layoutOffsetY)) + 'px';
       tail.style.transform = 'rotate(-45deg)';
       break;
     case 'left':
       tail.style.left = (w - 7) + 'px';
-      tail.style.top = Math.max(10, Math.min(h - 22, nodeY - cardY - 7)) + 'px';
+      tail.style.top = Math.max(10, Math.min(h - 22, layoutOffsetY)) + 'px';
       tail.style.transform = 'rotate(135deg)';
       break;
   }
@@ -759,6 +951,27 @@ function closeTermTooltip() {
 // 在卡片 body 渲染后调用：扫 .reveal-card / .matching-game / .quiz-card，bind 交互
 function bindInteractiveWidgets(bodyEl) {
   if (!bodyEl) return;
+
+  // (0) example-card 看真实例子 —— 默认收起，点击展开完整 example 流程
+  bodyEl.querySelectorAll('.example-card').forEach(card => {
+    const btn = card.querySelector('.example-toggle');
+    const content = card.querySelector('.example-content');
+    if (!btn || !content) return;
+    const openText = btn.dataset.openText || '收起 ↑';
+    const closedText = btn.dataset.closedText || '📖 看真实例子 ↓';
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const opened = card.classList.toggle('opened');
+      content.hidden = !opened;
+      btn.textContent = opened ? openText : closedText;
+      // 卡片高度变了，重 reposition（避免被遮 / 出 viewport）
+      setTimeout(() => {
+        if (STATE.cardEl && STATE.activeCardId) {
+          positionCard(STATE.cardEl, STATE.nodes.get(STATE.activeCardId));
+        }
+      }, 30);
+    });
+  });
 
   // (1) 点击揭晓 reveal-card —— toggle：展开 / 收起
   bodyEl.querySelectorAll('.reveal-card').forEach(card => {
@@ -859,6 +1072,9 @@ function resetAll() {
   STATE.rootEntry = null;
   STATE.notebook = [];
   STATE.notebookSeen.clear();
+  STATE.notebookFilter = '';
+  const searchInput = $('.notebook-search-input');
+  if (searchInput) searchInput.value = '';
   renderNotebook();
   const layer = $('#node-layer');
   const linkLayer = $('#link-layer');
@@ -882,7 +1098,7 @@ function init() {
     requestAnimationFrame(() => rootEntry.el.classList.add('visible'));
   });
 
-  setTimeout(() => openCard(rootEntry.id), 700);
+  setTimeout(() => handleNodeClick(rootEntry), 700);
 }
 
 // ---------- 全局事件 ----------
@@ -956,9 +1172,23 @@ function bindCanvasPan(wrapper) {
     if (moved) {
       applyViewTransform(startTx + dx, startTy + dy, 1, false);
       // 卡片跟节点一起平移（节点在 #node-layer 里随 transform 移动；卡片是 fixed 定位，需要手动同步）
+      // 但实时 clamp 到 viewport 内 8px 边距，防止用户拖到屏幕外时卡片飞出画面
       if (STATE.cardEl) {
-        STATE.cardEl.style.left = (startCardLeft + dx) + 'px';
-        STATE.cardEl.style.top  = (startCardTop + dy) + 'px';
+        const cardRect = STATE.cardEl.getBoundingClientRect();
+        const cardW = cardRect.width, cardH = cardRect.height;
+        const headerH = document.querySelector('.header')?.getBoundingClientRect().height || 60;
+        const noteOpen = document.querySelector('.notebook')?.classList.contains('open');
+        const rightReserve = noteOpen
+          ? (document.querySelector('.notebook-panel')?.getBoundingClientRect().width || 320)
+          : 50;
+        const minX = 8;
+        const maxX = window.innerWidth - rightReserve - cardW - 8;
+        const minY = headerH + 8;
+        const maxY = window.innerHeight - cardH - 16;
+        const targetX = startCardLeft + dx;
+        const targetY = startCardTop + dy;
+        STATE.cardEl.style.left = Math.max(minX, Math.min(maxX, targetX)) + 'px';
+        STATE.cardEl.style.top  = Math.max(minY, Math.min(maxY, targetY)) + 'px';
       }
     }
   }
@@ -970,6 +1200,12 @@ function bindCanvasPan(wrapper) {
     if (moved) {
       const swallow = (e) => { e.stopPropagation(); wrapper.removeEventListener('click', swallow, true); };
       wrapper.addEventListener('click', swallow, true);
+      // 拖动结束后卡片可能被推出 viewport。重新 positionCard 让它回到 active 节点附近
+      // viewTransform 已经更新，positionCard 用 active 节点新的屏幕坐标算位置
+      if (STATE.cardEl && STATE.activeCardId) {
+        const entry = STATE.nodes.get(STATE.activeCardId);
+        if (entry) positionCard(STATE.cardEl, entry);
+      }
     }
   }
 

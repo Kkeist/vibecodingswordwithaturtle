@@ -152,6 +152,56 @@ body {
   border-style: solid;  /* visited 后变实线，融入主路径 */
 }
 
+/* 节点角标：💡 新可点 / ! 还有路没走完 —— 贴在右上角小圆 */
+.node-badge {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  line-height: 1;
+  z-index: 3;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.22s var(--ease-soft), transform 0.22s var(--ease-out), background 0.18s;
+  pointer-events: none;
+  font-weight: 700;
+  color: var(--accent-deep);
+  box-shadow: 0 1px 3px rgba(74, 61, 42, 0.12);
+}
+.node-badge.show {
+  opacity: 1;
+  transform: scale(1);
+}
+.node-badge.badge-lightbulb {
+  background: var(--accent-bg);
+  border-color: var(--accent-soft);
+  font-size: 12px;
+  animation: badge-bulb-pulse 2s ease-in-out infinite;
+}
+.node-badge.badge-exclaim {
+  background: var(--accent);
+  border-color: var(--accent-deep);
+  color: var(--bg-card);
+  font-size: 14px;
+}
+@keyframes badge-bulb-pulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 1px 3px rgba(74, 61, 42, 0.12); }
+  50% { transform: scale(1.12); box-shadow: 0 2px 6px rgba(201, 123, 74, 0.35); }
+}
+/* root 的角标位置稍微调整（root 节点更大） */
+.node.root .node-badge {
+  top: 4px;
+  right: 4px;
+}
+
 .node-disc {
   position: absolute;
   inset: 0;
@@ -224,6 +274,13 @@ body {
   stroke: var(--accent);
   stroke-width: 1.6;
 }
+/* 直流连线：父只有 1 个子节点时，连线终点画箭头标记 = 视觉表示"这是直流，不分叉" */
+.link-path.arrow-direct {
+  marker-end: url(#arrow-direct);
+}
+.link-path.arrow-direct.gold {
+  marker-end: url(#arrow-direct-gold);
+}
 
 /* ========== 详情卡片 ========== */
 #card-root { position: fixed; inset: 0; pointer-events: none; z-index: 60; }
@@ -246,6 +303,10 @@ body {
   font-family: var(--font);
   display: flex;
   flex-direction: column;
+  /* 高度由 JS positionCard 设置 max-height 防止上下出画。当 max-height 触发：
+     header / footer 固定高，body 弹性占剩余空间内"可见内容尽量多"——但宝宝禁止可滚动框
+     所以 body 用 overflow: hidden 兜底（视觉切掉而不是滚动）；同时分 page 让内容不至于超长 */
+  overflow: hidden;
 }
 .card.show { opacity: 1; transform: translateY(0) scale(1); }
 
@@ -291,11 +352,45 @@ body {
 .card-close:hover { color: var(--text); background: var(--bg-hover); }
 
 .card-body {
-  font-size: 12px;
-  line-height: 1.45;
+  font-size: 12.5px;
+  line-height: 1.5;
   color: var(--text);
   min-height: 0;
-  flex-shrink: 0;
+  flex: 1 1 auto;  /* 弹性占据剩余空间 */
+  overflow-y: auto;
+  overscroll-behavior: contain;  /* 滚到顶/底不会带动外层 body */
+  -webkit-overflow-scrolling: touch;  /* iOS 旧版本平滑滚动 */
+  position: relative;
+  /* 自定义滚动条：暖色板细窄不抢戏 */
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-soft) transparent;
+}
+.card-body::-webkit-scrollbar { width: 6px; }
+.card-body::-webkit-scrollbar-track { background: transparent; }
+.card-body::-webkit-scrollbar-thumb {
+  background: var(--accent-soft);
+  border-radius: 3px;
+}
+.card-body::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+/* 内容可继续下滑时，底部一道渐隐 + 一个小箭头暗示"还有内容" */
+.card-body.cut::after {
+  content: '⌄';
+  position: absolute;
+  left: 0; right: 0;
+  bottom: 0;
+  height: 24px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--accent);
+  line-height: 36px;
+  background: linear-gradient(to bottom, rgba(253, 246, 230, 0), var(--bg-card) 65%);
+  pointer-events: none;
+  animation: scroll-hint-bob 1.8s ease-in-out infinite;
+}
+@keyframes scroll-hint-bob {
+  0%, 100% { transform: translateY(0); opacity: 0.85; }
+  50% { transform: translateY(2px); opacity: 1; }
 }
 .card-body p { margin: 0 0 4px; }
 .card-body ul { margin: 3px 0; padding-left: 18px; }
@@ -773,7 +868,245 @@ body {
   50% { transform: scale(1.12); opacity: 1; }
 }
 
+/* 跳转选项（仅 root 有）：视觉上跟主选项 / 灯泡支线都不同——表示"绕过中间直接跳过去" */
+.option.jump {
+  border-color: var(--accent-soft);
+  background: linear-gradient(to right, var(--bg-card), var(--accent-bg) 200%);
+  position: relative;
+}
+.option.jump::before {
+  content: '⤴';
+  position: absolute;
+  left: -3px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  color: var(--accent);
+  background: var(--bg-card);
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--accent-soft);
+}
+.option.jump:hover {
+  background: var(--accent-bg);
+  border-color: var(--accent);
+}
+.option.jump .opt-hint {
+  background: var(--accent-bg);
+  color: var(--accent);
+}
+
+/* ========== 笔记本搜索框 ========== */
+.notebook-search {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-card);
+}
+.notebook-search-icon {
+  font-size: 13px;
+  color: var(--text-faint);
+  flex-shrink: 0;
+}
+.notebook-search-input {
+  flex: 1;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 5px 9px;
+  font-size: 12.5px;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--bg-soft);
+  outline: none;
+  transition: border-color 0.15s, background 0.15s;
+  min-width: 0;
+}
+.notebook-search-input::placeholder { color: var(--text-faint); }
+.notebook-search-input:focus {
+  border-color: var(--accent);
+  background: var(--bg-card);
+}
+.notebook-search-clear {
+  background: transparent;
+  border: none;
+  color: var(--text-faint);
+  font-size: 16px;
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  font-family: inherit;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s, background 0.15s;
+  flex-shrink: 0;
+  padding: 0;
+}
+.notebook-search-clear:hover { color: var(--text); background: var(--bg-hover); }
+
+.notebook-list mark {
+  background: var(--accent-bg);
+  color: var(--accent-deep);
+  border-radius: 2px;
+  padding: 0 2px;
+  font-weight: 600;
+}
+
 /* ========== 互动小游戏 widget ========== */
+
+/* (0) example-card 看真实例子 —— 默认收起的具体演示，区别于抽象概念 */
+.example-card {
+  margin: 10px 0;
+  border: 1px solid var(--accent-soft);
+  border-radius: 8px;
+  background: linear-gradient(180deg, var(--accent-bg) 0%, var(--bg-card) 100%);
+  overflow: hidden;
+}
+.example-toggle {
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 8px 12px;
+  font-family: inherit;
+  font-size: 12.5px;
+  color: var(--accent-deep);
+  cursor: pointer;
+  text-align: left;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.15s;
+}
+.example-toggle:hover {
+  background: rgba(201, 123, 74, 0.08);
+}
+.example-card.opened .example-toggle {
+  border-bottom: 1px solid var(--accent-soft);
+}
+.example-content {
+  padding: 10px 12px 12px;
+  font-size: 12px;
+  line-height: 1.55;
+  color: var(--text);
+  animation: example-slide 0.35s var(--ease-soft);
+}
+.example-content[hidden] { display: none; }
+@keyframes example-slide {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* example 三种内容形式 */
+/* (a) ex-story 拟人化故事场景：用 emoji + 短句模拟现实场景 */
+.example-content .ex-story {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 4px 0;
+}
+.example-content .ex-story .ex-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+}
+.example-content .ex-story .ex-emoji {
+  font-size: 18px;
+  flex-shrink: 0;
+  width: 24px;
+  text-align: center;
+}
+.example-content .ex-story .ex-arrow {
+  color: var(--accent);
+  font-weight: 600;
+  margin: 0 2px;
+}
+.example-content .ex-story .ex-caption {
+  color: var(--text-soft);
+  font-size: 11px;
+  font-style: italic;
+  margin-top: 4px;
+  padding-left: 32px;
+}
+
+/* (b) ex-code 真实代码片段 + 大白话注释 */
+.example-content .ex-code {
+  background: var(--bg-soft);
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+  font-size: 11.5px;
+  line-height: 1.6;
+  overflow-x: auto;
+  white-space: pre;
+  color: var(--text);
+}
+.example-content .ex-code .ex-comment {
+  color: var(--text-faint);
+  font-style: italic;
+  font-family: var(--font);
+  font-size: 10.5px;
+}
+.example-content .ex-code .ex-keyword {
+  color: var(--accent-deep);
+  font-weight: 600;
+}
+.example-content .ex-code .ex-string {
+  color: #6b8e23;  /* 暖橄榄绿避免抢戏 */
+}
+
+/* (c) ex-flow 步骤流程：1→2→3→4 用户视角的事件链 */
+.example-content .ex-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 4px 0;
+  counter-reset: ex-step;
+}
+.example-content .ex-flow .ex-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12.5px;
+}
+.example-content .ex-flow .ex-step::before {
+  counter-increment: ex-step;
+  content: counter(ex-step);
+  background: var(--accent);
+  color: var(--bg-card);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10.5px;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.example-content .ex-flow .ex-step-emoji {
+  font-size: 16px;
+  flex-shrink: 0;
+  width: 22px;
+  text-align: center;
+  margin-top: -1px;
+}
+.example-content .ex-flow .ex-step-text {
+  flex: 1;
+  color: var(--text);
+}
+.example-content .ex-flow .ex-step-text strong {
+  color: var(--accent-deep);
+}
 
 /* (1) 点击揭晓 reveal-card —— 用户点了才看到答案 */
 /* 未揭晓时：问题 + 按钮 同一行 flex 紧凑；揭晓后：变竖排显示答案 */
@@ -1120,16 +1453,37 @@ body {
   :root {
     --node-size: clamp(58px, 16vw, 76px);
     --node-size-root: clamp(70px, 19vw, 88px);
-    --card-w: min(86vw, 320px);
+    --card-w: min(90vw, 340px);
     --notebook-w: min(86vw, 320px);
   }
   .header { padding: 14px 18px; }
   .brand h1 { font-size: 14px; }
   .brand p { font-size: 10.5px; }
   .reset-btn { font-size: 12px; padding: 5px 11px; }
-  .card-body { font-size: 12.5px; }
-  .card { padding: 14px; }
+  /* 移动端字号反而增大：屏幕小、阅读距离近、不能再压小 */
+  .card { padding: 12px 14px; }
+  .card-title { font-size: 15px; }
+  .card-body { font-size: 14px; line-height: 1.55; }
+  .card-body p { margin: 0 0 6px; }
+  .card-body code { font-size: 13px; }
+  .card-body em { font-size: inherit; }
+  .card-body .term-tooltip { font-size: 13px; max-width: 80vw; }
+  .options-label { font-size: 12px; }
+  .option { font-size: 13.5px; padding: 7px 12px; }
+  .option .opt-icon { font-size: 16px; }
+  .option .opt-hint { font-size: 11.5px; }
+  .card-body .flow-emoji { font-size: 24px; }
+  .card-body .flow-name { font-size: 12.5px; }
+  .card-body .flow-role { font-size: 11px; }
+  .card-body .emoji-illust .ei-emoji { font-size: 22px; }
+  .card-body .emoji-illust .ei-label { font-size: 12.5px; }
+  .reveal-q, .reveal-a, .reveal-btn { font-size: 13px; }
+  .match-item { font-size: 12.5px; padding: 5px 8px; }
+  .quiz-opt { font-size: 13px; }
   .notebook-toggle { margin-top: 64px; padding: 12px 8px; }
+  .notebook-list .concept-name { font-size: 14.5px; }
+  .notebook-list .concept-explain { font-size: 13px; }
+  .notebook-search-input { font-size: 13.5px; }
 }
 
 /* ========== 减少动画偏好 ========== */
