@@ -130,16 +130,29 @@ const node_func = {
       <p>"调用"一个函数 = 让它跑一次。例：<code>add(3, 5)</code> 让名为 add 的函数跑一次、传 3 和 5、它返回 8。</p>
       <p>AI 经常说"我把这段抽成一个函数"——意思是把重复出现的代码打包成一个可复用的小块。</p>
       <div class="example-card">
-        <button class="example-toggle" data-closed-text="📖 看个生活例子 ↓" data-open-text="收起 ↑">📖 看个生活例子 ↓</button>
+        <button class="example-toggle">📖 看真实例子</button>
         <div class="example-content" hidden>
-          <div class="ex-story">
-            <div class="ex-line"><span class="ex-emoji">🍳</span>函数像一份<strong>食谱</strong>：写一次，以后照着做无数次</div>
-            <div class="ex-line"><span class="ex-emoji">📥</span><strong>食材（参数）</strong>：2 个鸡蛋、1 勺糖</div>
-            <div class="ex-line"><span class="ex-emoji">⚙️</span><strong>食谱（函数体）</strong>：打散 → 加糖 → 下锅煎 3 分钟</div>
-            <div class="ex-line"><span class="ex-emoji">📤</span><strong>成品（返回值）</strong>：一份蛋饼</div>
-            <div class="ex-line" style="margin-top:6px"><span class="ex-emoji">🔄</span>下次想吃 → 不用重新发明，直接喊「按食谱做一份」（这就是"调用函数"）</div>
-            <div class="ex-line"><span class="ex-emoji">🧰</span>同一段代码反复写 4 次 → AI 会建议"抽成函数"= 写一份食谱，省事还少错</div>
-            <div class="ex-caption">想象登录功能：登录页要、注册后要、token 失效要、改密码后要——4 处都写一遍验证逻辑会乱。抽成 login() 函数 → 4 处只调用一次。</div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🍳</span>函数 = 一份<strong>食谱</strong>：写一次取个名字，以后任何地方喊「按食谱做」就能用</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">📱</span>在你做的产品里实际怎么用</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">💰</span><strong>算订单总价</strong>：写一个 calcTotal(items)，传商品列表 → 返回总额。购物车 / 结算页 / 支付页都用同一个</div>
+              <div class="ex-line"><span class="ex-emoji">🔐</span><strong>校验登录</strong>：写一个 requireLogin()，登录页 / 评论框 / 收藏按钮全用——只改一处全 App 跟着改</div>
+              <div class="ex-line"><span class="ex-emoji">📅</span><strong>格式化时间</strong>：写一个 formatDate(ts)，朋友圈 / 订单 / 聊天时间全调它，显示统一</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处（懂了能干啥）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🔄</span>改一处全联动：算法换了 / 文案改了 / bug 修了 → 调用它的所有地方一起变</div>
+              <div class="ex-line"><span class="ex-emoji">📉</span>4 处重复代码 → 1 个函数：代码量少 75%，少错 75%</div>
+              <div class="ex-line"><span class="ex-emoji">🗣️</span>跟 AI 说"把这段抽成函数" / "复用 calcTotal" → AI 知道你在说啥</div>
+            </div>
           </div>
         </div>
       </div>
@@ -164,15 +177,29 @@ const node_oop = {
       <p><em>继承</em>（<em>inherit</em>）：管理员「是一种」用户——继承用户类、再加自己独有的能力。</p>
       <p>这整套思路叫<em>面向对象编程</em>（<em>OOP</em>，Object-Oriented Programming）。</p>
       <div class="example-card">
-        <button class="example-toggle" data-closed-text="📖 看个生活例子 ↓" data-open-text="收起 ↑">📖 看个生活例子 ↓</button>
+        <button class="example-toggle">📖 看真实例子</button>
         <div class="example-content" hidden>
-          <div class="ex-story">
-            <div class="ex-line"><span class="ex-emoji">📋</span><strong>类</strong>像一张"用户档案模板"——上面写：每个用户都有【名字 / 头像 / 邮箱】+ 能做【发帖 / 改头像 / 拉黑别人】</div>
-            <div class="ex-line"><span class="ex-emoji">👤</span><strong>实例</strong>就是按模板填出来的<strong>一个具体用户</strong>：小明（头像🐶、邮箱 xx@x.com）</div>
-            <div class="ex-line"><span class="ex-emoji">👤</span>再造一个：小红（头像🐱、邮箱 yy@y.com）——同模板，不同数据</div>
-            <div class="ex-line"><span class="ex-emoji">🎬</span><strong>方法</strong>：小明.发帖("今天好开心") → 这就是让小明执行模板里的"发帖"动作</div>
-            <div class="ex-line"><span class="ex-emoji">👑</span><strong>继承</strong>：管理员模板 = 普通用户模板 + 多个"封号 / 删帖"动作。不用重写"发帖"那些（自动继承）</div>
-            <div class="ex-caption">这就是为啥微博能有几亿用户却用一套代码搞定——一个"用户类" 模板 + 几亿份"实例"数据。</div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">📋</span>类 = <strong>档案模板</strong>（写：这一类东西都有啥属性、能做啥动作）+ 实例 = <strong>按模板填的具体一份</strong></div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">📱</span>在你做的产品里实际怎么用</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">👤</span><strong>用户类 User</strong>：属性 {name, avatar, email}、方法 {发帖()、改头像()、拉黑()}。小明、小红 = 两个实例</div>
+              <div class="ex-line"><span class="ex-emoji">📦</span><strong>商品类 Product</strong>：属性 {name, price, stock}、方法 {加入购物车()、下架()}。1000 件商品 = 1000 个实例</div>
+              <div class="ex-line"><span class="ex-emoji">👑</span><strong>继承</strong>：管理员 = 普通用户 + 多几个权限动作（封号 / 删帖），不用重写"发帖"那些</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处（懂了能干啥）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🏢</span>一套代码管几亿用户：定义一次 User 类，每个用户只占一份数据</div>
+              <div class="ex-line"><span class="ex-emoji">🔧</span>给 User 加个"夜间模式偏好"字段 → 所有用户自动有，不用一个个改</div>
+              <div class="ex-line"><span class="ex-emoji">🗣️</span>看 AI 写的代码出现 class / extends / new XXX() → 知道这是在用模板造实例</div>
+            </div>
           </div>
         </div>
       </div>
@@ -197,16 +224,31 @@ const node_data_types = {
       <p><em>null</em> / <em>undefined</em>：表示「没值 / 空」。两个有微妙差别但日常都当「空」理解。</p>
       <p>报错里出现「X is undefined」一般是：你以为某变量有值其实没有。</p>
       <div class="example-card">
-        <button class="example-toggle" data-closed-text="📖 看个生活例子 ↓" data-open-text="收起 ↑">📖 看个生活例子 ↓</button>
+        <button class="example-toggle">📖 看真实例子</button>
         <div class="example-content" hidden>
-          <div class="ex-story">
-            <div class="ex-line"><span class="ex-emoji">📝</span><strong>字符串</strong>：朋友圈那条文字"今天好开心"——任何文字都是字符串</div>
-            <div class="ex-line"><span class="ex-emoji">🔢</span><strong>数字</strong>：购物车里"3 件商品"的那个 3、订单金额 39.9</div>
-            <div class="ex-line"><span class="ex-emoji">✅</span><strong>布尔</strong>：你"是否已登录"——只有"是"或"否"两种</div>
-            <div class="ex-line"><span class="ex-emoji">📋</span><strong>数组</strong>：购物车里那一列商品，按顺序排好</div>
-            <div class="ex-line"><span class="ex-emoji">🪪</span><strong>对象</strong>：你的个人资料卡——名字、年龄、头像、生日都打包成一张</div>
-            <div class="ex-line"><span class="ex-emoji">🕳️</span><strong>null</strong>：还没填的"昵称"那一栏——什么都没有</div>
-            <div class="ex-caption">把"3"（字符串）当 3（数字）做加法 → 报错。AI 提示"类型不对"就是说你把这两种弄混了。</div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🎁</span>数据类型 = 给值<strong>分箱子</strong>：每种箱子放不同的东西、能做不同的事，弄混就报错</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">📱</span>在你做的产品里实际怎么用</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">📝</span><strong>字符串</strong>：朋友圈文字、用户名、商品标题 → 文字都是 string</div>
+              <div class="ex-line"><span class="ex-emoji">🔢</span><strong>数字</strong>：购物车数量、订单金额 39.9、点赞数 → 能做加减乘除</div>
+              <div class="ex-line"><span class="ex-emoji">✅</span><strong>布尔</strong>："是否已登录"、"是否会员"、"夜间模式开关" → 只有 true / false</div>
+              <div class="ex-line"><span class="ex-emoji">📋</span><strong>数组</strong>：购物车列表、朋友圈 feed、收藏夹 → 一串按顺序排好的东西</div>
+              <div class="ex-line"><span class="ex-emoji">🪪</span><strong>对象</strong>：个人资料 {name, age, avatar} → 一组带标签的属性打成一包</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处（懂了能干啥）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🐛</span>AI 报"类型不对" / "X is undefined" / "NaN" → 立刻知道是某变量没装对类型 / 没值</div>
+              <div class="ex-line"><span class="ex-emoji">🔧</span>表单收到的"3"是字符串（不能直接算钱）→ 要先转成数字 → 不会算出 33（字符串拼接）</div>
+              <div class="ex-line"><span class="ex-emoji">📐</span>设计产品要列字段时心里就知道每个字段是啥类型 → 跟 AI 描述需求更精准</div>
+            </div>
           </div>
         </div>
       </div>
@@ -231,16 +273,29 @@ const node_stack_mem = {
       <p><em>内存泄漏</em>（<em>memory leak</em>）：用过的内存没释放，越占越多，程序越跑越慢直到崩。</p>
       <p><em>调用栈</em>（<em>call stack</em>）：报错里那一串"在哪个函数被哪个函数调用"的轨迹——从下往上读 = 从外往里的调用顺序。</p>
       <div class="example-card">
-        <button class="example-toggle" data-closed-text="📖 看个生活例子 ↓" data-open-text="收起 ↑">📖 看个生活例子 ↓</button>
+        <button class="example-toggle">📖 看真实例子</button>
         <div class="example-content" hidden>
-          <div class="ex-story">
-            <div class="ex-line"><span class="ex-emoji">🥞</span><strong>栈</strong>像食堂叠盘子：来一个洗好的盘子<strong>放最上面</strong>，要用就从<strong>最上面</strong>拿</div>
-            <div class="ex-line"><span class="ex-emoji">📞</span>函数 A 叫了函数 B，B 又叫了 C → 盘子栈：[A → B → C]（C 在最上面正在跑）</div>
-            <div class="ex-line"><span class="ex-emoji">✅</span>C 跑完，弹出 → 盘子栈剩 [A → B]，回到 B 继续</div>
-            <div class="ex-line"><span class="ex-emoji">💥</span><strong>栈溢出</strong>：A 叫 A 叫 A...没尽头，盘子叠到天花板 → 崩。99% 是写循环忘了"停止条件"</div>
-            <div class="ex-line" style="margin-top:8px"><span class="ex-emoji">📦</span><strong>堆</strong>像仓库：大件东西（一整个数组、一个用户对象）丢仓库，用一个"地址条"指过去</div>
-            <div class="ex-line"><span class="ex-emoji">🧹</span><strong>内存泄漏</strong>：仓库里堆了不用的旧货，没人收走，仓库越来越满 → 程序越来越卡直到崩</div>
-            <div class="ex-caption">看报错的<strong>调用栈</strong>就是看"那叠盘子从下到上"——从最下（最先开始的函数）一路读到最上（出错的那个），就知道是哪条调用链断了。</div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🥞</span><strong>栈</strong> = 食堂叠盘子（后来的放最上面、要用从最上面拿）；<strong>堆</strong> = 仓库（大件东西丢仓库 + 用"地址条"指过去）</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">📱</span>在你做的产品里实际怎么用</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">📞</span>用户点登录 → 跑 <strong>login()</strong> → login 内部叫 <strong>checkPwd()</strong> → checkPwd 叫 <strong>encrypt()</strong>——每叫一层就压一个盘子上栈</div>
+              <div class="ex-line"><span class="ex-emoji">📦</span>购物车列表（10 个商品对象）→ 数据丢"堆"里，购物车变量只装一个"地址条"指过去</div>
+              <div class="ex-line"><span class="ex-emoji">💥</span>做无限循环的"刷帖"功能没设停止 → A 叫 A 叫 A → <strong>栈溢出</strong>程序崩</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处（懂了能干啥）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🔍</span>看报错的<strong>调用栈</strong>就知道是哪个函数的哪一行炸了——从下往上读 = 从外往里调用顺序</div>
+              <div class="ex-line"><span class="ex-emoji">⚠️</span>AI 说"栈溢出"立刻去找有没有"忘了写停止条件"的递归</div>
+              <div class="ex-line"><span class="ex-emoji">🧠</span>程序越跑越卡 = <strong>内存泄漏</strong>（堆里旧货没清），重启服务暂时缓解，根治得查"谁一直占着不放"</div>
+            </div>
           </div>
         </div>
       </div>
@@ -461,16 +516,29 @@ const node_prompt = {
       <p><em>LLM</em>（Large Language Model）：大语言模型——Claude、ChatGPT、Gemini、DeepSeek 这些 AI 的统称。</p>
       <p><em>幻觉</em>（<em>hallucination</em>）：AI 一本正经编不存在的东西（函数名、库名、API）——所以重要的事一定要让它跑命令验证。</p>
       <div class="example-card">
-        <button class="example-toggle" data-closed-text="📖 看个生活例子 ↓" data-open-text="收起 ↑">📖 看个生活例子 ↓</button>
+        <button class="example-toggle">📖 看真实例子</button>
         <div class="example-content" hidden>
-          <div class="ex-story">
-            <div class="ex-line"><span class="ex-emoji">💬</span><strong>提示词</strong> = 你给 AI 发的微信消息：写得越清楚，AI 越知道你要啥</div>
-            <div class="ex-line"><span class="ex-emoji">📜</span><strong>上下文</strong> = 你俩这一整段聊天记录：AI 只记得"这个窗口里"说过的话</div>
-            <div class="ex-line"><span class="ex-emoji">📏</span>每个 AI 都有<strong>记忆上限</strong>（比如 20 万字），超了就忘掉最前面的</div>
-            <div class="ex-line" style="margin-top:8px"><span class="ex-emoji">🪙</span><strong>token</strong> = AI 的"按字收费"单位，但不完全按汉字数</div>
-            <div class="ex-line"><span class="ex-emoji">🔢</span>大概：1 个汉字 ≈ 2 token，1 个英文单词 ≈ 1 token</div>
-            <div class="ex-line"><span class="ex-emoji">💸</span>发一段 1000 字的提示词 ≈ 烧 2000 token，AI 回 500 字又烧 1000——按 token 算钱</div>
-            <div class="ex-caption">所以提示词不是越长越好——又费钱、又把 AI 的记忆挤满，反而记不住后面的关键要求。</div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">💬</span><strong>提示词</strong> = 给 AI 发的指令；<strong>上下文</strong> = AI 这一段能记住的全部内容；<strong>token</strong> = AI 的"按字数收费"单位</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">📱</span>在你做的产品里实际怎么用</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">📝</span>跟 Claude 长聊 → 它突然忘前面 → 因为对话超了上下文窗口（比如 20 万 token）</div>
+              <div class="ex-line"><span class="ex-emoji">💸</span>调 OpenAI API 做 AI 客服 → 每条消息按 token 收钱（用户的输入 + AI 的回复 都算）</div>
+              <div class="ex-line"><span class="ex-emoji">🔢</span>1 汉字 ≈ 2 token、1 英文词 ≈ 1 token。1000 字提示词 ≈ 烧 2000 token</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处（懂了能干啥）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">✂️</span>提示词不写太长（费钱 + 挤掉记忆 + 漏关键要求）→ 精简、分多条发</div>
+              <div class="ex-line"><span class="ex-emoji">📊</span>做 AI 产品能估成本：1000 用户 × 平均聊 20 轮 × 每轮 1500 token = 算月费</div>
+              <div class="ex-line"><span class="ex-emoji">⚠️</span>AI 会编不存在的函数 / 库（叫<strong>幻觉</strong>）→ 重要的代码让它跑命令验证</div>
+            </div>
           </div>
         </div>
       </div>
@@ -585,16 +653,29 @@ const node_localhost = {
       </ul>
       <p>本机服务能不能进还跟<em>防火墙</em>（<em>firewall</em>）有关——公司 / 学校网络常拦截。</p>
       <div class="example-card">
-        <button class="example-toggle" data-closed-text="📖 看个生活例子 ↓" data-open-text="收起 ↑">📖 看个生活例子 ↓</button>
+        <button class="example-toggle">📖 看真实例子</button>
         <div class="example-content" hidden>
-          <div class="ex-story">
-            <div class="ex-line"><span class="ex-emoji">🏠</span><strong>localhost</strong> = "我自己这台电脑"的代号，等于在家门口贴张纸条只给自己看</div>
-            <div class="ex-line"><span class="ex-emoji">🚪</span><strong>端口号</strong>(:3000 / :8080) = 你家不同的房门，一个端口一个服务</div>
-            <div class="ex-line"><span class="ex-emoji">👀</span>所以 <code>localhost:3000</code> = "在我电脑的 3000 号门后面跑的网页"</div>
-            <div class="ex-line" style="margin-top:8px"><span class="ex-emoji">📱</span>把链接发给朋友——朋友的 <strong>localhost</strong> 是<strong>他自己的</strong>电脑，不是你的</div>
-            <div class="ex-line"><span class="ex-emoji">🚫</span>所以朋友点开是空白：他在自己家门口找，那当然没有</div>
-            <div class="ex-line"><span class="ex-emoji">🌐</span>要让别人看到，得部署到真服务器（Vercel / Netlify），拿个公网网址</div>
-            <div class="ex-caption">"我本地能跑啊"——程序员之间最经典的甩锅金句，因为 localhost 永远只代表"我自己"。</div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🏠</span><strong>localhost</strong> = "我自己这台电脑"（每个人都不一样）；<strong>端口号</strong> = 自家的不同房门（:3000 / :8080）</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">📱</span>在你做的产品里实际怎么用</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🚀</span>跟教程跑 <code>npm run dev</code> → 终端冒出 <code>http://localhost:3000</code> → 在你浏览器开 = 看你刚做的网页</div>
+              <div class="ex-line"><span class="ex-emoji">📱</span>把这链接发朋友 → 朋友点开是空白（他的 localhost 是他自己电脑、不是你的）</div>
+              <div class="ex-line"><span class="ex-emoji">🌐</span>要让朋友看到 → 部署到 <strong>Vercel / Netlify</strong> 拿个公网网址（比如 my-site.vercel.app）</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处（懂了能干啥）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🧠</span>不会再问"我打开 localhost:3000 是你的网页吗"——你自己电脑跑啥就是啥</div>
+              <div class="ex-line"><span class="ex-emoji">🚪</span>看到 <code>localhost:5173</code> 跟 <code>localhost:3000</code> = 同一台电脑、不同程序</div>
+              <div class="ex-line"><span class="ex-emoji">🛠️</span>想让朋友临时看 → 用 <strong>ngrok / Cloudflare Tunnel</strong> 把本机端口暴露成公网</div>
+            </div>
           </div>
         </div>
       </div>
@@ -626,15 +707,29 @@ const node_env_apikey = {
       <p>同时把 <em>.env</em> 加进 <em>.gitignore</em>——告诉 Git 不要上传这个文件。</p>
       <p>真不小心传了？<strong>立刻去对方平台撤销那个 key 重新生成</strong>，删 commit 来不及（GitHub 历史里还在）。</p>
       <div class="example-card">
-        <button class="example-toggle" data-closed-text="📖 看个生活例子 ↓" data-open-text="收起 ↑">📖 看个生活例子 ↓</button>
+        <button class="example-toggle">📖 看真实例子</button>
         <div class="example-content" hidden>
-          <div class="ex-story">
-            <div class="ex-line"><span class="ex-emoji">🔑</span><strong>API key</strong> = 用别人家服务的"钥匙"：调 OpenAI、调高德地图都要拿钥匙刷一下</div>
-            <div class="ex-line"><span class="ex-emoji">💳</span>这把钥匙和你银行卡密码一样——谁拿到谁就能用你的额度刷钱</div>
-            <div class="ex-line" style="margin-top:8px"><span class="ex-emoji">😱</span>常见灾难：把 key 直接写代码里 → 上传 GitHub → 几小时后被盗刷几千刀</div>
-            <div class="ex-line"><span class="ex-emoji">📁</span>正确做法：把 key 写进一个叫 <strong>.env</strong> 的小本本，放电脑本地不上传</div>
-            <div class="ex-line"><span class="ex-emoji">🔌</span>代码里写"去环境变量拿 KEY"，而不是直接写出 key 长啥样</div>
-            <div class="ex-caption">让 AI 写代码时如果它直接把 sk-xxxx 写进去——立刻让它改成读 .env，不然你的钱包会哭。</div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🔑</span><strong>API key</strong> = 用别人家服务的"钥匙" + 银行卡密码——谁拿到谁就能刷你的钱</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">📱</span>在你做的产品里实际怎么用</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🤖</span>接 ChatGPT → 拿到一串 sk-xxx → 这是 OpenAI 给你的"调用钥匙"，按用量收费</div>
+              <div class="ex-line"><span class="ex-emoji">🗺️</span>接高德地图 / 微信支付 / 阿里云 OSS → 每家都给一串 key</div>
+              <div class="ex-line"><span class="ex-emoji">📁</span>正确做法：建个 <strong>.env</strong> 文件写 <code>OPENAI_API_KEY=sk-xxx</code>，加进 .gitignore 不上传</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处（懂了能保住钱包）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">😱</span>常见灾难：key 写代码里 → 推 GitHub → 几小时后爬虫扫到 → 盗刷几千刀</div>
+              <div class="ex-line"><span class="ex-emoji">✅</span>用 .env + .gitignore → key 不会跟代码一起公开，安全</div>
+              <div class="ex-line"><span class="ex-emoji">⚠️</span>不小心传了？<strong>立刻去对方平台撤销 key 重发</strong>，删 commit 救不了（GitHub 历史还在）</div>
+            </div>
           </div>
         </div>
       </div>
@@ -674,19 +769,29 @@ const node_json_methods = {
         <li><em>500</em>：服务器自己崩了</li>
       </ul>
       <div class="example-card">
-        <button class="example-toggle" data-closed-text="📖 看个生活例子 ↓" data-open-text="收起 ↑">📖 看个生活例子 ↓</button>
+        <button class="example-toggle">📖 看真实例子</button>
         <div class="example-content" hidden>
-          <div class="ex-story">
-            <div class="ex-line"><span class="ex-emoji">📦</span><strong>JSON</strong> = 快递面单的标准写法：收件人、地址、电话一栏一栏写清楚</div>
-            <div class="ex-line"><span class="ex-emoji">🏷️</span>长这样：<code>{"姓名":"小明","年龄":10,"会员":true}</code>——前后端都认这个格式</div>
-            <div class="ex-line" style="margin-top:8px"><span class="ex-emoji">👀</span><strong>GET</strong> = 查快递（"我那件到哪了？"）</div>
-            <div class="ex-line"><span class="ex-emoji">📮</span><strong>POST</strong> = 寄新快递（"帮我寄这个出去"）</div>
-            <div class="ex-line"><span class="ex-emoji">✏️</span><strong>PUT</strong> = 改地址（"整张面单换新的"）</div>
-            <div class="ex-line"><span class="ex-emoji">🗑️</span><strong>DELETE</strong> = 取消订单</div>
-            <div class="ex-line" style="margin-top:8px"><span class="ex-emoji">✅</span><strong>200</strong> = 成功送到</div>
-            <div class="ex-line"><span class="ex-emoji">❓</span><strong>404</strong> = 地址不存在（写错了网址）</div>
-            <div class="ex-line"><span class="ex-emoji">💥</span><strong>500</strong> = 快递公司自己出事了（服务器崩了，不是你的锅）</div>
-            <div class="ex-caption">报错弹"404"就是网址打错或接口名拼错；弹"500"是后端炸了——找写后端的同事，不是你前端的问题。</div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">📦</span><strong>JSON</strong> = 数据的"快递面单"标准格式；<strong>方法</strong> = 你想干啥（查 / 寄 / 改 / 删）；<strong>状态码</strong> = 服务器回应"成不成"暗号</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">📱</span>在你做的产品里实际怎么用</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🏷️</span>JSON 数据长这样：<code>{"name":"小明","age":10,"vip":true}</code>——前后端互发数据都用这格式</div>
+              <div class="ex-line"><span class="ex-emoji">👀</span><strong>GET</strong> 看朋友圈列表 / <strong>POST</strong> 发新帖 / <strong>PUT</strong> 改个人简介 / <strong>DELETE</strong> 删评论</div>
+              <div class="ex-line"><span class="ex-emoji">📋</span>状态码：<strong>200</strong> 成 / <strong>401</strong> 没登录 / <strong>404</strong> 找不到 / <strong>429</strong> 太频繁被限 / <strong>500</strong> 服务器崩</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处（懂了能干啥）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🐛</span>看到 404 → 网址 / 接口名拼错；看到 500 → 后端炸了不是你的锅</div>
+              <div class="ex-line"><span class="ex-emoji">📖</span>看 API 文档不慌：知道每个 endpoint 用什么方法、传什么 JSON、返回啥</div>
+              <div class="ex-line"><span class="ex-emoji">🗣️</span>跟 AI 说"这个接口用 POST 提交 JSON" / "返回 200 才视为成功" → 沟通精准</div>
+            </div>
           </div>
         </div>
       </div>
@@ -959,15 +1064,29 @@ const node_api_http = {
       <p>底下用的对话协议叫 <em>HTTP</em>。网址前的 http:// 就是它。</p>
       <p>这是 vc 创作者最魔法的部分——会调 API 就能用上几百个公司的服务。</p>
       <div class="example-card">
-        <button class="example-toggle" data-closed-text="📖 看个生活例子 ↓" data-open-text="收起 ↑">📖 看个生活例子 ↓</button>
+        <button class="example-toggle">📖 看真实例子</button>
         <div class="example-content" hidden>
-          <div class="ex-story">
-            <div class="ex-line"><span class="ex-emoji">🍔</span>你在<strong>美团</strong>点外卖：手机 App 是"客人"，餐厅是"服务方"</div>
-            <div class="ex-line"><span class="ex-emoji">📋</span>两边约好一份<strong>菜单</strong>：写明能点啥、怎么点、加不加辣怎么标</div>
-            <div class="ex-line"><span class="ex-emoji">📞</span>这份"菜单 + 点单规则"就是 <strong>API</strong>——前端按规则下单，后端按规则做菜</div>
-            <div class="ex-line"><span class="ex-emoji">🚚</span>送菜的快递员就是 <strong>HTTP</strong>：负责把"订单"和"菜"在两边来回送</div>
-            <div class="ex-line"><span class="ex-emoji">👀</span><strong>GET</strong> = 翻菜单看有啥（只看不动）；<strong>POST</strong> = 真的下单（提交了就生效）</div>
-            <div class="ex-caption">没约好 API 就像客人用日语点单、厨房只懂中文——鸡同鸭讲，要么报错要么送错菜。</div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🍔</span><strong>API</strong> = 服务方提供的"菜单 + 点单规则"；<strong>HTTP</strong> = 负责送菜的快递员（GET 看 / POST 下单）</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">📱</span>在你做的产品里实际怎么用</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🌤️</span>做天气小卡片 → 调<strong>和风天气 API</strong>："GET /now?city=北京" → 拿温度返回</div>
+              <div class="ex-line"><span class="ex-emoji">💳</span>做支付 → 调<strong>微信支付 API</strong>："POST /pay" 带订单金额 → 返回支付链接</div>
+              <div class="ex-line"><span class="ex-emoji">🤖</span>做 AI 写作 → 调<strong>OpenAI API</strong>："POST /chat" 带提示词 → 返回 AI 答案</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处（懂了能干啥）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🔌</span>会调 API = 能用上百家公司的服务（天气 / 地图 / 支付 / AI / 翻译）→ 不用自己造</div>
+              <div class="ex-line"><span class="ex-emoji">📖</span>看 API 文档不慌：知道 GET/POST 啥意思、状态码意思、参数怎么传</div>
+              <div class="ex-line"><span class="ex-emoji">🐛</span>报错"404 Not Found"知道是地址错；"500"是对方服务器崩——不是你 bug</div>
+            </div>
           </div>
         </div>
       </div>
@@ -1002,16 +1121,29 @@ const node_fe_be = {
       <p><em>后端</em>：用户看不到的部分，跑在你的服务器上，管账号、存数据、收钱。</p>
       <p>做纯展示工具（番茄钟、计算器）只要前端就够。要存数据 / 多人共享 / 收钱就要加后端。</p>
       <div class="example-card">
-        <button class="example-toggle" data-closed-text="📖 看个生活例子 ↓" data-open-text="收起 ↑">📖 看个生活例子 ↓</button>
+        <button class="example-toggle">📖 看真实例子</button>
         <div class="example-content" hidden>
-          <div class="ex-story">
-            <div class="ex-line"><span class="ex-emoji">🍽️</span>开一家餐厅：<strong>前端 = 大堂</strong>，<strong>后端 = 后厨</strong></div>
-            <div class="ex-line" style="margin-top:8px"><span class="ex-emoji">👀</span><strong>前端</strong>：菜单好不好看、桌椅舒不舒服、服务员怎么记单——用户能看到摸到的</div>
-            <div class="ex-line"><span class="ex-emoji">🍳</span><strong>后端</strong>：菜怎么做、食材库存放哪、账单怎么算——用户看不见但必须干的活</div>
-            <div class="ex-line" style="margin-top:8px"><span class="ex-emoji">📝</span>你点"宫保鸡丁"<span class="ex-arrow">→</span>服务员（前端）把单递进厨房（后端）</div>
-            <div class="ex-line"><span class="ex-emoji">🍛</span>厨房炒好<span class="ex-arrow">→</span>服务员端出来摆好<span class="ex-arrow">→</span>你看到漂亮的成品</div>
-            <div class="ex-line" style="margin-top:8px"><span class="ex-emoji">💡</span>朋友圈点赞按钮 = 前端；"点赞数 +1 存进数据库" = 后端</div>
-            <div class="ex-caption">页面卡了找前端，"提交后数据没保存 / 别人看不到我发的"找后端——分清楚才不会冤枉人。</div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🍽️</span>餐厅：<strong>前端 = 大堂</strong>（用户能看到摸到）+ <strong>后端 = 后厨</strong>（用户看不见但必须干）</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">📱</span>在你做的产品里实际怎么用</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">❤️</span>朋友圈<strong>点赞按钮 = 前端</strong>（UI、动画、显示数字）；<strong>"赞数 +1 存进数据库" = 后端</strong></div>
+              <div class="ex-line"><span class="ex-emoji">💬</span>聊天<strong>消息气泡 / 输入框 = 前端</strong>；<strong>消息存哪 / 怎么推给对方 = 后端</strong></div>
+              <div class="ex-line"><span class="ex-emoji">🛒</span>淘宝<strong>商品页 / 加购按钮 = 前端</strong>；<strong>库存够不够 / 价格多少 / 下单成功 = 后端</strong></div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处（懂了能干啥）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🐛</span>页面卡了 / 按钮没反应 → 找前端；提交后数据丢了 / 别人看不到 → 找后端，不会冤枉</div>
+              <div class="ex-line"><span class="ex-emoji">⚡</span>纯展示工具（番茄钟 / 计算器 / 单页 portfolio）只要前端，部署 Vercel 免费用</div>
+              <div class="ex-line"><span class="ex-emoji">💰</span>要存数据 / 多人共享 / 收钱 → 必须有后端 → 估算服务器成本</div>
+            </div>
           </div>
         </div>
       </div>
