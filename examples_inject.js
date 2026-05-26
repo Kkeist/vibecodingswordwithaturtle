@@ -1270,6 +1270,38 @@ const __EXAMPLE_BY_ID__ = {
       <div class="ex-line"><span class="ex-emoji">💰</span>极简部署 → <strong>Serverless / Cloudflare Workers</strong> 按用量付费</div>
     </div></div>
   </div></div>`,
+
+  "root": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🗺️</span>这是给 <strong>vibecoding 创作者</strong> 看的 CS 概念地图——从"我想做一个东西"一路点下去，遇到的概念自动收进右侧笔记本</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>怎么用这张地图</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">📦</span>从头走 → 点"先理解代码本身" → 一路学到 vibecoding 全套基础</div>
+      <div class="ex-line"><span class="ex-emoji">⤴</span>已经懂基础 → 点"挑平台" / "工具" / "产品类后端"任何一个跳过去</div>
+      <div class="ex-line"><span class="ex-emoji">💡</span>每个节点都有"📖 看真实例子" → 弹独立卡片讲实际怎么用 + 有啥好处</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>这地图能帮你什么</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🗣️</span>跟 AI 沟通用对术语 → 一次说清楚，少来回</div>
+      <div class="ex-line"><span class="ex-emoji">🎯</span>知道做某类产品要哪些技术 → 不被新潮名词带偏</div>
+      <div class="ex-line"><span class="ex-emoji">📓</span>右上"笔记本"自动记你走过的概念 → 也能搜，回头复习方便</div>
+    </div></div>
+  </div></div>`,
+
+  "shared-server": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">☁️</span>服务器 = <strong>一台 24 小时开着、连着公网的电脑</strong>。程序跑在它上面，全世界用户随时能访问</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>在你做的产品里实际怎么用</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🌐</span>网站后端 → 部署到服务器，访客输网址就能用</div>
+      <div class="ex-line"><span class="ex-emoji">🤖</span>Discord / Telegram bot → 挂服务器才能 24 小时响应</div>
+      <div class="ex-line"><span class="ex-emoji">⏰</span>定时任务 / 爬虫 / 数据处理 → 必须挂在服务器跑</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🌍</span>全球可访问 + 7×24：用户半夜也能用，本机关了不受影响</div>
+      <div class="ex-line"><span class="ex-emoji">💰</span>租云服务几块到几十块/月：阿里云 / Cloudflare Pages / Vercel / Railway</div>
+      <div class="ex-line"><span class="ex-emoji">📐</span>vibecoding 起步选 <strong>Vercel / Railway</strong>：免费额度够、配置最少</div>
+    </div></div>
+  </div></div>`,
 };
 
 // 注入函数：data.js 加载后、app.js 启动前，把 example 追加到对应节点 pages[0].html
