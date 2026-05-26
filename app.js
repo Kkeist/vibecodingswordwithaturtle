@@ -949,27 +949,70 @@ function closeTermTooltip() {
 
 // ---------- 互动小游戏 widget ----------
 // 在卡片 body 渲染后调用：扫 .reveal-card / .matching-game / .quiz-card，bind 交互
+// example 独立弹窗：盖在主卡片上方，自带关闭 × + 自身滚动，不影响主卡片高度 / options 位置
+function openExampleModal(html, sourceCardId) {
+  closeExampleModal();
+  const overlay = document.createElement('div');
+  overlay.className = 'example-overlay';
+  overlay.innerHTML = `
+    <div class="example-modal" role="dialog" aria-label="例子">
+      <div class="example-modal-head">
+        <span class="example-modal-title">📖 看例子</span>
+        <button class="example-modal-close" type="button" aria-label="关闭">×</button>
+      </div>
+      <div class="example-modal-body">${html}</div>
+    </div>
+  `;
+  document.body.appendChild(overlay);
+  // 阻止点击穿透 + 关闭逻辑
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) closeExampleModal();
+  });
+  overlay.querySelector('.example-modal-close').addEventListener('click', (e) => {
+    e.stopPropagation();
+    closeExampleModal();
+  });
+  overlay.querySelector('.example-modal').addEventListener('click', (e) => e.stopPropagation());
+  // 绑定 modal 内的术语 tooltip
+  const body = overlay.querySelector('.example-modal-body');
+  bindTermClicks(body);
+  // 进入动画
+  requestAnimationFrame(() => overlay.classList.add('show'));
+  STATE.exampleOverlay = overlay;
+  // ESC 关闭
+  const escHandler = (ev) => {
+    if (ev.key === 'Escape') { closeExampleModal(); document.removeEventListener('keydown', escHandler); }
+  };
+  document.addEventListener('keydown', escHandler);
+  STATE.exampleEscHandler = escHandler;
+}
+
+function closeExampleModal() {
+  if (STATE.exampleOverlay) {
+    const el = STATE.exampleOverlay;
+    el.classList.remove('show');
+    setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, 220);
+    STATE.exampleOverlay = null;
+  }
+  if (STATE.exampleEscHandler) {
+    document.removeEventListener('keydown', STATE.exampleEscHandler);
+    STATE.exampleEscHandler = null;
+  }
+}
+
 function bindInteractiveWidgets(bodyEl) {
   if (!bodyEl) return;
 
-  // (0) example-card 看真实例子 —— 默认收起，点击展开完整 example 流程
+  // (0) example-card 看真实例子 —— 点击打开独立 modal 弹窗，不在原卡片里撑高 + 不挤掉 options
   bodyEl.querySelectorAll('.example-card').forEach(card => {
     const btn = card.querySelector('.example-toggle');
     const content = card.querySelector('.example-content');
     if (!btn || !content) return;
-    const openText = btn.dataset.openText || '收起 ↑';
-    const closedText = btn.dataset.closedText || '📖 看真实例子 ↓';
+    // hide 掉原内联内容（只用按钮触发 modal）
+    content.hidden = true;
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
-      const opened = card.classList.toggle('opened');
-      content.hidden = !opened;
-      btn.textContent = opened ? openText : closedText;
-      // 卡片高度变了，重 reposition（避免被遮 / 出 viewport）
-      setTimeout(() => {
-        if (STATE.cardEl && STATE.activeCardId) {
-          positionCard(STATE.cardEl, STATE.nodes.get(STATE.activeCardId));
-        }
-      }, 30);
+      openExampleModal(content.innerHTML, STATE.activeCardId);
     });
   });
 
@@ -1063,6 +1106,7 @@ function bindInteractiveWidgets(bodyEl) {
 
 // ---------- 重置 ----------
 function resetAll() {
+  closeExampleModal();
   closeCard(true);
   $('#node-layer').innerHTML = '';
   Array.from($('#link-layer').querySelectorAll('.link-path')).forEach(p => p.remove());

@@ -265,15 +265,29 @@ const node_var = {
       </div>
       <p>之后写 <code>name</code> 就等于写 「小明」。改一次值，所有用到它的地方一起变。AI 说"声明一个变量"就是这个意思。</p>
       <div class="example-card">
-        <button class="example-toggle" data-closed-text="📖 看个生活例子 ↓" data-open-text="收起 ↑">📖 看个生活例子 ↓</button>
+        <button class="example-toggle" data-closed-text="📖 看真实例子 + 怎么用 ↓" data-open-text="收起 ↑">📖 看真实例子 + 怎么用 ↓</button>
         <div class="example-content" hidden>
-          <div class="ex-story">
-            <div class="ex-line"><span class="ex-emoji">📮</span>想象有一排储物柜，每个柜子都有个名字牌</div>
-            <div class="ex-line"><span class="ex-emoji">🏷️</span>柜子<strong>「name」</strong>里装着「小明」</div>
-            <div class="ex-line"><span class="ex-emoji">🏷️</span>柜子<strong>「age」</strong>里装着数字 10</div>
-            <div class="ex-line"><span class="ex-emoji">💬</span>之后你说"name"，所有人都知道指那个柜子里的「小明」</div>
-            <div class="ex-line"><span class="ex-emoji">🔄</span>你把柜子<strong>「name」</strong>换成「小红」<span class="ex-arrow">→</span>所有提到 name 的地方一起变</div>
-            <div class="ex-caption">变量 = 装值的小柜子 + 上面的名字牌。代码里所有"用户名"、"购物车数量"、"是否登录"这些都是变量。</div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">📮</span>变量 = <strong>装值的小柜子</strong> + <strong>柜子上的名字牌</strong>。柜子<strong>「name」</strong>装着「小明」，你说"name"就知道指那个值</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">📱</span>在你做的产品里实际怎么用</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🛒</span>购物车做"商品数量" → 用变量 <strong>cartCount</strong> 装着。用户加一件就 cartCount + 1</div>
+              <div class="ex-line"><span class="ex-emoji">🌓</span>做"夜间模式" → 变量 <strong>isDarkMode</strong> 装 true/false。切换按钮改这一个变量</div>
+              <div class="ex-line"><span class="ex-emoji">👤</span>登录后存用户名 → 变量 <strong>currentUser</strong> 装着。整个 App 任何地方要显示"欢迎 XX"都从这里取</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🔄</span>改一处全联动：cartCount 从 2 变 3，<strong>购物车角标 + 结算页 + 顶部小红点</strong>同时变 3，不用手动找一个个改</div>
+              <div class="ex-line"><span class="ex-emoji">📝</span>代码读得懂：写 <code>cartCount</code> 比写一串数字清楚 100 倍，3 个月后你自己都能看懂</div>
+              <div class="ex-line"><span class="ex-emoji">🔧</span>改需求快：产品要把"件数"改成"总价"显示 → 改一个变量定义，全 App 自动跟着变</div>
+            </div>
           </div>
         </div>
       </div>
