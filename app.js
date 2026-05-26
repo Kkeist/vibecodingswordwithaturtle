@@ -230,6 +230,12 @@ function updateLinkPath(linkInfo) {
 // 点节点 = 打开卡片。**不**自动 spawn 子节点。
 // 子节点通过卡片里的选项点击逐个 spawn（chain 流程化）
 function handleNodeClick(entry) {
+  // toggle 一致性：再点同节点 = 关卡片（不是 reposition / re-open）
+  // 宝宝累积铁律：所有 open/close 类按钮再点必须关闭
+  if (STATE.activeCardId === entry.id && STATE.cardEl) {
+    closeCard();
+    return;
+  }
   // 切换节点 → 关闭之前的 example 卡片（避免旧 example 跟新主卡片错配出画）
   if (STATE.examplePopupEl && STATE.activeCardId !== entry.id) {
     closeExampleModalSync();
@@ -918,11 +924,17 @@ function bindTermClicks(bodyEl) {
 }
 
 function showTermTooltip(anchor, term, definition) {
+  // toggle 一致性：再点同 term 关 tooltip
+  if (STATE.termTooltipAnchor === anchor && STATE.termTooltipEl) {
+    closeTermTooltip();
+    return;
+  }
   closeTermTooltip();
   const tip = document.createElement('div');
   tip.className = 'term-tooltip';
   tip.innerHTML = `<div class="term-tip-name">${escapeHTML(term)}</div><div class="term-tip-desc">${escapeHTML(definition)}</div>`;
   document.body.appendChild(tip);
+  STATE.termTooltipAnchor = anchor;
   // 位置：anchor 下方对齐
   const rect = anchor.getBoundingClientRect();
   // 等下一帧渲染才能拿到 tooltip 实际尺寸
@@ -945,6 +957,7 @@ function showTermTooltip(anchor, term, definition) {
 }
 
 function closeTermTooltip() {
+  STATE.termTooltipAnchor = null;
   if (STATE.termTooltipEl) {
     const el = STATE.termTooltipEl;
     el.classList.remove('show');
