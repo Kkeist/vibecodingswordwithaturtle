@@ -1059,6 +1059,120 @@ const node_dns = {
   children: [],
 };
 
+// ============================================================
+// 性能 / 体验 / 运维相关 lightbulb 子节点（PWA / i18n / 暗黑模式 / 备份监控）
+// ============================================================
+
+const node_i18n = {
+  id: "i18n",
+  emoji: "🌏",
+  title: "i18n / 多语言",
+  lightbulb: true,
+  concept: { name: "i18n / 国际化", explain: "让产品支持多种语言切换——不是写两份代码，是写一次 + 提取所有文字到 字典。" },
+  pages: [
+    { html: `
+      <p>产品想给中国 + 海外用户用 → 中文 + 英文都得有 → 怎么不写两遍？</p>
+      <p><em>i18n</em>（internationalization 的缩写，i + 18 个字母 + n）：把所有界面文字提取到一份"字典文件"，按用户选的语言查字典渲染。</p>
+      <p>典型结构：</p>
+      <ul>
+        <li><em>zh.json</em>：<code>{ "welcome": "欢迎", "login": "登录" }</code></li>
+        <li><em>en.json</em>：<code>{ "welcome": "Welcome", "login": "Login" }</code></li>
+        <li>代码里写 <code>t('welcome')</code> 而不是直接 "欢迎"</li>
+        <li>用户切换语言 → 重新查字典 → 整个界面瞬间换</li>
+      </ul>
+      <p>现成方案：<em>i18next</em>（最常用）、<em>react-intl</em>、<em>vue-i18n</em>。</p>
+      <p>注意：日期格式 / 数字格式 / 货币 / 排序 也要按地区变（北京 vs New York 时区不同）——叫 <em>l10n</em>（localization 本地化）。</p>
+    ` },
+  ],
+  children: [],
+};
+
+const node_dark_mode = {
+  id: "dark-mode",
+  emoji: "🌓",
+  title: "黑暗模式",
+  lightbulb: true,
+  concept: { name: "黑暗 / 浅色 主题切换", explain: "用 CSS 变量定义所有颜色 → 切换 data-theme 一行改完整套主题。" },
+  pages: [
+    { html: `
+      <p>用户看久了眼睛累 / 晚上不想被白屏闪 → 想要黑暗模式。</p>
+      <p>核心做法：所有颜色用 <em>CSS 变量</em> 定义，不要写死颜色。切换主题 = 改变量值。</p>
+      <p>简化代码：</p>
+      <pre style="font-family:monospace;font-size:11.5px;background:#fff5e6;padding:8px;border-radius:5px;line-height:1.5;">:root { --bg: white; --text: black; }
+[data-theme="dark"] { --bg: #1a1a1a; --text: #e0e0e0; }
+
+body { background: var(--bg); color: var(--text); }
+
+// JS 切换：
+document.documentElement.setAttribute('data-theme', 'dark');</pre>
+      <p>升级招：用 <em>matchMedia('(prefers-color-scheme: dark)')</em> 读用户系统设置——系统是暗的就默认暗。</p>
+      <p>用户手动选过 → 存 <em>localStorage</em>，下次记住。</p>
+      <p>常见坑：图片 / icon 也要适配（白底 icon 在暗模式看不清）→ 用 SVG + currentColor 让它跟随文字色。</p>
+    ` },
+  ],
+  children: [],
+};
+
+const node_pwa = {
+  id: "pwa",
+  emoji: "📲",
+  title: "PWA / 离线可用",
+  lightbulb: true,
+  concept: { name: "PWA / 渐进式 Web 应用", explain: "让网页能像 App 一样安装到桌面 + 离线可用 + 推送通知。" },
+  pages: [
+    { html: `
+      <p>网页 vs App 最大差距：网页没网不能用、不能装桌面、不能推送通知。<em>PWA</em>（Progressive Web App）就是给网页加上这些 App 能力。</p>
+      <p>核心三件套：</p>
+      <ul>
+        <li><em>manifest.json</em>：声明 App 名字 / 图标 / 启动颜色——浏览器看到才提示"添加到主屏幕"</li>
+        <li><em>Service Worker</em>：在后台跑的脚本，能拦截网络请求 + 缓存文件——实现离线可用 + 推送通知</li>
+        <li><em>HTTPS</em>：必须 HTTPS 才能跑 Service Worker</li>
+      </ul>
+      <p>用户体验：</p>
+      <ul>
+        <li>首次访问 → 浏览器提示"添加到主屏幕" → 用户加了图标到桌面</li>
+        <li>点图标打开 → 没浏览器地址栏，跟原生 App 一样</li>
+        <li>断网也能开 → Service Worker 缓存了核心文件</li>
+      </ul>
+      <p>现成框架：<em>Next.js</em> / <em>Vite</em> 配 PWA 插件几分钟搞定。</p>
+    ` },
+  ],
+  children: [],
+};
+
+const node_backup_monitor = {
+  id: "backup-monitor",
+  emoji: "🛟",
+  title: "备份 / 日志 / 监控",
+  lightbulb: true,
+  concept: { name: "数据备份 + 日志 + 监控告警", explain: "产品上线后必须有的"保命三件套"——出事能恢复、能查原因、能及时知道。" },
+  pages: [
+    { html: `
+      <p>产品上线后任何意外都可能发生：服务器宕机、数据库炸了、用户量爆增、有人恶意攻击。三件保命套装：</p>
+      <p><strong>1. 备份</strong>（Backup）</p>
+      <ul>
+        <li>数据库每天自动备份一次 → 存到另一个地方（不能跟主库一起挂）</li>
+        <li>云服务通常自带（如 Supabase / 阿里云 RDS 自动备份保留 7-30 天）</li>
+        <li>定期演练"从备份恢复"——没演练过 = 备份等于没有</li>
+      </ul>
+      <p><strong>2. 日志</strong>（Logging）</p>
+      <ul>
+        <li>程序关键步骤都打日志：用户登录 / 支付 / 报错</li>
+        <li>用 <em>Pino</em> / <em>Winston</em>（Node）/ <em>logging</em>（Python）规范化输出</li>
+        <li>日志集中收集：<em>Logtail</em> / <em>Better Stack</em> / <em>Sentry</em>（云服务，免费额度够小项目）</li>
+      </ul>
+      <p><strong>3. 监控告警</strong>（Monitoring）</p>
+      <ul>
+        <li>关键指标：响应时间 / 错误率 / CPU / 内存 / 数据库连接数</li>
+        <li>设阈值告警：错误率 > 1% / CPU > 80% → 自动发邮件 / 短信 / Slack</li>
+        <li>现成方案：<em>UptimeRobot</em>（免费监控网址在线）/ <em>Sentry</em>（错误聚合）/ <em>Grafana</em>（自建大屏）</li>
+      </ul>
+      <p>vibecoding 起步至少做：① 数据库自动备份开启 ② Sentry 接错误监控 ③ UptimeRobot 监控网址在线。</p>
+    ` },
+  ],
+  children: [],
+};
+
 const node_framework = {
   id: "framework",
   emoji: "🧱",
@@ -1070,6 +1184,59 @@ const node_framework = {
       <p>页面一复杂——「现在选中哪个」「输入框里有什么」「侧栏开没开」「购物车有几件」——这些"状态"开始难管。</p>
       <p>帮你管这些状态、把页面拆成组件的工具叫<em>前端框架</em>。</p>
       <p>主流：<em>React</em>、<em>Vue</em>、<em>Svelte</em>。</p>
+    ` },
+  ],
+  children: [node_i18n],
+};
+
+// ============================================================
+// 网络 / 实时 / 部署相关 lightbulb 子节点（SEO / Lighthouse / OAuth / Webhook）
+// ============================================================
+
+const node_seo = {
+  id: "seo",
+  emoji: "🔎",
+  title: "SEO / 让别人搜到",
+  lightbulb: true,
+  concept: { name: "SEO / 搜索引擎优化", explain: "让 Google / 百度 把你的网页排在搜索结果前面——能省下大量广告费。" },
+  pages: [
+    { html: `
+      <p>做了个工具站发上线 → 没人来？因为搜不到。</p>
+      <p><em>SEO</em>（Search Engine Optimization，搜索引擎优化）= 让搜索引擎认识 + 喜欢你的网页，自然排进结果前面。</p>
+      <p>核心几件事：</p>
+      <ul>
+        <li><em>title</em> + <em>description</em>：每个页面都设独立标题 + 一句描述（搜索结果里显示的就是这俩）</li>
+        <li><em>语义化 HTML</em>：用 <em>h1 / h2</em> 分层级，用 <em>article / nav</em> 标语义</li>
+        <li><em>sitemap.xml</em>：列出所有页面给爬虫看</li>
+        <li><em>robots.txt</em>：告诉爬虫哪些能爬</li>
+        <li>速度要快（见 Lighthouse 节点）+ 移动端友好</li>
+        <li>有外链指向你（别的网站引用你）= 权威分高</li>
+      </ul>
+      <p>vibecoding 工具站建议：注册 <em>Google Search Console</em> + <em>百度站长平台</em>，提交 sitemap，看哪些关键词带来流量。</p>
+    ` },
+  ],
+  children: [],
+};
+
+const node_lighthouse = {
+  id: "lighthouse",
+  emoji: "🚥",
+  title: "Lighthouse / 网页性能审计",
+  lightbulb: true,
+  concept: { name: "Lighthouse / 性能审计", explain: "Google 出的免费工具，给网页打分（性能 / SEO / 无障碍 / 最佳实践）+ 给具体改进建议。" },
+  pages: [
+    { html: `
+      <p>网页慢 / 不专业感 / 搜索引擎不喜欢——怎么知道哪里出问题？</p>
+      <p><em>Lighthouse</em>：Google 出的网页审计工具，浏览器 F12 → Lighthouse 标签 → 跑一次。给你 4 个维度打分（0-100）：</p>
+      <ul>
+        <li><em>Performance</em>（性能）：加载多快、能多快互动</li>
+        <li><em>Accessibility</em>（无障碍）：盲人 / 老人能用吗</li>
+        <li><em>Best Practices</em>（最佳实践）：HTTPS / 没用废弃 API 等</li>
+        <li><em>SEO</em>：搜索引擎友好吗</li>
+      </ul>
+      <p>每个分数底下列出具体问题 + 解决建议——按建议改一遍能涨 20-50 分。</p>
+      <p>vibecoding 部署后跑一次 → 让 AI 看 Lighthouse 报告里的"机会"那一节 → AI 帮你按建议改。</p>
+      <p>常见快速改进：图片用 <em>WebP</em> 格式、加 <em>lazy loading</em>、删没用的 JS、加 <em>meta description</em>。</p>
     ` },
   ],
   children: [],
@@ -1095,7 +1262,7 @@ const node_deploy_web = {
       <p>免费现成的：<em>Cloudflare Pages</em>、<em>Vercel</em>、<em>Netlify</em>。绑 GitHub，每次提交自动部署。</p>
     ` },
   ],
-  children: [{ ref: "shared-server" }, node_localhost],
+  children: [{ ref: "shared-server" }, node_localhost, node_seo, node_lighthouse],
 };
 
 const node_auth_web = {
@@ -1280,7 +1447,7 @@ const node_web_trio = {
       <p><em>JavaScript</em>：写"怎么响应"（点了按钮做什么、输了字算什么）。</p>
     ` },
   ],
-  children: [node_fe_be, node_framework],
+  children: [node_fe_be, node_framework, node_dark_mode],
 };
 
 const node_where_web = {
@@ -1302,7 +1469,7 @@ const node_where_web = {
       <p>vc 创作者最容易出活的一条路。</p>
     ` },
   ],
-  children: [node_web_trio, node_dns, node_other_web],
+  children: [node_web_trio, node_dns, node_other_web, node_pwa],
 };
 
 // ====== 电脑分支链 ======
@@ -1548,7 +1715,29 @@ const node_deploy_server = {
       <p>省心的：<em>Railway</em>、<em>Render</em>、<em>Fly.io</em>——绑 GitHub 自动部署。</p>
     ` },
   ],
-  children: [{ ref: "shared-server" }],
+  children: [{ ref: "shared-server" }, node_backup_monitor],
+};
+
+const node_webhook = {
+  id: "webhook",
+  emoji: "🪝",
+  title: "Webhook / 别人主动通知你",
+  lightbulb: true,
+  concept: { name: "Webhook / 反向接口", explain: "对方有事发生时主动 POST 一个请求来告诉你，不用你一直去问对方「有没有动静」。" },
+  pages: [
+    { html: `
+      <p>普通 API：你问对方"有新数据吗" → 对方回。频繁问浪费两边资源。</p>
+      <p><em>Webhook</em>（反向 webhook）：对方有事发生时主动 POST 一个请求到你提供的网址，告诉你"刚发生了 X"——你被动接收，不用反复问。</p>
+      <p>例子：</p>
+      <ul>
+        <li>Stripe 支付：用户付完钱 → Stripe POST 到你的 <em>/webhook/stripe</em> → 你的服务器才知道"这笔订单已付"</li>
+        <li>GitHub：仓库有人推代码 → GitHub POST 到你的 <em>/webhook/github</em> → 你触发自动部署</li>
+        <li>飞书 / 钉钉 bot：群里 @ 你的 bot → 平台 POST 给你 → 你回消息</li>
+      </ul>
+      <p>实现：自己服务上提供一个 <em>POST 接口</em>，把网址填到对方平台的"Webhook URL"设置里，再 + <em>signature 验签</em>防伪造。</p>
+    ` },
+  ],
+  children: [],
 };
 
 const node_api_http_server = {
@@ -1563,7 +1752,30 @@ const node_api_http_server = {
       <p>要想：谁能调（鉴权）、调多频繁（限流）、出错怎么回（错误码）。</p>
     ` },
   ],
-  children: [node_deploy_server],
+  children: [node_deploy_server, node_webhook],
+};
+
+const node_oauth = {
+  id: "oauth",
+  emoji: "🌐",
+  title: "OAuth / 第三方登录",
+  lightbulb: true,
+  concept: { name: "OAuth / 用别家账号登录", explain: "让用户用微信 / Google / GitHub 账号登录你的产品——你不存密码，安全又省事。" },
+  pages: [
+    { html: `
+      <p>做产品不想自己管"注册 / 改密码 / 找回密码"这套？让用户用现成的微信 / Google 账号登录就行——这套机制叫 <em>OAuth</em>。</p>
+      <p>流程（用户视角）：</p>
+      <ul>
+        <li>① 用户点"用微信登录"</li>
+        <li>② 跳到微信授权页"是否允许 X 应用获取你的昵称头像"</li>
+        <li>③ 用户同意 → 跳回你的产品，自动登录</li>
+      </ul>
+      <p>你拿到什么：用户的微信 <em>openid</em>（唯一标识）+ 昵称 + 头像。<strong>拿不到</strong>密码（在微信那边，你看不到）。</p>
+      <p>实现：用现成方案省 95% 工作量——<em>Supabase Auth</em> / <em>Clerk</em> / <em>Auth0</em> / <em>NextAuth</em> 都直接配几行接好微信 / Google / Apple / GitHub。</p>
+      <p>注意：第三方平台都要先注册"开发者应用"拿 <em>client_id / client_secret</em>，按平台规则审核才能上线（微信尤其严）。</p>
+    ` },
+  ],
+  children: [],
 };
 
 const node_auth_server = {
@@ -1579,7 +1791,7 @@ const node_auth_server = {
       <p>用 <em>Supabase Auth</em> / <em>Clerk</em> / <em>Auth0</em> 接现成更稳。</p>
     ` },
   ],
-  children: [node_api_http_server],
+  children: [node_api_http_server, node_oauth],
 };
 
 const node_database_server = {

@@ -1335,6 +1335,134 @@ const __EXAMPLE_BY_ID__ = {
     </div></div>
   </div></div>`,
 
+  "seo": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🔎</span>SEO = <strong>让搜索引擎把你的页面排前面</strong>，省下大量广告费——核心是 title + 内容质量 + 速度 + 别人链你</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>实际怎么用</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🏷️</span>每页设独立 <code>&lt;title&gt;</code> + <code>&lt;meta description&gt;</code>——这俩就是搜索结果里显示的</div>
+      <div class="ex-line"><span class="ex-emoji">🗺️</span>生成 <code>sitemap.xml</code> 列所有页面 → 提交到 <strong>Google Search Console</strong> / <strong>百度站长平台</strong></div>
+      <div class="ex-line"><span class="ex-emoji">📊</span>看哪些关键词带来流量 → 围绕这些词加内容</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">💰</span>免费流量：搜索引擎送的用户比投广告便宜很多</div>
+      <div class="ex-line"><span class="ex-emoji">📈</span>长尾效应：1 篇好文章 / 工具页能源源不断带流量</div>
+      <div class="ex-line"><span class="ex-emoji">⏰</span>SEO 见效慢：3-6 个月才能排到前面，越早做越好</div>
+    </div></div>
+  </div></div>`,
+
+  "lighthouse": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🚥</span>Lighthouse = <strong>Google 的网页体检工具</strong>，F12 跑一次给 4 个维度打分（性能 / 无障碍 / 最佳实践 / SEO）+ 改进建议</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>实际怎么用</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🌐</span>Chrome 打开你的网站 → F12 → Lighthouse 标签 → 点 Analyze → 等 30 秒拿报告</div>
+      <div class="ex-line"><span class="ex-emoji">📋</span>报告里"机会"那节列出具体可改进项 + 预计能省多少时间</div>
+      <div class="ex-line"><span class="ex-emoji">🤖</span>把报告里高优先级问题贴给 AI → 让 AI 帮按建议改</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">⚡</span>性能涨 20-50 分常见改法：图片转 <strong>WebP</strong> / 加 <strong>lazy loading</strong> / 删没用的 JS</div>
+      <div class="ex-line"><span class="ex-emoji">♿</span>无障碍改进：alt 属性 / 对比度 / 键盘导航——也是 SEO 加分项</div>
+      <div class="ex-line"><span class="ex-emoji">📐</span>核心指标：<strong>LCP</strong>（最大内容多快显示）/ <strong>CLS</strong>（页面布局抖动）/ <strong>FID</strong>（多快能交互）</div>
+    </div></div>
+  </div></div>`,
+
+  "webhook": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🪝</span>Webhook = <strong>对方有事主动通知你</strong>（POST 到你的网址），不用你反复问"有动静吗"</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>实际怎么用</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">💳</span>Stripe / 微信支付：用户付完款 → 平台 POST 到你的 <code>/webhook/pay</code> → 你才知道这笔订单已支付</div>
+      <div class="ex-line"><span class="ex-emoji">🐙</span>GitHub：仓库有人推代码 → POST 到 <code>/webhook/github</code> → 触发自动部署</div>
+      <div class="ex-line"><span class="ex-emoji">🤖</span>飞书 / 钉钉 bot：群里 @ bot → 平台 POST 给你 → 你回消息</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">⚡</span>实时性：事件发生即收到，不用每秒 polling 浪费两边资源</div>
+      <div class="ex-line"><span class="ex-emoji">🔌</span>自动化：连接多个 SaaS 实现"A 触发 → B 反应"流程</div>
+      <div class="ex-line"><span class="ex-emoji">🔒</span>必做 <strong>signature 验签</strong>：检查 POST 真的来自对方，防伪造</div>
+    </div></div>
+  </div></div>`,
+
+  "oauth": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🌐</span>OAuth = <strong>让用户用微信 / Google 账号登录你的产品</strong>。你不存密码，省事又安全</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>实际怎么用</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">👆</span>用户点"微信登录" → 跳微信授权页 → 同意 → 跳回你产品自动登录</div>
+      <div class="ex-line"><span class="ex-emoji">📦</span>你拿到：<strong>openid</strong>（用户唯一标识）+ 昵称 + 头像。<strong>拿不到</strong>密码</div>
+      <div class="ex-line"><span class="ex-emoji">🛠️</span>vibecoding 用现成方案：<strong>Supabase Auth / Clerk / NextAuth</strong> 几行配好微信 / Google / Apple / GitHub 登录</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">⚡</span>用户体验好：不用再注册一遍 + 不用记新密码</div>
+      <div class="ex-line"><span class="ex-emoji">🛡️</span>密码泄漏不用你担责：你压根没存</div>
+      <div class="ex-line"><span class="ex-emoji">📐</span>对方平台要先注册"开发者应用"拿 <strong>client_id / client_secret</strong>——微信审核尤其严</div>
+    </div></div>
+  </div></div>`,
+
+  "pwa": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">📲</span>PWA = <strong>让网页有 App 能力</strong>：能装桌面、能离线用、能推送通知</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>实际怎么用</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">📝</span>加 <code>manifest.json</code>（App 名 / 图标 / 启动色）→ 浏览器才提示"添加到主屏幕"</div>
+      <div class="ex-line"><span class="ex-emoji">💾</span>加 <code>Service Worker</code> 缓存核心文件 → 断网也能开</div>
+      <div class="ex-line"><span class="ex-emoji">🔔</span>注册推送 → 用户能在 App 没开时收到消息（iOS 16.4+ Safari 也支持了）</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">⚡</span>不走应用商店：不审核、不抽 30%、即时上线</div>
+      <div class="ex-line"><span class="ex-emoji">🖥️</span>跨平台 0 成本：iOS / Android / Win / Mac 都能装</div>
+      <div class="ex-line"><span class="ex-emoji">📐</span>现成框架：<strong>Next.js / Vite</strong> 配 PWA 插件几分钟搞定，必须 HTTPS</div>
+    </div></div>
+  </div></div>`,
+
+  "i18n": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🌏</span>i18n = <strong>把所有界面文字提到字典文件</strong>，按语言查字典渲染——不是写两份代码</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>实际怎么用</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">📦</span>建 zh.json / en.json 字典 → 代码里写 <code>t('welcome')</code> 而不是直接 "欢迎"</div>
+      <div class="ex-line"><span class="ex-emoji">🔄</span>用户切语言 → 重查字典 → 整界面瞬间换</div>
+      <div class="ex-line"><span class="ex-emoji">📅</span>日期 / 货币 / 数字 / 排序也要按地区变 → 叫 <strong>l10n</strong>（本地化）</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🌍</span>一份代码服务全球用户：海外市场 + 国内市场不用两套</div>
+      <div class="ex-line"><span class="ex-emoji">🤖</span>AI 翻译初稿：把 zh.json 给 AI → 自动生成 en.json，人工微调即可</div>
+      <div class="ex-line"><span class="ex-emoji">📐</span>现成方案：<strong>i18next</strong>（最常用）/ react-intl / vue-i18n</div>
+    </div></div>
+  </div></div>`,
+
+  "dark-mode": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🌓</span>黑暗模式 = <strong>所有颜色用 CSS 变量定义</strong>，切换 <code>data-theme</code> 一行改完整套主题</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>实际怎么用</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🎨</span><code>:root { --bg: white }</code> + <code>[data-theme="dark"] { --bg: #1a1a1a }</code></div>
+      <div class="ex-line"><span class="ex-emoji">🖱️</span>JS 一行切换：<code>document.documentElement.setAttribute('data-theme', 'dark')</code></div>
+      <div class="ex-line"><span class="ex-emoji">💾</span>用户选过 → 存 localStorage，下次记住；默认跟系统（<code>matchMedia</code>）</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">👀</span>用户体验加分：晚上不刺眼，省电池（OLED 屏黑色省电）</div>
+      <div class="ex-line"><span class="ex-emoji">⚡</span>开发省事：定义一套变量管所有主题，加第三套（如 高对比）也几行</div>
+      <div class="ex-line"><span class="ex-emoji">⚠️</span>坑：图片 / icon 也要适配 → SVG 用 <code>currentColor</code> 跟随文字色</div>
+    </div></div>
+  </div></div>`,
+
+  "backup-monitor": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🛟</span>产品上线"保命三件套"：<strong>备份</strong>（数据不丢）+ <strong>日志</strong>（出事查原因）+ <strong>监控</strong>（出事即时知道）</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>实际怎么用</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">💾</span><strong>备份</strong>：数据库每天自动备份 → 存到另一个地方（Supabase / 阿里云 RDS 自带）</div>
+      <div class="ex-line"><span class="ex-emoji">📋</span><strong>日志</strong>：用 <strong>Sentry</strong>（错误聚合）/ <strong>Logtail</strong>（日志查询），免费额度够小项目</div>
+      <div class="ex-line"><span class="ex-emoji">🚨</span><strong>监控</strong>：<strong>UptimeRobot</strong>（监控网址在线）+ Sentry 设错误率告警，邮件 / Slack 通知</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🛡️</span>服务器宕机 / 数据库炸 / 被攻击 → 都不至于丢数据 + 自己睡觉时手机会响</div>
+      <div class="ex-line"><span class="ex-emoji">🔍</span>用户报 bug → 翻 Sentry 找当时错误堆栈，比"重现 bug"快 10 倍</div>
+      <div class="ex-line"><span class="ex-emoji">📐</span>vibecoding 起步至少做：① 自动备份开启 ② Sentry 接错误 ③ UptimeRobot 监控网址</div>
+    </div></div>
+  </div></div>`,
+
   "vibe-refactor": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
     <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div><div class="ex-story">
       <div class="ex-line"><span class="ex-emoji">🧹</span>重构 = <strong>功能不变但代码变干净</strong>。AI 是重构利器，比手动整理快 100 倍</div>

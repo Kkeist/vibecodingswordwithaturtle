@@ -961,11 +961,18 @@ body {
 
 /* ========== 互动小游戏 widget ========== */
 
-/* example 第二张并行卡片：跟主卡片同款样式，放在主卡片旁边（不是中心遮罩弹窗） */
+/* example 第二张并行卡片：跟主卡片同款样式，放在主卡片旁边（不是中心遮罩弹窗）
+   修弹窗"乱动一下"：用 opacity fade，不用 transform 平移（避免位置先错后纠正） */
 .card.example-card-popup {
   z-index: 70;  /* 比主卡片 60 略高，但不像 modal 那样盖一切 */
   cursor: default;
-  transition: box-shadow 0.18s var(--ease-soft);
+  transform: none !important;
+  opacity: 0;
+  transition: opacity 0.2s var(--ease-soft), box-shadow 0.18s var(--ease-soft);
+}
+.card.example-card-popup.show {
+  opacity: 1;
+  transform: none !important;
 }
 .card.example-card-popup.dragging {
   box-shadow:
