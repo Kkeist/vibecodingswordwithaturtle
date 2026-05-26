@@ -82,10 +82,10 @@ const node_error_debug = {
         <li><em>TypeError</em>：类型错了（你把数字当函数调）</li>
         <li><em>ReferenceError</em>：变量没定义就用</li>
         <li><em>SyntaxError</em>：语法写错（括号没配对、漏分号）</li>
-        <li><em>undefined is not a function</em>：你以为是函数其实啥也不是</li>
+        <li><em>undefined is not a function</em>：这个名字写得像函数其实啥也不是</li>
         <li><em>Cannot read property X of undefined</em>：对着空的东西取属性</li>
       </ul>
-      <p>看不懂报错就把红字整段复制问 AI——比自己猜快十倍。</p>
+      <p>报错直接把红字整段复制问 AI——比自己琢磨快十倍。</p>
     ` },
   ],
   children: [node_console_log],
@@ -222,7 +222,7 @@ const node_data_types = {
       <p><em>数组</em>（<em>array</em>）：一串东西按顺序排，写作 [1, 2, 3] 或 ["苹果", "梨"]。</p>
       <p><em>对象</em>（<em>object</em>）：一组带标签的属性，写作 { name: "小明", age: 10 }。</p>
       <p><em>null</em> / <em>undefined</em>：表示「没值 / 空」。两个有微妙差别但日常都当「空」理解。</p>
-      <p>报错里出现「X is undefined」一般是：你以为某变量有值其实没有。</p>
+      <p>报错里出现「X is undefined」一般是：那个变量被当成有值的用，但实际上是空。</p>
       <div class="example-card">
         <button class="example-toggle">📖 看真实例子</button>
         <div class="example-content" hidden>
@@ -245,9 +245,9 @@ const node_data_types = {
           <div class="ex-section">
             <div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处（懂了能干啥）</div>
             <div class="ex-story">
-              <div class="ex-line"><span class="ex-emoji">🐛</span>AI 报"类型不对" / "X is undefined" / "NaN" → 立刻知道是某变量没装对类型 / 没值</div>
-              <div class="ex-line"><span class="ex-emoji">🔧</span>表单收到的"3"是字符串（不能直接算钱）→ 要先转成数字 → 不会算出 33（字符串拼接）</div>
-              <div class="ex-line"><span class="ex-emoji">📐</span>设计产品要列字段时心里就知道每个字段是啥类型 → 跟 AI 描述需求更精准</div>
+              <div class="ex-line"><span class="ex-emoji">🐛</span>AI 报"类型不对" / "X is undefined" / "NaN" → 是某变量类型对不上 / 值是空</div>
+              <div class="ex-line"><span class="ex-emoji">🔧</span>表单收到的"3"是字符串（直接算钱会出错）→ 先转成数字 → 避免算出 33（字符串拼接）</div>
+              <div class="ex-line"><span class="ex-emoji">📐</span>列产品字段时标好每个的类型 → 跟 AI 描述需求更精准</div>
             </div>
           </div>
         </div>
@@ -286,14 +286,14 @@ const node_stack_mem = {
             <div class="ex-story">
               <div class="ex-line"><span class="ex-emoji">📞</span>用户点登录 → 跑 <strong>login()</strong> → login 内部叫 <strong>checkPwd()</strong> → checkPwd 叫 <strong>encrypt()</strong>——每叫一层就压一个盘子上栈</div>
               <div class="ex-line"><span class="ex-emoji">📦</span>购物车列表（10 个商品对象）→ 数据丢"堆"里，购物车变量只装一个"地址条"指过去</div>
-              <div class="ex-line"><span class="ex-emoji">💥</span>做无限循环的"刷帖"功能没设停止 → A 叫 A 叫 A → <strong>栈溢出</strong>程序崩</div>
+              <div class="ex-line"><span class="ex-emoji">💥</span>做无限循环的"刷帖"功能缺停止条件 → A 叫 A 叫 A → <strong>栈溢出</strong>程序崩</div>
             </div>
           </div>
           <div class="ex-section">
             <div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处（懂了能干啥）</div>
             <div class="ex-story">
               <div class="ex-line"><span class="ex-emoji">🔍</span>看报错的<strong>调用栈</strong>就知道是哪个函数的哪一行炸了——从下往上读 = 从外往里调用顺序</div>
-              <div class="ex-line"><span class="ex-emoji">⚠️</span>AI 说"栈溢出"立刻去找有没有"忘了写停止条件"的递归</div>
+              <div class="ex-line"><span class="ex-emoji">⚠️</span>AI 说"栈溢出"立刻去找有没有"缺停止条件"的递归</div>
               <div class="ex-line"><span class="ex-emoji">🧠</span>程序越跑越卡 = <strong>内存泄漏</strong>（堆里旧货没清），重启服务暂时缓解，根治得查"谁一直占着不放"</div>
             </div>
           </div>
@@ -369,8 +369,8 @@ const node_basics_entry = {
         <li><em>循环</em>：反复跑某段</li>
         <li><em>报错</em> / <em>调试</em>：程序出错怎么找原因</li>
       </ul>
-      <p>看懂这几个，AI 跟你说什么、报错说什么，能听懂大半。</p>
-      <p>你不一定要会自己写——但这些名词得知道是什么。</p>
+      <p>这几个概念清楚之后，AI 说什么、报错说什么，都能对上号。</p>
+      <p>这些名词知道是什么就行——会不会自己写都通用。</p>
     ` },
   ],
   children: [node_var],
@@ -1739,7 +1739,7 @@ const TERM_GLOSSARY = {
   "TypeError": "类型错——你把数字当函数调、或者别的类型错配。",
   "ReferenceError": "引用错——变量没定义就用。",
   "SyntaxError": "语法错——括号没配对、漏分号之类。",
-  "undefined is not a function": "你以为是函数其实啥都不是（值是 undefined）。",
+  "undefined is not a function": "这个名字写得像函数其实啥都不是（值是 undefined）。",
   "Cannot read property X of undefined": "对着空的东西取属性——常是 API 没返回正确数据。",
   "console.log": "JavaScript 里打印一行字到控制台的命令。最常用 debug 工具。",
   "print": "Python 里打印一行字的命令。",
@@ -2273,7 +2273,7 @@ const node_pt_travel = {
   pages: [
     { html: `
       <p>库存复杂型——携程 / Airbnb / Booking / 飞猪。</p>
-      <p><strong>整体结构</strong>（你只是个中间商，库存其实在航司 / 酒店那边）：</p>
+      <p><strong>整体结构</strong>（平台是中间商，库存其实在航司 / 酒店那边）：</p>
       <div class="emoji-illust">
         <span class="ei-emoji">📱</span><span class="ei-label">前端</span>
         <span class="ei-arrow">↔</span>
