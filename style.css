@@ -964,18 +964,48 @@ body {
 /* example 第二张并行卡片：跟主卡片同款样式，放在主卡片旁边（不是中心遮罩弹窗） */
 .card.example-card-popup {
   z-index: 70;  /* 比主卡片 60 略高，但不像 modal 那样盖一切 */
+  cursor: default;
+  transition: box-shadow 0.18s var(--ease-soft);
+}
+.card.example-card-popup.dragging {
+  box-shadow:
+    0 16px 40px rgba(74, 61, 42, 0.22),
+    0 4px 10px rgba(74, 61, 42, 0.12);
+  user-select: none;
 }
 .card.example-card-popup .card-header {
   background: var(--accent-bg);
   margin: -10px -12px 10px;
   padding: 10px 12px;
   border-bottom: 1px solid var(--accent-soft);
+  cursor: move;
+  user-select: none;
+  -webkit-user-select: none;
+  position: relative;
+}
+/* 拖动小提示：header 左上角小图标 */
+.card.example-card-popup .card-header::after {
+  content: '⋮⋮';
+  position: absolute;
+  left: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--accent-soft);
+  font-size: 13px;
+  letter-spacing: -1.5px;
+  pointer-events: none;
+  opacity: 0.7;
+}
+.card.example-card-popup .card-emoji {
+  margin-left: 14px;  /* 给拖拽提示让位 */
 }
 .card.example-card-popup .card-title {
   color: var(--accent-deep);
 }
+.card.example-card-popup .card-close {
+  cursor: pointer;
+}
 .example-popup-body {
-  /* 跟普通 .card-body 一样的滚动行为 */
   font-size: 13px;
   line-height: 1.7;
 }

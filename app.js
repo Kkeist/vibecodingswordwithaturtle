@@ -230,6 +230,10 @@ function updateLinkPath(linkInfo) {
 // 点节点 = 打开卡片。**不**自动 spawn 子节点。
 // 子节点通过卡片里的选项点击逐个 spawn（chain 流程化）
 function handleNodeClick(entry) {
+  // 切换节点 → 关闭之前的 example 卡片（避免旧 example 跟新主卡片错配出画）
+  if (STATE.examplePopupEl && STATE.activeCardId !== entry.id) {
+    closeExampleModalSync();
+  }
   if (!entry.visited) {
     entry.visited = true;
     entry.el.classList.add('visited');
@@ -949,13 +953,14 @@ function closeTermTooltip() {
 
 // ---------- 互动小游戏 widget ----------
 // 在卡片 body 渲染后调用：扫 .reveal-card / .matching-game / .quiz-card，bind 交互
-// example 第二张并行卡片：跟主卡片同款样式，放在主卡片旁边（不是中心遮罩弹窗）
+// example 第二张并行卡片：跟主卡片同款样式，放在主卡片旁边
+// 支持拖拽（按 header 移动）+ resize/切换主卡片时自动 reposition / 关闭
 function openExampleModal(html, sourceCardId) {
-  closeExampleModal();
+  closeExampleModalSync();  // 同步关旧的（避免新旧 popup 并存）
   const card = document.createElement('div');
   card.className = 'card example-card-popup';
   card.innerHTML = `
-    <div class="card-header">
+    <div class="card-header example-popup-header">
       <div class="card-emoji" aria-hidden="true">📖</div>
       <div class="card-title">看例子</div>
       <button class="card-close" type="button" aria-label="关闭">×</button>
@@ -970,8 +975,10 @@ function openExampleModal(html, sourceCardId) {
   });
   card.addEventListener('click', (e) => e.stopPropagation());
   bindTermClicks(card.querySelector('.example-popup-body'));
+  makeExampleDraggable(card);
   STATE.examplePopupEl = card;
-  // 定位在主卡片旁边（同 positionCard 算法但避开主卡片）
+  STATE.examplePopupSourceId = sourceCardId;
+  // 定位在主卡片旁边
   requestAnimationFrame(() => {
     positionExamplePopup(card);
     card.style.visibility = '';
@@ -991,11 +998,78 @@ function closeExampleModal() {
     el.classList.remove('show');
     setTimeout(() => { if (el.parentNode) el.parentNode.removeChild(el); }, 220);
     STATE.examplePopupEl = null;
+    STATE.examplePopupSourceId = null;
   }
   if (STATE.exampleEscHandler) {
     document.removeEventListener('keydown', STATE.exampleEscHandler);
     STATE.exampleEscHandler = null;
   }
+}
+
+// 同步关闭（不等 transition），用于"立刻让位给新 popup"场景
+function closeExampleModalSync() {
+  if (STATE.examplePopupEl && STATE.examplePopupEl.parentNode) {
+    STATE.examplePopupEl.parentNode.removeChild(STATE.examplePopupEl);
+  }
+  STATE.examplePopupEl = null;
+  STATE.examplePopupSourceId = null;
+  if (STATE.exampleEscHandler) {
+    document.removeEventListener('keydown', STATE.exampleEscHandler);
+    STATE.exampleEscHandler = null;
+  }
+}
+
+// 给 example 卡片加拖拽能力：按 header 拖到任意位置（视口内 clamp）
+function makeExampleDraggable(card) {
+  const header = card.querySelector('.example-popup-header');
+  if (!header) return;
+  header.style.cursor = 'move';
+  header.style.userSelect = 'none';
+  let dragging = false;
+  let startX = 0, startY = 0, startL = 0, startT = 0;
+  function onDown(clientX, clientY, target) {
+    if (target.closest('.card-close')) return false;
+    dragging = true;
+    startX = clientX; startY = clientY;
+    const r = card.getBoundingClientRect();
+    startL = r.left; startT = r.top;
+    card.classList.add('dragging');
+    return true;
+  }
+  function onMove(clientX, clientY) {
+    if (!dragging) return;
+    const dx = clientX - startX, dy = clientY - startY;
+    const w = card.offsetWidth, h = card.offsetHeight;
+    const vw = window.innerWidth, vh = window.innerHeight;
+    const headerH = document.querySelector('.header')?.getBoundingClientRect().height || 60;
+    // 完全 clamp 在视口可用区内，不让卡片出画（顶部留 header 高度，底部留 16）
+    const nx = Math.max(8, Math.min(vw - w - 8, startL + dx));
+    const ny = Math.max(headerH + 8, Math.min(vh - h - 16, startT + dy));
+    card.style.left = nx + 'px';
+    card.style.top = ny + 'px';
+  }
+  function onUp() {
+    if (!dragging) return;
+    dragging = false;
+    card.classList.remove('dragging');
+  }
+  header.addEventListener('mousedown', (e) => {
+    if (onDown(e.clientX, e.clientY, e.target)) e.preventDefault();
+  });
+  window.addEventListener('mousemove', (e) => onMove(e.clientX, e.clientY));
+  window.addEventListener('mouseup', onUp);
+  header.addEventListener('touchstart', (e) => {
+    if (e.touches.length !== 1) return;
+    const t = e.touches[0];
+    onDown(t.clientX, t.clientY, e.target);
+  }, { passive: true });
+  window.addEventListener('touchmove', (e) => {
+    if (!dragging || e.touches.length !== 1) return;
+    const t = e.touches[0];
+    onMove(t.clientX, t.clientY);
+  }, { passive: true });
+  window.addEventListener('touchend', onUp);
+  window.addEventListener('touchcancel', onUp);
 }
 
 // 算 example 第二张卡片的位置：放在主卡片旁边，4 个候选位置（右/左/下/上）选最 fit 的
@@ -1059,13 +1133,15 @@ function positionExamplePopup(popup) {
 function bindInteractiveWidgets(bodyEl) {
   if (!bodyEl) return;
 
-  // (0) example-card 看真实例子 —— 点击打开独立 modal 弹窗，不在原卡片里撑高 + 不挤掉 options
+  // (0) example-card 看真实例子 —— 点击打开并行第二张卡片，不是 toggle 展开（去掉 ↓ 暗示）
   bodyEl.querySelectorAll('.example-card').forEach(card => {
     const btn = card.querySelector('.example-toggle');
     const content = card.querySelector('.example-content');
     if (!btn || !content) return;
-    // hide 掉原内联内容（只用按钮触发 modal）
+    // hide 掉原内联内容（只用按钮触发并行卡片）
     content.hidden = true;
+    // 按钮文字去掉 ↓ 暗示（不是 toggle 展开/收起）
+    btn.textContent = '📖 看真实例子';
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
       openExampleModal(content.innerHTML, STATE.activeCardId);
@@ -1339,6 +1415,8 @@ function handleResize() {
     layoutTree();
     applyLayoutToDOM();
     fitToScreen();
+    // example 卡片也要 reposition 防止 viewport 变化后出画
+    if (STATE.examplePopupEl) positionExamplePopup(STATE.examplePopupEl);
   }, 150);
 }
 
