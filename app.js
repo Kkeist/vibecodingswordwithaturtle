@@ -1277,6 +1277,243 @@ function resetAll() {
   init();
 }
 
+// ---------- 全局节点搜索 ----------
+// 收集 data.js 所有节点（包括未 spawn 的）
+function collectAllNodes() {
+  if (typeof TREE_DATA === 'undefined') return [];
+  const seen = new Set();
+  const all = [];
+  function walk(d, ancestors) {
+    if (!d || !d.id || seen.has(d.id)) return;
+    seen.add(d.id);
+    all.push({ data: d, ancestors: [...ancestors] });
+    (d.children || []).forEach(c => {
+      const realData = c.ref ? SHARED_NODES[c.ref] : c;
+      walk(realData, [...ancestors, d]);
+    });
+  }
+  walk(TREE_DATA, []);
+  Object.values(SHARED_NODES || {}).forEach(d => walk(d, []));
+  return all;
+}
+
+// 搜节点：匹配 title / concept / pages[0].html 文本（去 tag）
+function searchAllNodes(query) {
+  const q = query.toLowerCase().trim();
+  if (!q) return [];
+  const all = collectAllNodes();
+  return all.filter(({ data: d }) => {
+    const text = (
+      (d.title || '') + ' ' +
+      (d.concept?.name || '') + ' ' +
+      (d.concept?.explain || '') + ' ' +
+      (d.pages?.[0]?.html || '').replace(/<[^>]+>/g, ' ')
+    ).toLowerCase();
+    return text.includes(q);
+  });
+}
+
+// 高亮匹配关键词
+function highlightInSearchText(text, q) {
+  if (!text) return '';
+  if (!q) return escapeHTML(text);
+  const lower = text.toLowerCase();
+  const ql = q.toLowerCase();
+  let out = '';
+  let i = 0;
+  while (i < text.length) {
+    const idx = lower.indexOf(ql, i);
+    if (idx < 0) { out += escapeHTML(text.slice(i)); break; }
+    out += escapeHTML(text.slice(i, idx));
+    out += '<mark>' + escapeHTML(text.slice(idx, idx + ql.length)) + '</mark>';
+    i = idx + ql.length;
+  }
+  return out;
+}
+
+// 取一段含关键词的文本片段（snippet）
+function getSearchSnippet(d, q) {
+  const explain = d.concept?.explain || '';
+  if (explain.toLowerCase().includes(q.toLowerCase())) return explain;
+  const pageText = (d.pages?.[0]?.html || '').replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+  const idx = pageText.toLowerCase().indexOf(q.toLowerCase());
+  if (idx >= 0) {
+    const start = Math.max(0, idx - 20);
+    const end = Math.min(pageText.length, idx + q.length + 60);
+    return (start > 0 ? '…' : '') + pageText.slice(start, end) + (end < pageText.length ? '…' : '');
+  }
+  return explain || pageText.slice(0, 80);
+}
+
+// 找到 target 节点的 root→target 路径数据（用于 spawn）
+function findPathToNode(targetId) {
+  const path = [];
+  function dfs(node, ancestors) {
+    if (!node || !node.id) return false;
+    if (node.id === targetId) {
+      path.push(...ancestors, node);
+      return true;
+    }
+    for (const c of (node.children || [])) {
+      const realData = c.ref ? SHARED_NODES[c.ref] : c;
+      if (dfs(realData, [...ancestors, node])) return true;
+    }
+    return false;
+  }
+  dfs(TREE_DATA, []);
+  return path;
+}
+
+// 沿路径依次 spawn 节点，最后跳到 target
+async function spawnPathAndJump(targetId) {
+  const pathData = findPathToNode(targetId);
+  if (pathData.length === 0) return;
+  for (let i = 1; i < pathData.length; i++) {
+    const parentEntry = STATE.nodes.get(pathData[i - 1].id);
+    if (!parentEntry) return;
+    let childEntry = STATE.nodes.get(pathData[i].id);
+    if (!childEntry) {
+      const item = parentEntry.data.children?.find(c => {
+        const rd = c.ref ? SHARED_NODES[c.ref] : c;
+        return rd.id === pathData[i].id;
+      });
+      if (item) {
+        const optionIdx = parentEntry.data.children.indexOf(item);
+        childEntry = spawnOneChild(parentEntry, item, optionIdx);
+        await new Promise(r => setTimeout(r, 120));
+      }
+    }
+  }
+  const target = STATE.nodes.get(targetId);
+  if (target) {
+    // 强制重开（绕过 toggle）
+    if (STATE.activeCardId === targetId && STATE.cardEl) closeCard(true);
+    setTimeout(() => handleNodeClick(target), 80);
+  }
+}
+
+// 搜索 UI 状态
+const SEARCH = {
+  open: false,
+  results: [],
+  currentIdx: -1,
+};
+
+function openSearchCard() {
+  const card = $('.search-card');
+  if (!card) return;
+  card.hidden = false;
+  SEARCH.open = true;
+  const input = $('.search-input');
+  if (input) {
+    input.value = '';
+    setTimeout(() => input.focus(), 50);
+    renderSearchResults('');
+  }
+}
+
+function closeSearchCard() {
+  const card = $('.search-card');
+  if (card) card.hidden = true;
+  SEARCH.open = false;
+}
+
+function renderSearchResults(query) {
+  const resultsEl = $('.search-results');
+  const emptyEl = $('.search-results-empty');
+  if (!resultsEl) return;
+  const results = searchAllNodes(query);
+  SEARCH.results = results;
+  if (!query.trim()) {
+    resultsEl.innerHTML = '';
+    if (emptyEl) emptyEl.hidden = true;
+    return;
+  }
+  if (results.length === 0) {
+    resultsEl.innerHTML = '';
+    if (emptyEl) emptyEl.hidden = false;
+    return;
+  }
+  if (emptyEl) emptyEl.hidden = true;
+  resultsEl.innerHTML = results.slice(0, 30).map(({ data: d, ancestors }, i) => {
+    const pathStr = ancestors.length > 0
+      ? ancestors.map(a => a.title).join(' › ')
+      : '入口';
+    const snippet = getSearchSnippet(d, query);
+    return `
+      <div class="search-result" data-id="${escapeHTML(d.id)}" data-idx="${i}" role="option">
+        <div class="search-result-emoji" aria-hidden="true">${d.emoji || '📦'}</div>
+        <div class="search-result-body">
+          <div class="search-result-title">${highlightInSearchText(d.title || '', query)}</div>
+          <div class="search-result-path">${escapeHTML(pathStr)}</div>
+          <div class="search-result-snippet">${highlightInSearchText(snippet, query)}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+  resultsEl.querySelectorAll('.search-result').forEach(el => {
+    el.addEventListener('click', () => {
+      const idx = parseInt(el.dataset.idx, 10);
+      jumpToSearchResult(idx);
+    });
+  });
+}
+
+function jumpToSearchResult(idx) {
+  if (idx < 0 || idx >= SEARCH.results.length) return;
+  SEARCH.currentIdx = idx;
+  const targetData = SEARCH.results[idx].data;
+  closeSearchCard();
+  spawnPathAndJump(targetData.id);
+  updateSearchNav();
+}
+
+function updateSearchNav() {
+  const nav = $('.search-nav');
+  const info = $('.search-nav-info');
+  const prev = $('.search-nav-prev');
+  const next = $('.search-nav-next');
+  if (!nav) return;
+  if (SEARCH.results.length <= 1 || SEARCH.currentIdx < 0) {
+    nav.hidden = true;
+    return;
+  }
+  nav.hidden = false;
+  if (info) info.textContent = `${SEARCH.currentIdx + 1} / ${SEARCH.results.length}`;
+  if (prev) prev.disabled = SEARCH.currentIdx <= 0;
+  if (next) next.disabled = SEARCH.currentIdx >= SEARCH.results.length - 1;
+}
+
+function bindSearch() {
+  const toggle = $('.search-toggle');
+  const closeBtn = $('.search-card-close');
+  const input = $('.search-input');
+  const navPrev = $('.search-nav-prev');
+  const navNext = $('.search-nav-next');
+  const navClose = $('.search-nav-close');
+  if (toggle) toggle.addEventListener('click', () => {
+    if (SEARCH.open) closeSearchCard();
+    else openSearchCard();
+  });
+  if (closeBtn) closeBtn.addEventListener('click', closeSearchCard);
+  if (input) {
+    input.addEventListener('input', () => renderSearchResults(input.value));
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && SEARCH.results.length > 0) {
+        jumpToSearchResult(0);
+      }
+      if (e.key === 'Escape') closeSearchCard();
+    });
+  }
+  if (navPrev) navPrev.addEventListener('click', () => jumpToSearchResult(SEARCH.currentIdx - 1));
+  if (navNext) navNext.addEventListener('click', () => jumpToSearchResult(SEARCH.currentIdx + 1));
+  if (navClose) navClose.addEventListener('click', () => {
+    SEARCH.currentIdx = -1;
+    SEARCH.results = [];
+    updateSearchNav();
+  });
+}
+
 // ---------- 启动 ----------
 function init() {
   const wrapper = $('#canvas-wrapper');
@@ -1324,6 +1561,9 @@ function bindGlobalEvents() {
 
   // 笔记本抽屉
   bindNotebook();
+
+  // 全局节点搜索
+  bindSearch();
 
   // 阻止双击放大（移动端）
   let lastTouchEnd = 0;

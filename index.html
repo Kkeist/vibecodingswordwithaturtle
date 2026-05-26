@@ -36,6 +36,30 @@
 
   <div id="card-root" aria-live="polite"></div>
 
+  <!-- 全局搜索：浮动按钮 + 搜索卡片 + 跳转后右下浮按钮（上一个/下一个） -->
+  <button class="search-toggle" type="button" aria-label="搜节点">
+    <span class="search-toggle-icon" aria-hidden="true">🔍</span>
+    <span class="search-toggle-text">搜节点</span>
+  </button>
+  <div class="search-card" hidden role="dialog" aria-label="搜节点">
+    <div class="search-card-head">
+      <span class="search-card-title">🔍 搜任何节点</span>
+      <button class="search-card-close" type="button" aria-label="关闭">×</button>
+    </div>
+    <div class="search-card-input-row">
+      <input class="search-input" type="text" placeholder="输节点名 / 概念 / 关键词..." aria-label="搜索关键词">
+    </div>
+    <div class="search-results" role="listbox"></div>
+    <div class="search-results-empty" hidden>没找到——换个关键词试试</div>
+    <div class="search-results-hint">边输边搜全部 92 个节点。点结果直接跳过去。</div>
+  </div>
+  <div class="search-nav" hidden>
+    <button class="search-nav-prev" type="button" aria-label="上一个结果">‹</button>
+    <span class="search-nav-info">1 / 1</span>
+    <button class="search-nav-next" type="button" aria-label="下一个结果">›</button>
+    <button class="search-nav-close" type="button" aria-label="收起结果导航">×</button>
+  </div>
+
   <aside class="notebook" aria-label="笔记本">
     <button class="notebook-toggle" type="button" aria-expanded="false">
       <span class="notebook-icon" aria-hidden="true">📓</span>
