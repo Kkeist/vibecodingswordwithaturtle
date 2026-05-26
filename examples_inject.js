@@ -757,6 +757,519 @@ const __EXAMPLE_BY_ID__ = {
       <div class="ex-line"><span class="ex-emoji">📐</span>翻这个节点下的分支：每种产品类有专门的能力清单</div>
     </div></div>
   </div></div>`,
+
+  "pt-consumer": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（这一类产品的核心）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">💰</span>消费交易类 = <strong>用户花钱买东西</strong>，平台撮合买卖 + 保证交易不出错</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>真实产品 + 核心场景</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🛒</span><strong>淘宝</strong>：搜东西 → 下单 → 付款 → 等快递</div>
+      <div class="ex-line"><span class="ex-emoji">🍔</span><strong>美团</strong>：点外卖 → 商家接单 → 骑手送达</div>
+      <div class="ex-line"><span class="ex-emoji">🚗</span><strong>滴滴</strong>：叫车 → 司机来 → 到目的地扣钱</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>这类产品独有的技术挑战</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">⚡</span>钱不能算错 → <strong>事务</strong>（Transaction）保证"扣钱 + 发货"要么都成要么都退</div>
+      <div class="ex-line"><span class="ex-emoji">🔧</span>双 11 千万人同时抢 → <strong>分布式锁</strong> + <strong>消息队列</strong> 削峰</div>
+      <div class="ex-line"><span class="ex-emoji">📐</span>库存不能超卖 → <strong>乐观锁 / Redis 原子减</strong> 防最后一件被两人都买</div>
+    </div></div>
+  </div></div>`,
+
+  "pt-social": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（这一类产品的核心）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">💬</span>社交内容类 = <strong>用户发内容 / 看别人内容 / 互相聊天</strong>，平台决定谁能看到什么</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>真实产品 + 核心场景</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">📷</span><strong>小红书 / Instagram</strong>：发笔记 → 算法推给可能感兴趣的人</div>
+      <div class="ex-line"><span class="ex-emoji">🎵</span><strong>抖音 / TikTok</strong>：刷视频 → 算法决定下一条放什么</div>
+      <div class="ex-line"><span class="ex-emoji">💬</span><strong>微信 / QQ</strong>：发消息 → 对方手机马上响</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>这类产品独有的技术挑战</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🧠</span>推荐算法 → 根据看过 / 点过 / 停留时长猜兴趣</div>
+      <div class="ex-line"><span class="ex-emoji">📮</span>消息送达 → <strong>长连接 + 离线推送</strong>，对方手机马上收到</div>
+      <div class="ex-line"><span class="ex-emoji">📡</span>大 V 发一条全网刷到 → <strong>Feed 流分发</strong>（推 / 拉 / 推拉结合）</div>
+    </div></div>
+  </div></div>`,
+
+  "pt-experience": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（这一类产品的核心）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🎮</span>强体验 / 内容生产类 = 用户要的是<strong>沉浸感</strong>——画面流畅、声音同步、延迟低到感觉不到</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>真实产品 + 核心场景</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">⚔️</span><strong>王者荣耀</strong>：5 个人同屏打架 → 操作 30 毫秒内同步到所有人</div>
+      <div class="ex-line"><span class="ex-emoji">📺</span><strong>B 站直播</strong>：主播说话 → 几万人同时看，画面切碎传到全国</div>
+      <div class="ex-line"><span class="ex-emoji">🎨</span><strong>剪映</strong>：剪视频 → 加特效 → 导出，后端扛大文件渲染</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>这类产品独有的技术挑战</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">⚡</span>低延迟 → <strong>UDP / WebRTC</strong> 走快速传输不等确认</div>
+      <div class="ex-line"><span class="ex-emoji">🌐</span>大文件分发 → <strong>对象存储 + CDN</strong> 视频切片预先放离用户近的地方</div>
+      <div class="ex-line"><span class="ex-emoji">💸</span>算力贵 → <strong>GPU 集群 + 推理优化</strong> 让大模型跑得起还不亏钱</div>
+    </div></div>
+  </div></div>`,
+
+  "pt-work": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（这一类产品的核心）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">📊</span>工作工具类 = <strong>帮人把工作做完</strong>——数据不能丢、多人改同一份不能打架、权限分清</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>真实产品 + 核心场景</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">📊</span><strong>飞书 / 钉钉</strong>：多人同时改文档 → 每个人的光标实时可见</div>
+      <div class="ex-line"><span class="ex-emoji">📈</span><strong>Notion / Logseq</strong>：建数据库 + 拖卡片 + 跨页引用</div>
+      <div class="ex-line"><span class="ex-emoji">💼</span><strong>金蝶 / 用友</strong>：公司管账 + 进销存 + 报表，算钱不能差一分</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>这类产品独有的技术挑战</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🤝</span>多人协同 → <strong>OT 算法 / CRDT</strong> 让大家改完合并不冲突</div>
+      <div class="ex-line"><span class="ex-emoji">🏢</span>多租户隔离 → <strong>Schema 隔离 / Row Level Security</strong> 让 A 公司看不到 B 公司数据</div>
+      <div class="ex-line"><span class="ex-emoji">🔑</span>权限细粒度 → <strong>RBAC</strong> 按角色配能看 / 能改什么</div>
+    </div></div>
+  </div></div>`,
+
+  "pt-regulated": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（这一类产品的核心）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">⚖️</span>强合规重型类 = 出一次错就上新闻——<strong>钱 / 命 / 身份证号</strong>一个都不能错，监管盯着</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>真实产品 + 核心场景</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🏦</span><strong>支付宝 / 微信支付</strong>：转账 → 扣款 → 到账，不能错一分</div>
+      <div class="ex-line"><span class="ex-emoji">🏥</span><strong>挂号网 / 平安好医生</strong>：挂号 → 看病 → 开药，病历存几十年不丢</div>
+      <div class="ex-line"><span class="ex-emoji">🆔</span><strong>政务服务网</strong>：办身份证 → 查社保 → 报税，对接政府数据库</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>这类产品独有的技术挑战</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">💾</span>数据永不丢 → <strong>多机房备份 / 异地容灾</strong>，一城断电另一城顶上</div>
+      <div class="ex-line"><span class="ex-emoji">📝</span>每笔留痕 → <strong>审计日志</strong>记下谁在什么时候做了什么</div>
+      <div class="ex-line"><span class="ex-emoji">🔒</span>合规过审 → <strong>等保三级 / 金融级加密</strong> 满足监管要求</div>
+    </div></div>
+  </div></div>`,
+
+  "pt-emerging": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（这一类产品的核心）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🔮</span>前沿 / 个人类 = 新技术 / 小工具——不追百万 DAU，追"能跑起来 + 玩出新花样"</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>真实产品 + 核心场景</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🤖</span><strong>GPT 套壳应用</strong>：调 OpenAI + 加自家 prompt + 卖订阅</div>
+      <div class="ex-line"><span class="ex-emoji">🔗</span><strong>OpenSea / Uniswap</strong>：买 NFT / 换币 → 上链记录，后端不存数据</div>
+      <div class="ex-line"><span class="ex-emoji">🏠</span><strong>米家 / 小米生态</strong>：开灯 / 扫地机器人，后端管成千上万小设备</div>
+      <div class="ex-line"><span class="ex-emoji">📝</span><strong>Obsidian / Logseq</strong>：本地优先笔记，后端可有可无</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>这类产品独有的技术挑战</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">⚡</span>调外部 API 要稳 → <strong>重试 + 降级</strong> 防 OpenAI 抽风时自己也挂</div>
+      <div class="ex-line"><span class="ex-emoji">📡</span>小设备联网 → <strong>MQTT / 边缘计算</strong> 让低性能设备也能上云</div>
+      <div class="ex-line"><span class="ex-emoji">💰</span>个人项目省钱 → <strong>Serverless / Cloudflare Workers</strong> 按用量付费</div>
+    </div></div>
+  </div></div>`,
+
+  "pt-ecommerce": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（这一类产品的核心）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🎯</span>把买家卖家撮合到一起，全程管好<strong>钱、货、单</strong>三件事</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>真实产品 + 核心场景</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🛒</span><strong>淘宝 / 京东</strong>：搜东西 → 下单 → 付款，几亿商品的搜索 + 库存</div>
+      <div class="ex-line"><span class="ex-emoji">💎</span><strong>拼多多</strong>：拉好友拼团 → 凑齐人数发货，未成团的钱先冻结</div>
+      <div class="ex-line"><span class="ex-emoji">📺</span><strong>抖音电商</strong>：刷直播 → 点小黄车 → 直接付款，扛主播"3、2、1"的流量峰值</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>这类产品独有的技术挑战</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">⚡</span>双 11 秒杀 → <strong>Redis 缓存 / 限流 / 队列削峰</strong> 防数据库被挤爆</div>
+      <div class="ex-line"><span class="ex-emoji">🔍</span>商品搜索 → <strong>Elasticsearch</strong> 几亿商品关键词搜索</div>
+      <div class="ex-line"><span class="ex-emoji">💸</span>钱不能错 → <strong>分布式事务</strong> 扣库存 / 扣钱 / 生成订单要么全成要么全退</div>
+    </div></div>
+  </div></div>`,
+
+  "pt-delivery": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（这一类产品的核心）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🎯</span>把<strong>订单 / 商家 / 骑手</strong>三方实时匹配，让东西从 A 点送到 B 点最快</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>真实产品 + 核心场景</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🍔</span><strong>美团 / 饿了么</strong>：下单 → 派最近骑手 → 取餐送达，下午茶高峰一骑手送 5 单</div>
+      <div class="ex-line"><span class="ex-emoji">📮</span><strong>顺丰 / 菜鸟</strong>：包裹经过分拣中心 → 卡车 → 快递员，追踪每个包裹位置</div>
+      <div class="ex-line"><span class="ex-emoji">🛵</span><strong>达达 / 闪送</strong>：跑腿一小时到，30 秒派到接单率高的骑手</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>这类产品独有的技术挑战</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">📍</span>实时派单 → <strong>地理围栏 / Geo Hash</strong> 秒级找附近 1 公里骑手</div>
+      <div class="ex-line"><span class="ex-emoji">🗺️</span>路径规划 → <strong>TSP 算法</strong> 算一骑手 5 单怎么走最短</div>
+      <div class="ex-line"><span class="ex-emoji">📡</span>位置实时上报 → <strong>长连接</strong> 每秒上报骑手位置不耗电</div>
+    </div></div>
+  </div></div>`,
+
+  "pt-travel": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（这一类产品的核心）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🎯</span>对接<strong>酒店 / 航司 / 景区</strong>，让用户能查能订能退，价格还实时</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>真实产品 + 核心场景</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">✈️</span><strong>携程 / 飞猪</strong>：搜机票 → 比价 → 下单，同时查几十家航司实时余票</div>
+      <div class="ex-line"><span class="ex-emoji">🏨</span><strong>Booking / Airbnb</strong>：订酒店 → 占房间 → 付钱锁定，防"同间房同时被两人订"</div>
+      <div class="ex-line"><span class="ex-emoji">🎫</span><strong>美团门票</strong>：买景区票 → 扫码入园，跟景区闸机对接</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>这类产品独有的技术挑战</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">⚡</span>实时聚合多家供应商 → <strong>API 聚合 + 缓存</strong> 防查一次价等 10 秒</div>
+      <div class="ex-line"><span class="ex-emoji">🪑</span>占库存 → <strong>预占 + 超时释放</strong>，没付款 15 分钟自动放出</div>
+      <div class="ex-line"><span class="ex-emoji">💰</span>价格频繁变 → <strong>价格订阅 + 消息推送</strong> 机票降价立刻通知</div>
+    </div></div>
+  </div></div>`,
+
+  "pt-property": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（这一类产品的核心）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🎯</span>大宗物品发布 + 搜索 + 看图 + 联系卖家，重点是"<strong>真实房源 / 真实卖家</strong>"</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>真实产品 + 核心场景</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🏠</span><strong>贝壳找房</strong>：搜小区 → VR 看房 → 约经纪人，几百万套房的真实性</div>
+      <div class="ex-line"><span class="ex-emoji">🚗</span><strong>瓜子二手车</strong>：搜车 → 看检测报告 → 试驾，每辆车几百项检测数据</div>
+      <div class="ex-line"><span class="ex-emoji">📱</span><strong>闲鱼 / 转转</strong>：发闲置 → 聊价 → 担保交易</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>这类产品独有的技术挑战</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🗺️</span>地图找房 → <strong>Elasticsearch 地理查询</strong> 按区域筛</div>
+      <div class="ex-line"><span class="ex-emoji">🛡️</span>反虚假房源 → <strong>图片去重 + 文本相似度</strong> 识别一房多发</div>
+      <div class="ex-line"><span class="ex-emoji">🥽</span>VR 看房 → <strong>3D 模型存储 + 全景图拼接</strong> 云看房</div>
+    </div></div>
+  </div></div>`,
+
+  "pt-mobility": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（这一类产品的核心）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🎯</span>把<strong>人 / 车 / 路</strong>实时连起来——"现在去哪、怎么去、要多久"</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>真实产品 + 核心场景</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🚖</span><strong>滴滴</strong>：叫车 → 5 秒内派到最近司机</div>
+      <div class="ex-line"><span class="ex-emoji">🗺️</span><strong>高德 / 百度地图</strong>：搜目的地 → 导航 → 避开堵车，实时收百万车主位置算路况</div>
+      <div class="ex-line"><span class="ex-emoji">🚲</span><strong>哈啰单车</strong>：扫码开锁 → 骑行 → 还车，管几百万辆车的开关锁状态</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>这类产品独有的技术挑战</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">📍</span>实时位置 → <strong>地理索引 + Geo Hash</strong> 秒级查附近的人 / 车</div>
+      <div class="ex-line"><span class="ex-emoji">🧭</span>路径规划 → <strong>A* 算法 + 实时路况</strong> 算最快路线</div>
+      <div class="ex-line"><span class="ex-emoji">⚡</span>春运抢票 → <strong>队列 + 限流</strong> 防系统被挤爆</div>
+    </div></div>
+  </div></div>`,
+
+  "pt-social-feed": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（这一类产品的核心）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🎯</span>用户发内容 → <strong>推荐系统</strong>决定谁能看到 → 别人点赞评论形成关系</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>真实产品 + 核心场景</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">📷</span><strong>小红书</strong>：发笔记 → 算法推给可能感兴趣的人</div>
+      <div class="ex-line"><span class="ex-emoji">🐦</span><strong>微博</strong>：明星发一条 → 千万粉丝刷到</div>
+      <div class="ex-line"><span class="ex-emoji">🎵</span><strong>抖音</strong>：刷视频 → 0.5 秒内选出下一条最爱看的</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>这类产品独有的技术挑战</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🧠</span>推荐算法 → <strong>协同过滤 + 深度学习</strong> 根据看过的猜兴趣</div>
+      <div class="ex-line"><span class="ex-emoji">📡</span>Feed 流 → <strong>推 / 拉模型结合</strong>，普通人推到粉丝邮箱、大 V 让粉丝主动拉</div>
+      <div class="ex-line"><span class="ex-emoji">🚫</span>内容审核 → <strong>图像识别 + NLP</strong> 自动过滤违规内容</div>
+    </div></div>
+  </div></div>`,
+
+  "pt-im": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（这一类产品的核心）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🎯</span>消息从 A 发出 → <strong>必送到 B</strong>——不能丢、不能乱、不能慢</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>真实产品 + 核心场景</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">💬</span><strong>微信 / QQ</strong>：发消息 → 对方马上响 → 历史能翻 3 年前</div>
+      <div class="ex-line"><span class="ex-emoji">🏢</span><strong>钉钉 / 飞书</strong>：工作群 + 已读未读 + @某人</div>
+      <div class="ex-line"><span class="ex-emoji">✈️</span><strong>Telegram</strong>：端到端加密，服务器也看不到内容</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>这类产品独有的技术挑战</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">📡</span>消息必达 → <strong>长连接 + ACK 确认 + 离线消息队列</strong></div>
+      <div class="ex-line"><span class="ex-emoji">👥</span>群消息扩散 → <strong>写扩散 / 读扩散</strong> 按群大小选策略</div>
+      <div class="ex-line"><span class="ex-emoji">🔐</span>端到端加密 → <strong>Signal 协议</strong> 服务器也解不开</div>
+    </div></div>
+  </div></div>`,
+
+  "pt-video": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（这一类产品的核心）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🎯</span>把大文件 / 实时画面传给百万人——画面清晰、不卡顿、能拖进度</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>真实产品 + 核心场景</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">📺</span><strong>B 站 / YouTube</strong>：上传视频 → 平台转码 → 几百万人看</div>
+      <div class="ex-line"><span class="ex-emoji">🎬</span><strong>爱奇艺 / 优酷</strong>：拖进度条秒响应，从任意点开始播</div>
+      <div class="ex-line"><span class="ex-emoji">🔴</span><strong>抖音直播</strong>：主播开播 → 1 秒内传到所有观众</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>这类产品独有的技术挑战</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🌐</span>视频要快 → <strong>CDN</strong> 把视频复制到全国机房，离用户近</div>
+      <div class="ex-line"><span class="ex-emoji">📶</span>不同网速 → <strong>HLS / DASH</strong> 自适应码率，4G 标清 / WiFi 1080P</div>
+      <div class="ex-line"><span class="ex-emoji">⚡</span>直播低延迟 → <strong>RTMP / WebRTC</strong> 让画面 1 秒内传到</div>
+    </div></div>
+  </div></div>`,
+
+  "pt-news": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（这一类产品的核心）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🎯</span>采集 / 生产文字内容 → <strong>推给爱看的人</strong> → 让人多停留</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>真实产品 + 核心场景</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">📰</span><strong>今日头条</strong>：刷资讯 → 算法推给感兴趣的人</div>
+      <div class="ex-line"><span class="ex-emoji">📖</span><strong>掌阅 / 起点</strong>：看小说 → 翻页 → 收藏，管几百万本书和每人阅读进度</div>
+      <div class="ex-line"><span class="ex-emoji">📝</span><strong>微信公众号</strong>：作者发文 → 粉丝订阅 → 推送，管几亿订阅关系</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>这类产品独有的技术挑战</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🧠</span>个性化推荐 → <strong>用户画像 + 内容标签</strong> 匹配兴趣</div>
+      <div class="ex-line"><span class="ex-emoji">🚫</span>内容审核 → <strong>敏感词过滤 + NLP</strong> 防违规内容上线</div>
+      <div class="ex-line"><span class="ex-emoji">📍</span>阅读进度 → <strong>KV 存储</strong> 记每人看到哪一页</div>
+    </div></div>
+  </div></div>`,
+
+  "pt-game": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（这一类产品的核心）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🎯</span>多玩家在同一世界里操作 → 服务器让<strong>所有人看到同一现实</strong></div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>真实产品 + 核心场景</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">⚔️</span><strong>王者荣耀</strong>：5v5 对战 → 技能 30ms 内同步</div>
+      <div class="ex-line"><span class="ex-emoji">🔫</span><strong>和平精英</strong>：100 人吃鸡 → 每人位置实时同步</div>
+      <div class="ex-line"><span class="ex-emoji">🏰</span><strong>原神</strong>：大世界探险 + 抽卡 → 后端存背包 / 好友 / 抽卡概率</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>这类产品独有的技术挑战</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🔄</span>状态同步 → <strong>帧同步 / 状态同步</strong> 所有人画面一致</div>
+      <div class="ex-line"><span class="ex-emoji">⚡</span>低延迟 → <strong>UDP + 专用网络节点</strong> 让操作不卡</div>
+      <div class="ex-line"><span class="ex-emoji">🛡️</span>反外挂 → <strong>服务器校验</strong> 关键计算放服务端不信任客户端</div>
+    </div></div>
+  </div></div>`,
+
+  "pt-aigc": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（这一类产品的核心）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🎯</span>用户输入文字 / 图 → <strong>大模型生成新内容</strong> → 几秒到几分钟返回</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>真实产品 + 核心场景</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">💬</span><strong>豆包 / 通义千问</strong>：提问 → 一个字一个字蹦出来</div>
+      <div class="ex-line"><span class="ex-emoji">🎨</span><strong>Midjourney / 即梦</strong>：输描述 → 生成 4 张图</div>
+      <div class="ex-line"><span class="ex-emoji">🎬</span><strong>可灵 / Sora</strong>：输文字 → 生成 5 秒视频，跑几分钟 GPU</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>这类产品独有的技术挑战</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">📡</span>流式输出 → <strong>SSE / WebSocket</strong> 让 AI 边算边返回</div>
+      <div class="ex-line"><span class="ex-emoji">⏳</span>GPU 排队 → <strong>任务队列 + 优先级调度</strong> 让付费用户先跑</div>
+      <div class="ex-line"><span class="ex-emoji">💰</span>成本控制 → <strong>推理优化 + 模型量化</strong> 让一张卡跑更多请求</div>
+    </div></div>
+  </div></div>`,
+
+  "pt-creator": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（这一类产品的核心）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🎯</span>给创作者一套工具 → 在浏览器 / App 里就能做出<strong>视频 / 图 / 设计</strong></div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>真实产品 + 核心场景</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🎬</span><strong>剪映</strong>：剪视频 → 加特效 → 导出，云端素材库 + 导出渲染</div>
+      <div class="ex-line"><span class="ex-emoji">🎨</span><strong>Figma</strong>：多人同时改设计稿 → 实时看对方光标</div>
+      <div class="ex-line"><span class="ex-emoji">🖼️</span><strong>Canva</strong>：拖模板 → 改文字 → 一键导出海报，百万模板</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>这类产品独有的技术挑战</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">⚡</span>大文件处理 → <strong>WebAssembly + Worker</strong> 让浏览器也能跑视频剪辑</div>
+      <div class="ex-line"><span class="ex-emoji">🤝</span>协同编辑 → <strong>CRDT / OT</strong> 让多人同时改不冲突</div>
+      <div class="ex-line"><span class="ex-emoji">🔒</span>素材版权 → <strong>DRM / 水印</strong> 防素材被盗用</div>
+    </div></div>
+  </div></div>`,
+
+  "pt-saas": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（这一类产品的核心）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🎯</span>公司付费用产品 → 多人协作 → <strong>每家公司数据互相隔离</strong></div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>真实产品 + 核心场景</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">📊</span><strong>飞书 / 钉钉</strong>：文档 / 表格 / IM / 会议一站式</div>
+      <div class="ex-line"><span class="ex-emoji">📝</span><strong>Notion</strong>：文档 + 数据库 + wiki，存"任意嵌套的内容块"</div>
+      <div class="ex-line"><span class="ex-emoji">💼</span><strong>Salesforce</strong>：客户管理 CRM → 销售跟单</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>这类产品独有的技术挑战</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🏢</span>多租户 → <strong>Schema 隔离 / Row Level Security</strong> 让公司数据分开</div>
+      <div class="ex-line"><span class="ex-emoji">🔑</span>权限 → <strong>RBAC</strong> 按角色分配能看 / 能改什么</div>
+      <div class="ex-line"><span class="ex-emoji">🔐</span>SSO 登录 → <strong>OAuth / SAML</strong> 对接企业现有账号</div>
+    </div></div>
+  </div></div>`,
+
+  "pt-b2b": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（这一类产品的核心）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🎯</span>给工厂 / 大公司用的内部系统——<strong>管订单 / 管库存 / 管财务</strong>，对接生产线</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>真实产品 + 核心场景</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🏭</span><strong>SAP / 用友 / 金蝶</strong>：公司管账 + 进销存 + 报表</div>
+      <div class="ex-line"><span class="ex-emoji">📦</span><strong>WMS 仓储</strong>：货物入库 → 上架 → 拣货 → 出库</div>
+      <div class="ex-line"><span class="ex-emoji">🔧</span><strong>MES 制造执行</strong>：生产线 → 工序流转 → 质检，对接 PLC 工业控制器</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>这类产品独有的技术挑战</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🔄</span>复杂业务流程 → <strong>工作流引擎 / 状态机</strong> 管几十个状态流转</div>
+      <div class="ex-line"><span class="ex-emoji">💸</span>财务对账 → <strong>分布式事务 + 双向记账</strong> 保证账平</div>
+      <div class="ex-line"><span class="ex-emoji">🔌</span>对接老系统 → <strong>ETL + 消息队列</strong> 桥接几十年前的旧系统</div>
+    </div></div>
+  </div></div>`,
+
+  "pt-bi": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（这一类产品的核心）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🎯</span>把<strong>海量数据加工成图表</strong>——老板一眼看懂业务状况</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>真实产品 + 核心场景</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">📊</span><strong>帆软 / 观远 BI</strong>：拖拽生成报表 → 销售 / 库存图表</div>
+      <div class="ex-line"><span class="ex-emoji">📈</span><strong>Tableau / PowerBI</strong>：连数据库 → 做仪表盘</div>
+      <div class="ex-line"><span class="ex-emoji">📉</span><strong>阿里 DataV 大屏</strong>：双 11 交易额实时跳动</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>这类产品独有的技术挑战</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">⚡</span>海量数据查询 → <strong>列式数据库 + OLAP 引擎</strong> 几亿行秒级出图</div>
+      <div class="ex-line"><span class="ex-emoji">🌊</span>数据管道 → <strong>ETL + Flink / Spark</strong> 把零散数据加工成可分析的</div>
+      <div class="ex-line"><span class="ex-emoji">⚙️</span>实时聚合 → <strong>物化视图 + 预聚合</strong> 让大屏秒级刷新</div>
+    </div></div>
+  </div></div>`,
+
+  "pt-hr": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（这一类产品的核心）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🎯</span>把<strong>人和岗位匹配</strong>——简历投递 / HR 筛选 / 面试 / 入职</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>真实产品 + 核心场景</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">💼</span><strong>BOSS 直聘</strong>：求职者和老板直接聊 + 投简历</div>
+      <div class="ex-line"><span class="ex-emoji">📄</span><strong>智联 / 前程无忧</strong>：搜职位 → 投简历 → 算"简历和岗位匹配度"</div>
+      <div class="ex-line"><span class="ex-emoji">📋</span><strong>北森 / Moka</strong>：企业 HR 系统 → 入职 / 考勤 / 离职</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>这类产品独有的技术挑战</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🧠</span>简历匹配 → <strong>NLP + 关键词提取</strong> 自动匹配岗位需求</div>
+      <div class="ex-line"><span class="ex-emoji">🛡️</span>反虚假信息 → <strong>实名认证 + 企业核验</strong> 防假岗位</div>
+      <div class="ex-line"><span class="ex-emoji">🔒</span>隐私保护 → <strong>字段脱敏</strong>，双方同意前 HR 看不到真实联系方式</div>
+    </div></div>
+  </div></div>`,
+
+  "pt-edu": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（这一类产品的核心）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🎯</span>老师讲 → 学生学 → 做题 → 测验 → 反馈，<strong>全程在线完成</strong></div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>真实产品 + 核心场景</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">📚</span><strong>作业帮 / 猿辅导</strong>：拍照搜题 → 看解析，识别手写公式</div>
+      <div class="ex-line"><span class="ex-emoji">🎓</span><strong>网易云课堂</strong>：买课 → 看视频 → 做练习，管视频版权 + 学习进度</div>
+      <div class="ex-line"><span class="ex-emoji">📖</span><strong>多邻国</strong>：每天 5 分钟学语言 → 闯关，算每人薄弱点</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>这类产品独有的技术挑战</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🧠</span>智能题库 → <strong>知识图谱 + 自适应学习</strong> 根据答对率推下一题</div>
+      <div class="ex-line"><span class="ex-emoji">📡</span>直播互动 → <strong>低延迟直播 + 答题信令</strong> 实时收学生答案</div>
+      <div class="ex-line"><span class="ex-emoji">🔍</span>OCR 识题 → <strong>图像识别</strong> 识别手写公式和文字</div>
+    </div></div>
+  </div></div>`,
+
+  "pt-email": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（这一类产品的核心）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🎯</span><strong>异步通讯 + 时间安排</strong>——邮件能送达、日历能提醒、跨人协调时间</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>真实产品 + 核心场景</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">📧</span><strong>Gmail / QQ 邮箱</strong>：收发 + 反垃圾 + 搜 10 年前的邮件</div>
+      <div class="ex-line"><span class="ex-emoji">📅</span><strong>Google 日历</strong>：约会议 → 自动找所有人空闲时段</div>
+      <div class="ex-line"><span class="ex-emoji">⏰</span><strong>飞书日历</strong>：约会议 → 自动建腾讯会议链接</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>这类产品独有的技术挑战</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🚫</span>反垃圾邮件 → <strong>贝叶斯分类 + 黑白名单</strong> 过滤几千万封</div>
+      <div class="ex-line"><span class="ex-emoji">🔍</span>邮件搜索 → <strong>全文索引</strong> 搜十年前邮件秒级返回</div>
+      <div class="ex-line"><span class="ex-emoji">🔄</span>多端同步 → <strong>IMAP + CalDAV</strong> 手机和电脑一致</div>
+    </div></div>
+  </div></div>`,
+
+  "pt-search": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（这一类产品的核心）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🎯</span>把全网内容爬下来 → <strong>建索引</strong> → 搜什么瞬间返回最相关的</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>真实产品 + 核心场景</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🔍</span><strong>百度 / Google</strong>：搜什么瞬间返回，爬几百亿网页 + 建倒排索引</div>
+      <div class="ex-line"><span class="ex-emoji">🌐</span><strong>Chrome / Edge</strong>：浏览器同步书签 → 跨设备打开同一标签</div>
+      <div class="ex-line"><span class="ex-emoji">🤖</span><strong>Perplexity / 秘塔</strong>：AI 搜索 → 给答案 + 引用来源</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>这类产品独有的技术挑战</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">📚</span>倒排索引 → <strong>Lucene / Elasticsearch</strong> 让搜索从几亿文档毫秒返回</div>
+      <div class="ex-line"><span class="ex-emoji">🕷️</span>爬虫调度 → <strong>分布式爬虫 + URL 去重</strong> 抓全网内容</div>
+      <div class="ex-line"><span class="ex-emoji">🏆</span>排序算法 → <strong>PageRank + BM25</strong> 决定哪条结果排前</div>
+    </div></div>
+  </div></div>`,
+
+  "pt-finance": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（这一类产品的核心）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🎯</span><strong>钱的流转和管理</strong>——一分都不能错，监管盯着，每笔都要追溯</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>真实产品 + 核心场景</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">💳</span><strong>支付宝 / 微信支付</strong>：扫码付款 → 秒到账</div>
+      <div class="ex-line"><span class="ex-emoji">📈</span><strong>东方财富 / 雪球</strong>：看股票 → 下单交易，扛开盘瞬间流量</div>
+      <div class="ex-line"><span class="ex-emoji">🏦</span><strong>招商银行 App</strong>：转账 + 理财 + 贷款，对接银行核心系统</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>这类产品独有的技术挑战</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">💸</span>资金一致 → <strong>分布式事务 + 两阶段提交</strong> 保证钱不凭空消失</div>
+      <div class="ex-line"><span class="ex-emoji">🛡️</span>风控反欺诈 → <strong>实时风控引擎 + 机器学习</strong> 识别盗刷</div>
+      <div class="ex-line"><span class="ex-emoji">🔒</span>金融级安全 → <strong>国密算法 + 等保四级</strong> 满足监管</div>
+    </div></div>
+  </div></div>`,
+
+  "pt-medical": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（这一类产品的核心）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🎯</span>挂号 / 问诊 / 病历 / 处方 → 医生和病人在线协作，<strong>数据涉及生命不能错</strong></div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>真实产品 + 核心场景</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🏥</span><strong>挂号网 / 微医</strong>：抢号 + 在线问诊，扛专家号秒抢</div>
+      <div class="ex-line"><span class="ex-emoji">💊</span><strong>京东健康 / 平安好医生</strong>：网上买药 + 处方审核 + 配送</div>
+      <div class="ex-line"><span class="ex-emoji">📋</span><strong>电子病历系统</strong>：病历 / 影像 / 化验单，存几十年不丢</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>这类产品独有的技术挑战</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">💾</span>数据永不丢 → <strong>多地容灾 + 冷热分层</strong> 存几十年病历</div>
+      <div class="ex-line"><span class="ex-emoji">🔒</span>隐私合规 → <strong>字段加密 + 访问审计</strong> 满足医疗数据保护</div>
+      <div class="ex-line"><span class="ex-emoji">📷</span>医疗影像 → <strong>DICOM + PACS 系统</strong> 存 CT / MRI 大图</div>
+    </div></div>
+  </div></div>`,
+
+  "pt-govt": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（这一类产品的核心）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🎯</span><strong>政府办事在线化</strong>——不用跑窗口，手机就能办身份证 / 社保 / 报税</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>真实产品 + 核心场景</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🆔</span><strong>政务服务网 / 粤省事</strong>：办身份证 / 查社保 / 申报，对接公安 / 社保 / 税务</div>
+      <div class="ex-line"><span class="ex-emoji">🚦</span><strong>交管 12123</strong>：处理违章 + 学习扣分</div>
+      <div class="ex-line"><span class="ex-emoji">💉</span><strong>国家医保 App</strong>：医保余额 + 异地报销</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>这类产品独有的技术挑战</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🔄</span>跨部门数据互通 → <strong>数据中台 + 政务交换平台</strong></div>
+      <div class="ex-line"><span class="ex-emoji">👤</span>实名认证 → <strong>人脸识别 + 公安二要素</strong> 验证身份</div>
+      <div class="ex-line"><span class="ex-emoji">🔒</span>等保三级 → <strong>国密加密 + 物理隔离</strong> 满足政务安全</div>
+    </div></div>
+  </div></div>`,
+
+  "pt-ai-app": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（这一类产品的核心）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🎯</span>自己不训练模型 → 调 OpenAI / Claude 等 API → 加 prompt <strong>包装成产品</strong></div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>真实产品 + 核心场景</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">💬</span><strong>各种 GPT 套壳助手</strong>：加自家 prompt → 调 GPT → 卖订阅</div>
+      <div class="ex-line"><span class="ex-emoji">📚</span><strong>ChatPDF / Cursor</strong>：上传 PDF → 问问题，做 RAG 把 PDF 切片喂给 AI</div>
+      <div class="ex-line"><span class="ex-emoji">📝</span><strong>Notion AI / 写作猫</strong>：选中文字 → 改写 / 续写</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>这类产品独有的技术挑战</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">⚡</span>调外部 API 要稳 → <strong>重试 + 降级 + 多供应商切换</strong></div>
+      <div class="ex-line"><span class="ex-emoji">🔎</span>RAG 检索 → <strong>向量数据库 + Embedding</strong> 让 AI 能查私有知识库</div>
+      <div class="ex-line"><span class="ex-emoji">💰</span>成本控制 → <strong>token 缓存 + 模型路由</strong> 便宜模型先答、难的再上贵的</div>
+    </div></div>
+  </div></div>`,
+
+  "pt-web3": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（这一类产品的核心）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🎯</span>数据不存自家服务器 → <strong>存区块链上</strong> → 没人能改，但每次写要付手续费</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>真实产品 + 核心场景</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🖼️</span><strong>OpenSea</strong>：买 NFT → 钱包付款 → 上链确认</div>
+      <div class="ex-line"><span class="ex-emoji">💱</span><strong>Uniswap</strong>：去中心化交易所 → 钱包对钱包直接换币</div>
+      <div class="ex-line"><span class="ex-emoji">👛</span><strong>MetaMask / imToken</strong>：管钱包私钥 + 签名交易</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>这类产品独有的技术挑战</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">📜</span>智能合约 → <strong>Solidity</strong> 写链上自动执行的代码</div>
+      <div class="ex-line"><span class="ex-emoji">👛</span>钱包对接 → <strong>Web3.js / Ethers.js</strong> 让前端能调钱包签名</div>
+      <div class="ex-line"><span class="ex-emoji">🔍</span>链上数据索引 → <strong>The Graph</strong> 让查链上数据像查数据库一样快</div>
+    </div></div>
+  </div></div>`,
+
+  "pt-iot": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（这一类产品的核心）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🎯</span>千万小设备联网上报数据 + 接受指令——<strong>设备性能低、带宽小、要省电</strong></div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>真实产品 + 核心场景</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🏠</span><strong>米家</strong>：手机开灯 → 灯瞬间响应，管几亿设备实时通讯</div>
+      <div class="ex-line"><span class="ex-emoji">📷</span><strong>萤石云 / 海康威视</strong>：摄像头 → 云端存视频，扛百万摄像头同时推流</div>
+      <div class="ex-line"><span class="ex-emoji">🚗</span><strong>特斯拉 / 蔚来车机</strong>：远程解锁 + OTA 升级</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>这类产品独有的技术挑战</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">📡</span>设备连接 → <strong>MQTT / CoAP</strong> 轻量协议比 HTTP 省电省流量</div>
+      <div class="ex-line"><span class="ex-emoji">🔄</span>OTA 升级 → <strong>差分包 + 灰度发布</strong> 远程更新固件不变砖</div>
+      <div class="ex-line"><span class="ex-emoji">⚡</span>边缘计算 → <strong>网关 + 边缘节点</strong> 让设备本地处理一部分不全靠云</div>
+    </div></div>
+  </div></div>`,
+
+  "pt-personal-tool": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（这一类产品的核心）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🎯</span>给个人用的小工具——<strong>本地优先 / 极简后端</strong>，重点是好用不是百万 DAU</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>真实产品 + 核心场景</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">📝</span><strong>Obsidian / Logseq</strong>：记笔记 + 双向链接，数据存本地后端可没有</div>
+      <div class="ex-line"><span class="ex-emoji">✅</span><strong>滴答清单 / Todoist</strong>：管待办 + 跨设备同步</div>
+      <div class="ex-line"><span class="ex-emoji">📚</span><strong>欧路词典 / Anki</strong>：查单词 + 背单词卡片</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>这类产品独有的技术挑战</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">⚡</span>本地优先 → <strong>IndexedDB / SQLite</strong> 数据存本地秒开</div>
+      <div class="ex-line"><span class="ex-emoji">🔄</span>跨设备同步 → <strong>CRDT + 增量同步</strong> 让多设备改的不冲突</div>
+      <div class="ex-line"><span class="ex-emoji">💰</span>极简部署 → <strong>Serverless / Cloudflare Workers</strong> 按用量付费</div>
+    </div></div>
+  </div></div>`,
 };
 
 // 注入函数：data.js 加载后、app.js 启动前，把 example 追加到对应节点 pages[0].html
