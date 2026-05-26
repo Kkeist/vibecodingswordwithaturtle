@@ -1287,6 +1287,70 @@ const __EXAMPLE_BY_ID__ = {
     </div></div>
   </div></div>`,
 
+  "vibe-prompt-craft": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🎯</span>同样的需求，<strong>提示词写得越具体 AI 给的东西越接近想要的</strong>——模糊指令 → 模糊结果</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>实际怎么用</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">❌</span>差："做个登录页" → AI 给 200 行模板，跟想要的不一样</div>
+      <div class="ex-line"><span class="ex-emoji">✅</span>好："登录页：邮箱+密码 2 栏 + 按钮点了调 <code>/api/login</code> + 成功跳 <code>/dashboard</code> + 失败弹红字提示 + 用 Tailwind"</div>
+      <div class="ex-line"><span class="ex-emoji">📸</span>有参考图就贴图："像微信那种气泡布局" 比纯文字描述清楚 10 倍</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">⚡</span>一次到位率 + 50%：少改 + 少返工</div>
+      <div class="ex-line"><span class="ex-emoji">🪙</span>省 token 钱：精准 prompt 比反复修改总成本低</div>
+      <div class="ex-line"><span class="ex-emoji">📐</span>报错粘整段红字 + 截图 → AI 一眼定位问题</div>
+    </div></div>
+  </div></div>`,
+
+  "vibe-split-task": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">✂️</span>一次给 AI <strong>一件小事</strong>比一次塞 10 件事效果好——大需求 AI 容易跑偏</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>实际怎么用</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">❌</span>差："做一个微信级别的聊天软件" → AI 写一堆能跑不能用的代码</div>
+      <div class="ex-line"><span class="ex-emoji">✅</span>好：拆成 ①两人能发文字 → ②消息存数据库 → ③在线状态 → ④图片表情 → ⑤群聊</div>
+      <div class="ex-line"><span class="ex-emoji">💾</span>每完成一件 <code>git commit</code> 存档，下一件改炸了能秒回滚</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🎯</span>每件验完再下一件 → 出 bug 知道是哪步引入</div>
+      <div class="ex-line"><span class="ex-emoji">🛡️</span>大需求拆完不怕 AI 失忆：每件单独的 prompt 短，AI 上下文不挤</div>
+      <div class="ex-line"><span class="ex-emoji">📐</span>这种思路叫 <strong>增量开发</strong>（incremental development）</div>
+    </div></div>
+  </div></div>`,
+
+  "vibe-review": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🔍</span>AI 说"改好了"≠ 真好了——必须<strong>自己跑一遍 + 看 diff</strong>，否则 bug 累计到爆炸</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>实际怎么用</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">👀</span><strong>看 diff</strong>：编辑器 / git 里看具体改了哪几行 → 发现"AI 改了我没让改的地方"立刻让它撤</div>
+      <div class="ex-line"><span class="ex-emoji">🖱️</span><strong>真人跑一遍</strong>：打开页面操作一次，眼睛看是否符合预期</div>
+      <div class="ex-line"><span class="ex-emoji">⚠️</span><strong>边界情况</strong>：空表单提交 / 超长字符 / 重复点 / 网断 → 这些通常 AI 不会想到</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🛡️</span>AI 编不存在的函数 / 库（叫<strong>幻觉</strong>）→ 跑一次就抓到</div>
+      <div class="ex-line"><span class="ex-emoji">💾</span>验过再 commit → 仓库历史每条都是"已知正常"的版本</div>
+      <div class="ex-line"><span class="ex-emoji">⏱️</span>早期发现 bug 改的成本小，攒一堆再修是噩梦</div>
+    </div></div>
+  </div></div>`,
+
+  "vibe-refactor": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">🧹</span>重构 = <strong>功能不变但代码变干净</strong>。AI 是重构利器，比手动整理快 100 倍</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">📱</span>实际怎么用</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">📦</span>"把这段重复的逻辑抽成一个函数 / 组件"</div>
+      <div class="ex-line"><span class="ex-emoji">📂</span>"把这个 800 行文件按功能拆成 3 个小文件"</div>
+      <div class="ex-line"><span class="ex-emoji">✏️</span>"统一变量命名 camelCase / 把硬编码字符串提取成常量"</div>
+    </div></div>
+    <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处</div><div class="ex-story">
+      <div class="ex-line"><span class="ex-emoji">📖</span>代码读得懂：3 个月后回来看也能改</div>
+      <div class="ex-line"><span class="ex-emoji">⚡</span>加新功能快：复用现成模块，少踩重复代码的坑</div>
+      <div class="ex-line"><span class="ex-emoji">⚠️</span>重构前一定 <code>git commit</code>——AI 重构有时破坏功能，能秒回滚</div>
+    </div></div>
+  </div></div>`,
+
   "shared-server": `<div class="example-card"><button class="example-toggle">📖 看真实例子</button><div class="example-content" hidden>
     <div class="ex-section"><div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div><div class="ex-story">
       <div class="ex-line"><span class="ex-emoji">☁️</span>服务器 = <strong>一台 24 小时开着、连着公网的电脑</strong>。程序跑在它上面，全世界用户随时能访问</div>

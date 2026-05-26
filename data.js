@@ -547,6 +547,109 @@ const node_prompt = {
   children: [],
 };
 
+// ============================================================
+// vibecoding 实操流程（4 个 lightbulb 子，挂在 ai-helper 下）
+// 这是给 vibe 创作者的"怎么跟 AI 协作"的具体方法论
+// ============================================================
+
+const node_vibe_split_task = {
+  id: "vibe-split-task",
+  emoji: "✂️",
+  title: "拆需求给 AI",
+  lightbulb: true,
+  concept: { name: "拆任务 / 一次一件事", explain: "一次给 AI 一个小目标比一次塞 10 件事效果好——AI 容易跑偏。" },
+  pages: [
+    { html: `
+      <p>很多 vibe 创作者最大的坑：一次跟 AI 说"做一个微信级别的聊天软件"——AI 写一堆能跑不能用的代码。</p>
+      <p>正确做法：<strong>拆成一件一件小目标</strong>，一次一件。</p>
+      <ul>
+        <li>① 先做"两人能发文字"——最基础</li>
+        <li>② 跑通后加"消息存数据库"</li>
+        <li>③ 再加"对方在线/离线状态"</li>
+        <li>④ 再加图片 / 表情 / 群聊...</li>
+      </ul>
+      <p>每完成一件 → <em>git commit</em> 存档 → 下一件如果 AI 改炸了能回滚。</p>
+      <p>跟 AI 说"先只做第 ① 件"比"全做了"清晰 100 倍。</p>
+    ` },
+  ],
+  children: [],
+};
+
+const node_vibe_review = {
+  id: "vibe-review",
+  emoji: "🔍",
+  title: "验收 AI 写的代码",
+  lightbulb: true,
+  concept: { name: "review / 验收 / 跑一遍验证", explain: "AI 改完不能直接信——必须自己跑一遍 + 看 diff，否则 bug 累计到爆炸。" },
+  pages: [
+    { html: `
+      <p>AI 说"改好了"≠ 真好了。常见情况：</p>
+      <ul>
+        <li>AI 编了一个不存在的函数 / 库名（叫<em>幻觉</em>）</li>
+        <li>AI 改了你没让它改的地方</li>
+        <li>AI 跑测试通过了但实际操作不对</li>
+      </ul>
+      <p>每次 AI 改完，必须做：</p>
+      <ul>
+        <li>① <strong>看 diff</strong>：在编辑器或 git 里看具体改了哪几行</li>
+        <li>② <strong>真人跑一遍</strong>：打开页面操作一次，眼睛看是否符合预期</li>
+        <li>③ <strong>边界情况</strong>：试一下"没填表单点提交"、"超长字符"、"重复操作"</li>
+        <li>④ <strong>没问题再 commit</strong>，有问题立刻让 AI 重做</li>
+      </ul>
+      <p>"AI 改了我没让它改的地方"——这种最危险。看 diff 时发现多余改动，立刻让它撤回。</p>
+    ` },
+  ],
+  children: [],
+};
+
+const node_vibe_refactor = {
+  id: "vibe-refactor",
+  emoji: "🧹",
+  title: "让 AI 重构整理",
+  lightbulb: true,
+  concept: { name: "重构 / refactor", explain: "代码功能没变但结构变好——AI 是重构利器，比手动整理快 100 倍。" },
+  pages: [
+    { html: `
+      <p>vibe 写一段时间 → 代码乱：一个文件 800 行、变量名乱、重复代码到处都是。</p>
+      <p>这时让 AI <em>重构</em>（<em>refactor</em>）——功能不变但代码变干净。</p>
+      <p>常见重构指令：</p>
+      <ul>
+        <li>"把这段重复的逻辑抽成一个函数 / 组件"</li>
+        <li>"把这个 800 行文件按功能拆成 3 个小文件"</li>
+        <li>"统一变量命名风格：全部用 camelCase"</li>
+        <li>"把硬编码的字符串提取成常量"</li>
+      </ul>
+      <p>重构前一定 <em>git commit</em> 一次——AI 重构有时会破坏功能，能秒回滚。</p>
+      <p>重构后必须再跑一遍验证（见"验收 AI 写的代码"）。</p>
+    ` },
+  ],
+  children: [],
+};
+
+const node_vibe_prompt_craft = {
+  id: "vibe-prompt-craft",
+  emoji: "💬",
+  title: "跟 AI 怎么拉扯",
+  lightbulb: true,
+  concept: { name: "提示词技巧 / 高效沟通", explain: "把模糊需求翻译成 AI 能懂的具体指令——同样的需求，写法不同效果差 10 倍。" },
+  pages: [
+    { html: `
+      <p>"做一个登录页"——AI 给你 200 行模板。</p>
+      <p>"做一个登录页，邮箱+密码两栏，按钮点了调 /api/login 接口，成功跳 /dashboard，失败弹红色提示"——AI 给你能用的代码。</p>
+      <p>写好提示词几招：</p>
+      <ul>
+        <li><strong>给具体例子</strong>："像 微信 那种气泡布局"比"做聊天界面"清楚</li>
+        <li><strong>说清约束</strong>："用 Tailwind 不用其他 CSS 框架"</li>
+        <li><strong>说清不要什么</strong>："不要登录功能，先只做静态页"</li>
+        <li><strong>分阶段</strong>：先描述大方向 → AI 给方案 → 你确认 → AI 才动手</li>
+        <li><strong>给报错原文</strong>：复制整段红字 + 截图比"它不工作"快 10 倍</li>
+      </ul>
+      <p>跟 AI 拉扯不是一次到位——大需求来回 3-5 轮很正常。</p>
+    ` },
+  ],
+  children: [],
+};
+
 const node_ai_helper = {
   id: "ai-helper",
   emoji: "🤖",
@@ -575,7 +678,7 @@ const node_ai_helper = {
       <p>底下的"大脑"都是同一批 <em>LLM</em>（Claude / GPT / Gemini）——只是套壳和能调的工具不同。</p>
     ` },
   ],
-  children: [node_git, node_prompt],
+  children: [node_git, node_prompt, node_vibe_prompt_craft, node_vibe_split_task, node_vibe_review, node_vibe_refactor],
 };
 
 const node_editor = {

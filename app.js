@@ -282,6 +282,21 @@ function handleOptionClick(parentEntry, optionIndex) {
 }
 
 // ---------- spawn 单个子节点（不是全部） ----------
+// 弹个 toast 提示（如"解锁了 X 节点"）
+function showToast(text, emoji) {
+  const container = $('#toast-container');
+  if (!container) return;
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.innerHTML = `<span class="toast-emoji">${emoji || '✨'}</span>${escapeHTML(text)}`;
+  container.appendChild(t);
+  requestAnimationFrame(() => t.classList.add('show'));
+  setTimeout(() => {
+    t.classList.remove('show');
+    setTimeout(() => { if (t.parentNode) t.parentNode.removeChild(t); }, 320);
+  }, 2400);
+}
+
 function spawnOneChild(parent, item, optionIndex) {
   const realData = item.ref ? SHARED_NODES[item.ref] : item;
   const childEntry = createNodeEntry(realData, parent, parent.level + 1);
@@ -303,6 +318,8 @@ function spawnOneChild(parent, item, optionIndex) {
   setTimeout(fitToScreen, 720);
   // 父节点 children 数 +1 → 重算 ! 角标；新子默认 💡
   updateNodeBadge(parent);
+  // 新节点出来时弹 toast 提示"解锁了 X"——让灯泡含义更清晰可见
+  showToast(`解锁了「${realData.title}」`, '💡');
   return childEntry;
 }
 
