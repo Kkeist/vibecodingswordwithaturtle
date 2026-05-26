@@ -1889,6 +1889,20 @@ const node_pt_ecommerce = {
   pages: [
     { html: `
       <p>卖货收钱型——淘宝 / 京东 / Shopify / Etsy。</p>
+      <p><strong>整体结构</strong>（一个电商至少由这几块组成）：</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">📱</span><span class="ei-label">前端</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🔌</span><span class="ei-label">API</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🗃️</span><span class="ei-label">订单 / 库存 / 商品库</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">💳</span><span class="ei-label">支付网关</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">📦</span><span class="ei-label">物流接口</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🔥</span><span class="ei-label">推荐引擎</span>
+      </div>
       <p>四个最难搞的：① 库存不能超卖 ② 钱不能算错 / 丢单 ③ 满减 / 优惠券规则极复杂 ④ 物流要对接好几家。</p>
       <p>关键词：<em>SKU</em> / <em>库存预占</em> / <em>订单状态机</em> / <em>支付回调</em> / <em>风控</em>。</p>
       <div class="matching-game">
@@ -1920,6 +1934,22 @@ const node_pt_delivery = {
   pages: [
     { html: `
       <p>实时调度型——美团 / 饿了么 / 顺丰 / DoorDash。</p>
+      <p><strong>整体结构</strong>（三方协同 + 实时调度）：</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">📱</span><span class="ei-label">用户端</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🛵</span><span class="ei-label">骑手端</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🏪</span><span class="ei-label">商家端</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🔌</span><span class="ei-label">API + 长连接</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🤖</span><span class="ei-label">调度算法</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🛰️</span><span class="ei-label">实时定位</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🗃️</span><span class="ei-label">订单库</span>
+      </div>
       <p>关键词：<em>调度算法</em> / 骑手司机端<em>长连接</em> / <em>订单状态机</em> / 三方（用户-商家-骑手）协同 / <em>ETA</em> 预估 / 运力预测。</p>
       <div class="reveal-card">
         <div class="reveal-q">美团骑手怎么知道下一单接谁？</div>
@@ -1941,6 +1971,18 @@ const node_pt_travel = {
   pages: [
     { html: `
       <p>库存复杂型——携程 / Airbnb / Booking / 飞猪。</p>
+      <p><strong>整体结构</strong>（你只是个中间商，库存其实在航司 / 酒店那边）：</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">📱</span><span class="ei-label">前端</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🔌</span><span class="ei-label">API</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">📅</span><span class="ei-label">库存日历</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🏨</span><span class="ei-label">航司 / 酒店 GDS</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">💱</span><span class="ei-label">跨币种支付</span>
+      </div>
       <p>关键词：库存日历（每日不同价 / 不同剩余）/ 动态定价 / 合作方 <em>GDS</em> 接口对接 / 跨币种支付 / 改签退款规则极复杂。</p>
       <div class="quiz-card">
         <div class="quiz-q">"为什么订完机票要改签很贵？"</div>
@@ -1964,6 +2006,18 @@ const node_pt_property = {
   pages: [
     { html: `
       <p>本地交易型——链家 / 贝壳 / 闲鱼 / 转转 / 58 同城。</p>
+      <p><strong>整体结构</strong>（附近搜 + 撮合 + 防欺诈）：</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">📱</span><span class="ei-label">前端（带定位）</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🔌</span><span class="ei-label">API</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🗺️</span><span class="ei-label">地理索引库</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">💬</span><span class="ei-label">长聊系统</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🛡️</span><span class="ei-label">防欺诈风控</span>
+      </div>
       <p>关键词：<em>LBS</em>（附近搜索）/ 长聊系统 / 估价模型 / 看房预约 / 二手交易闭环 / 防欺诈。</p>
       <div class="reveal-card">
         <div class="reveal-q">闲鱼怎么知道你附近有什么在卖？</div>
@@ -1985,6 +2039,20 @@ const node_pt_mobility = {
   pages: [
     { html: `
       <p>实时位置型——滴滴 / Uber / 高德 / 共享单车。</p>
+      <p><strong>整体结构</strong>（位置流不停上报 + 匹配 + 路径）：</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">📱</span><span class="ei-label">乘客端</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🚗</span><span class="ei-label">司机端</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🛰️</span><span class="ei-label">实时位置服务</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🤖</span><span class="ei-label">司乘匹配</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🗺️</span><span class="ei-label">地图 / 路径规划</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">💳</span><span class="ei-label">支付</span>
+      </div>
       <p>关键词：实时定位上报 / <em>路径规划</em> / 地图瓦片渲染 / <em>司乘匹配</em> / 动态调度 / <em>ETA</em> 预估 / 热力图 / <em>电子围栏</em>。</p>
       <div class="matching-game">
         <div class="match-hint">连一连 ↓</div>
@@ -2032,6 +2100,20 @@ const node_pt_social_feed = {
   pages: [
     { html: `
       <p>关系链 + Feed 流型——微博 / 小红书 / 知乎 / Twitter / Threads。</p>
+      <p><strong>整体结构</strong>（内容产生 → 审核 → 分发到每个粉丝）：</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">📱</span><span class="ei-label">前端</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🔌</span><span class="ei-label">API</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🗃️</span><span class="ei-label">内容 / 关系库</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">📰</span><span class="ei-label">Feed 流系统</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🛡️</span><span class="ei-label">内容审核</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🔥</span><span class="ei-label">推荐算法</span>
+      </div>
       <p>关键词：<em>关系链</em>（关注 / 粉丝）/ <em>Feed 流</em>（写扩散 vs 读扩散）/ <em>推送系统</em> / <em>内容审核</em> / <em>推荐算法</em>。</p>
       <div class="quiz-card">
         <div class="quiz-q">"我刷小红书首页那些'猜你喜欢'是怎么来的？"</div>
@@ -2055,6 +2137,20 @@ const node_pt_im = {
   pages: [
     { html: `
       <p>实时消息型——微信 / Discord / Slack / Telegram / 钉钉 / 飞书。</p>
+      <p><strong>整体结构</strong>（手机和服务器之间始终一条不断的"水管"）：</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">📱</span><span class="ei-label">前端</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🌐</span><span class="ei-label">WebSocket 长连</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🖥️</span><span class="ei-label">消息网关</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🗃️</span><span class="ei-label">消息存储</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🔔</span><span class="ei-label">推送服务</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">📞</span><span class="ei-label">WebRTC（音视频）</span>
+      </div>
       <p>关键词：<em>长连接</em> / <em>WebSocket</em> / 消息存储 / 已读回执 / 群聊扇出 / <em>E2EE</em>（端到端加密）/ <em>WebRTC</em>。</p>
       <div class="reveal-card">
         <div class="reveal-q">为什么微信发一条消息能秒到？</div>
@@ -2076,6 +2172,20 @@ const node_pt_video = {
   pages: [
     { html: `
       <p>大文件分发型——B 站 / 抖音 / YouTube / Twitch / Spotify / 播客。</p>
+      <p><strong>整体结构</strong>（视频上传 → 转码 → CDN 全球分发）：</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">📹</span><span class="ei-label">上传 / 推流</span>
+        <span class="ei-arrow">→</span>
+        <span class="ei-emoji">🎞️</span><span class="ei-label">转码集群</span>
+        <span class="ei-arrow">→</span>
+        <span class="ei-emoji">💾</span><span class="ei-label">源站</span>
+        <span class="ei-arrow">→</span>
+        <span class="ei-emoji">🌐</span><span class="ei-label">CDN 全球节点</span>
+        <span class="ei-arrow">→</span>
+        <span class="ei-emoji">📱</span><span class="ei-label">观众前端</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">💬</span><span class="ei-label">弹幕系统</span>
+      </div>
       <p>关键词：<em>CDN</em> / <em>转码</em> / <em>HLS</em> / <em>DASH</em>（点播协议）/ <em>RTMP</em>（直播推流）/ <em>WebRTC</em>（实时通话）/ <em>DRM</em> / <em>弹幕系统</em>。</p>
       <div class="reveal-card">
         <div class="reveal-q">为什么全世界看 YouTube 几乎不卡？</div>
@@ -2097,6 +2207,18 @@ const node_pt_news = {
   pages: [
     { html: `
       <p>内容聚合型——Feedly / Pocket / 即刻 / Hacker News / RSS 类。</p>
+      <p><strong>整体结构</strong>（一直爬别人 → 聚合 → 分发给你看）：</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">🕸️</span><span class="ei-label">爬虫 / RSS 订阅器</span>
+        <span class="ei-arrow">→</span>
+        <span class="ei-emoji">🗃️</span><span class="ei-label">内容聚合库</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🔌</span><span class="ei-label">API</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">📱</span><span class="ei-label">前端</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🔔</span><span class="ei-label">推送 / 稍后读</span>
+      </div>
       <p>关键词：内容抓取（爬虫 + RSS 订阅）/ 聚合 / 推送通知 / 稍后阅读 / 智能分类 / 个性化排序。</p>
       <div class="quiz-card">
         <div class="quiz-q">"Feedly 怎么从几千个网站抓最新文章？"</div>
@@ -2137,6 +2259,20 @@ const node_pt_game = {
   pages: [
     { html: `
       <p>实时同步型——王者荣耀 / 原神 / CSGO / Fall Guys / Steam。</p>
+      <p><strong>整体结构</strong>（客户端跟战斗服务器实时同步 + 账号经济独立）：</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">🎮</span><span class="ei-label">游戏客户端</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🌐</span><span class="ei-label">长连接</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🖥️</span><span class="ei-label">战斗服 / 区服</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🤖</span><span class="ei-label">匹配引擎</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🗃️</span><span class="ei-label">账号 / 装备库</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🛡️</span><span class="ei-label">反外挂</span>
+      </div>
       <p>关键词：匹配引擎 / <em>帧同步</em> vs <em>状态同步</em> / 录像回放 / 反外挂 / 虚拟经济 / <em>区服</em>。</p>
       <div class="reveal-card">
         <div class="reveal-q">两人 PK 时怎么保证你们看到的画面是一致的？</div>
@@ -2158,6 +2294,20 @@ const node_pt_aigc = {
   pages: [
     { html: `
       <p>重计算生成型——Suno（音乐）/ Runway（视频）/ HeyGen（数字人）/ ElevenLabs（语音）/ Midjourney。</p>
+      <p><strong>整体结构</strong>（前端不直接等结果 → 丢任务队列 → GPU 慢慢算 → 回调）：</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">📱</span><span class="ei-label">前端</span>
+        <span class="ei-arrow">→</span>
+        <span class="ei-emoji">🔌</span><span class="ei-label">API</span>
+        <span class="ei-arrow">→</span>
+        <span class="ei-emoji">📥</span><span class="ei-label">任务队列</span>
+        <span class="ei-arrow">→</span>
+        <span class="ei-emoji">🎮</span><span class="ei-label">GPU 集群</span>
+        <span class="ei-arrow">→</span>
+        <span class="ei-emoji">💾</span><span class="ei-label">对象存储</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">💳</span><span class="ei-label">按量计费</span>
+      </div>
       <p>关键词：GPU 集群推理 / 任务队列 / 生成结果存储 / 版权水印 / 按使用量计费。</p>
       <div class="reveal-card">
         <div class="reveal-q">为什么生成一张图 / 一段视频要排队几秒到几分钟？</div>
@@ -2179,6 +2329,18 @@ const node_pt_creator = {
   pages: [
     { html: `
       <p>大文件操作型——剪映 / Premiere / Photoshop / Lightroom / Figma / Procreate。</p>
+      <p><strong>整体结构</strong>（多数活在客户端做，后端只管文件 + 协作）：</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">💻</span><span class="ei-label">客户端（撤销栈 / GPU 加速）</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🔌</span><span class="ei-label">API</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">💾</span><span class="ei-label">文件存储 + 版本</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🤝</span><span class="ei-label">协作 / 同步</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🧩</span><span class="ei-label">插件 SDK</span>
+      </div>
       <p>关键词：大文件处理 / 撤销 / 重做栈 / 协作 / 同步 / 专业插件 SDK / 本地 GPU 加速 / 版本历史。</p>
       <div class="reveal-card">
         <div class="reveal-q">Photoshop 撤销几十步几乎不卡，怎么做到的？</div>
@@ -2217,6 +2379,20 @@ const node_pt_saas = {
   pages: [
     { html: `
       <p>企业订阅型——Notion / Figma / Slack / 飞书 / Linear / Salesforce。</p>
+      <p><strong>整体结构</strong>（一套系统给 N 家公司共用 + 数据严格隔离）：</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">📱</span><span class="ei-label">前端</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🔌</span><span class="ei-label">API</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🗃️</span><span class="ei-label">多租户数据库</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🔐</span><span class="ei-label">SSO 单点登录</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">💳</span><span class="ei-label">订阅计费</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">📋</span><span class="ei-label">审计日志</span>
+      </div>
       <p>关键词：<em>多租户</em> / <em>RBAC</em> / <em>SSO</em> / 订阅计费（Stripe Billing）/ 审计日志 / 实时协同 / <em>CRDT</em>。</p>
       <div class="quiz-card">
         <div class="quiz-q">"Figma 多人同时改一个文件，为什么不会撞？"</div>
@@ -2240,6 +2416,18 @@ const node_pt_b2b = {
   pages: [
     { html: `
       <p>重流程定制型——SAP / 用友 / 钉钉宜搭 / MES 制造 / 低代码平台。</p>
+      <p><strong>整体结构</strong>（核心是工作流引擎 + 对接 N 个老系统）：</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">📱</span><span class="ei-label">前端（可配置）</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">⚙️</span><span class="ei-label">工作流引擎</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🗃️</span><span class="ei-label">数据库</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🔐</span><span class="ei-label">权限矩阵</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🔗</span><span class="ei-label">老 OA / 财务 / ERP 对接</span>
+      </div>
       <p>关键词：复杂<em>工作流引擎</em> / 审批流 / 报表 / 权限矩阵 / 定制能力 / 对接老 OA / 财务系统。</p>
       <div class="reveal-card">
         <div class="reveal-q">为什么 SAP 卖一套要几百万到几千万？</div>
@@ -2261,6 +2449,18 @@ const node_pt_bi = {
   pages: [
     { html: `
       <p>报表分析型——公司高层每天看的数据看板、报表系统、用户行为分析。Tableau / Metabase / Looker / Mixpanel。</p>
+      <p><strong>整体结构</strong>（业务库的数据搬到分析库，再画图）：</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">🗃️</span><span class="ei-label">业务库（OLTP）</span>
+        <span class="ei-arrow">→</span>
+        <span class="ei-emoji">⚙️</span><span class="ei-label">ETL 搬运</span>
+        <span class="ei-arrow">→</span>
+        <span class="ei-emoji">🏬</span><span class="ei-label">数据仓库（OLAP）</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🔌</span><span class="ei-label">BI API</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">📊</span><span class="ei-label">看板前端</span>
+      </div>
       <p>关键词：<em>数据仓库</em>（BigQuery / ClickHouse / Snowflake）/ <em>ETL</em> / <em>OLAP</em> vs <em>OLTP</em> / 数据看板 / <em>埋点</em>。</p>
       <div class="quiz-card">
         <div class="quiz-q">"为什么不直接从业务库画看板？"</div>
@@ -2284,6 +2484,22 @@ const node_pt_hr = {
   pages: [
     { html: `
       <p>双边匹配型——BOSS 直聘 / LinkedIn / 智联 / 拉勾。</p>
+      <p><strong>整体结构</strong>（双端 + 解析 + 撮合）：</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">📱</span><span class="ei-label">求职者端</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🏢</span><span class="ei-label">企业端</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🔌</span><span class="ei-label">API</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🗃️</span><span class="ei-label">简历 / 岗位库</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">📄</span><span class="ei-label">简历解析</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🤖</span><span class="ei-label">双向匹配推荐</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">💬</span><span class="ei-label">聊天</span>
+      </div>
       <p>关键词：<em>简历解析</em> / 双向匹配推荐 / 聊天功能 / 招聘流程管理 / 企业认证。</p>
       <div class="reveal-card">
         <div class="reveal-q">你扔个 PDF 简历上去，BOSS 怎么知道你"3 年 Java 经验、住北京"？</div>
@@ -2305,6 +2521,20 @@ const node_pt_edu = {
   pages: [
     { html: `
       <p>学习进度型——Coursera / 多邻国 / 网易云课堂 / Khan Academy / 各种刷题 App。</p>
+      <p><strong>整体结构</strong>（看视频 + 做题 + 记进度）：</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">📱</span><span class="ei-label">前端</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🔌</span><span class="ei-label">API</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🗃️</span><span class="ei-label">课程 / 题库 / 进度</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🎬</span><span class="ei-label">视频 CDN + 防盗版</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🧠</span><span class="ei-label">间隔重复算法</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🏅</span><span class="ei-label">证书系统</span>
+      </div>
       <p>关键词：视频播放（<em>CDN</em> + 防盗版）/ 测试 / 错题本 / 进度追踪 / 证书发放 / 答疑社区 / <em>间隔重复</em> 算法。</p>
       <div class="reveal-card">
         <div class="reveal-q">多邻国 / Anki 为什么每天都让你复习一点旧的？</div>
@@ -2326,6 +2556,18 @@ const node_pt_email = {
   pages: [
     { html: `
       <p>标准协议型——Outlook / Gmail / Apple Mail / 超人邮箱 / Spike。</p>
+      <p><strong>整体结构</strong>（你的 App 是客户端，邮件其实在邮箱服务器上）：</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">📱</span><span class="ei-label">客户端</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">📥</span><span class="ei-label">IMAP（收）</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">📤</span><span class="ei-label">SMTP（发）</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🖥️</span><span class="ei-label">邮件服务器</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🛡️</span><span class="ei-label">垃圾邮件过滤</span>
+      </div>
       <p>关键词：<em>IMAP</em> / <em>SMTP</em>（收发协议）/ 垃圾邮件过滤 / 附件 / 推送 / 跨设备同步 / 统一收件箱。</p>
       <div class="matching-game">
         <div class="match-hint">连一连邮件干啥用什么 ↓</div>
@@ -2356,6 +2598,18 @@ const node_pt_search = {
   pages: [
     { html: `
       <p>信息检索型——Google / 百度 / Bing / Brave / Arc / DuckDuckGo。</p>
+      <p><strong>整体结构</strong>（一直爬全网 → 建索引 → 用户查的时候排序）：</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">🕸️</span><span class="ei-label">爬虫（爬全网）</span>
+        <span class="ei-arrow">→</span>
+        <span class="ei-emoji">🔍</span><span class="ei-label">倒排索引</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🔌</span><span class="ei-label">查询服务</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">📊</span><span class="ei-label">排序模型（PageRank + 多信号）</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">📱</span><span class="ei-label">前端</span>
+      </div>
       <p>关键词：爬虫 / 索引 / 排序（<em>PageRank</em>）/ 查询解析 / 广告系统 / 隐私保护。</p>
       <div class="reveal-card">
         <div class="reveal-q">你搜"咖啡店"——Google 怎么知道哪个网页该排第一？</div>
@@ -2394,6 +2648,22 @@ const node_pt_finance = {
   pages: [
     { html: `
       <p>强合规型——支付宝 / 招行 App / Robinhood / Stripe / 加密钱包 / 理财平台。</p>
+      <p><strong>整体结构</strong>（每一步都被风控 + KYC 审查 + 对银行系统结算）：</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">📱</span><span class="ei-label">前端</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🔌</span><span class="ei-label">API</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🛡️</span><span class="ei-label">风控引擎</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">✅</span><span class="ei-label">KYC 实名</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🗃️</span><span class="ei-label">账户库</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🏦</span><span class="ei-label">银行 / 清算接口</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">📋</span><span class="ei-label">监管报表</span>
+      </div>
       <p>关键词：强合规 / <em>风控</em>反洗钱 / <em>KYC</em> 实名审核 / 清算对账（钱算到分）/ 灾备多活 / 监管报表 / 跨境支付。</p>
       <div class="reveal-card">
         <div class="reveal-q">为什么银行 App 大额转账时要刷脸 + 短信码 + 提示"风控审核"？</div>
@@ -2415,6 +2685,20 @@ const node_pt_medical = {
   pages: [
     { html: `
       <p>敏感数据型——好大夫 / 丁香 / Keep / Strava / HealthKit / 心理咨询 App。</p>
+      <p><strong>整体结构</strong>（双端 + 强加密数据 + 保险 / 设备对接）：</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">📱</span><span class="ei-label">用户端</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">👨‍⚕️</span><span class="ei-label">医生端</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🔌</span><span class="ei-label">API</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🗃️</span><span class="ei-label">病历库（强加密）</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">⌚</span><span class="ei-label">可穿戴同步</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🏥</span><span class="ei-label">保险 / 医院对接</span>
+      </div>
       <p>关键词：个人健康数据强隐私（<em>HIPAA</em> / 国内等保）/ 医生-患者两端 / 保险对接 / 可穿戴设备同步 / 电子病历。</p>
       <div class="quiz-card">
         <div class="quiz-q">"为什么 Keep / Apple Health 不能随便把你心率数据分享给别的 App？"</div>
@@ -2438,6 +2722,18 @@ const node_pt_govt = {
   pages: [
     { html: `
       <p>国家级稳定型——健康码 / 个税 / 医保 / 12345 / 国家政务。</p>
+      <p><strong>整体结构</strong>（实名 + 多活灾备 + 全国产化栈）：</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">📱</span><span class="ei-label">前端</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🔌</span><span class="ei-label">API</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">✅</span><span class="ei-label">公安实名认证</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🗃️</span><span class="ei-label">多活灾备数据库</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🇨🇳</span><span class="ei-label">信创栈（国产化）</span>
+      </div>
       <p>关键词：实名（身份证 / 公安认证）/ 超大稳定性（不能崩）/ 数据合规 / 信创栈（国产化）/ 不依赖外国云。</p>
       <div class="reveal-card">
         <div class="reveal-q">健康码高峰时全国十几亿人同时扫，为什么从来不崩？</div>
@@ -2476,6 +2772,20 @@ const node_pt_ai_app = {
   pages: [
     { html: `
       <p>基于 GPT / Claude / Gemini 做的应用——chatbot / 文案工具 / AI 客服 / AI 写代码 / Perplexity / Character.ai。</p>
+      <p><strong>整体结构</strong>（你的后端是个"中转 + 加私有知识"层）：</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">📱</span><span class="ei-label">前端（流式 UI）</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🔌</span><span class="ei-label">你的后端</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🤖</span><span class="ei-label">LLM API</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🗄️</span><span class="ei-label">向量数据库（RAG）</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🔧</span><span class="ei-label">Tool use 工具</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">💳</span><span class="ei-label">按 token 计费</span>
+      </div>
       <p>关键词：<em>LLM API</em> / Streaming（流式返回）/ token 计费 / <em>Embedding</em> / <em>向量数据库</em> / <em>RAG</em>（检索增强）/ <em>Agent</em> / <em>Tool use</em>。</p>
       <div class="matching-game">
         <div class="match-hint">连一连 ↓</div>
@@ -2504,6 +2814,18 @@ const node_pt_web3 = {
   pages: [
     { html: `
       <p>链上交互型——MetaMask / OpenSea / Uniswap / Lens / NFT 市场。</p>
+      <p><strong>整体结构</strong>（没有传统中心服务器，所有"账本"在链上）：</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">👛</span><span class="ei-label">钱包前端</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🌐</span><span class="ei-label">区块链节点</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">📜</span><span class="ei-label">智能合约</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🗂️</span><span class="ei-label">IPFS（大文件）</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">📊</span><span class="ei-label">链上数据索引（The Graph）</span>
+      </div>
       <p>关键词：链上交互（<em>智能合约</em>调用）/ 签名（私钥不出本机）/ <em>Gas 费</em> / 跨链桥 / 节点同步 / 链上数据索引（The Graph）/ IPFS。</p>
       <div class="reveal-card">
         <div class="reveal-q">为什么用 MetaMask 转一笔小额都要付 <em>Gas 费</em>？</div>
@@ -2525,6 +2847,18 @@ const node_pt_iot = {
   pages: [
     { html: `
       <p>设备控制型——米家 / HomeKit / Google Home / Aqara。</p>
+      <p><strong>整体结构</strong>（手机 ↔ 云 ↔ 设备 都靠长连接保持）：</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">📱</span><span class="ei-label">手机控制端</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">☁️</span><span class="ei-label">云端</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">🌐</span><span class="ei-label">长连接</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">💡</span><span class="ei-label">设备（灯 / 空调 / 门锁）</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🤖</span><span class="ei-label">场景联动引擎</span>
+      </div>
       <p>关键词：设备配网（蓝牙 / Wi-Fi）/ <em>长连接</em>控制 / 场景联动（"回家"自动开灯）/ 多用户分享 / <em>Matter</em>（跨厂家协议）。</p>
       <div class="reveal-card">
         <div class="reveal-q">米家怎么让全屋几十个设备一起响应"我回家了"？</div>
@@ -2546,6 +2880,20 @@ const node_pt_personal_tool = {
   pages: [
     { html: `
       <p>本地优先型——Obsidian / Bear / 番茄钟 / Todo / 翻译 / OCR / 计算器 / 习惯打卡。</p>
+      <p><strong>整体结构</strong>（通常不要后端：前端 + 本地存储就够；做大才加同步）：</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">📱</span><span class="ei-label">前端（HTML/CSS/JS）</span>
+        <span class="ei-arrow">↔</span>
+        <span class="ei-emoji">💾</span><span class="ei-label">本地存储（IndexedDB）</span>
+      </div>
+      <p>做大了再加：</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">☁️</span><span class="ei-label">云同步服务</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🔐</span><span class="ei-label">端到端加密</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🔔</span><span class="ei-label">推送提醒</span>
+      </div>
       <p>关键词：<em>本地存储</em>就够（IndexedDB / SQLite）/ <em>Markdown</em> / <em>双向链接</em> / 做大才加云同步 / 端到端加密。</p>
       <div class="quiz-card">
         <div class="quiz-q">"我想做个习惯打卡 App，需要后端吗？"</div>
