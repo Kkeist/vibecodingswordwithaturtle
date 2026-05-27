@@ -1867,3 +1867,114 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .node, .card, .link-path, .notebook-panel { transition-duration: 0.15s; }
 }
+
+/* ========== 加载提示（页面打开 700ms 内显示） ========== */
+#loading-hint {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  border-radius: 12px;
+  padding: 14px 22px;
+  color: var(--text-soft);
+  font-size: 14px;
+  box-shadow: 0 4px 16px rgba(74, 61, 42, 0.12);
+  transition: opacity .3s ease;
+}
+#loading-hint.fade-out { opacity: 0; pointer-events: none; }
+#loading-hint .loading-emoji {
+  display: inline-block;
+  font-size: 22px;
+  animation: turtle-wobble 1.2s ease-in-out infinite;
+}
+#loading-hint .loading-text { white-space: nowrap; }
+@keyframes turtle-wobble {
+  0%, 100% { transform: rotate(-8deg) translateY(0); }
+  50%      { transform: rotate(8deg)  translateY(-2px); }
+}
+@media (max-width: 600px) {
+  #loading-hint { font-size: 13px; padding: 12px 18px; }
+  #loading-hint .loading-emoji { font-size: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #loading-hint .loading-emoji { animation: none; }
+}
+
+/* ========== 第一次访问引导 overlay ========== */
+#onboarding-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: rgba(74, 61, 42, 0.42);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+#onboarding-overlay.visible  { opacity: 1; }
+#onboarding-overlay.fade-out { opacity: 0; pointer-events: none; }
+
+#onboarding-overlay .onboarding-card {
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-strong);
+  border-radius: 14px;
+  padding: 22px 24px 18px;
+  max-width: 360px;
+  width: 100%;
+  box-shadow: 0 8px 28px rgba(74, 61, 42, 0.22);
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.7;
+  transform: translateY(8px);
+  transition: transform .3s ease;
+}
+#onboarding-overlay.visible .onboarding-card { transform: translateY(0); }
+
+#onboarding-overlay .onboarding-title {
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--accent-deep);
+}
+#onboarding-overlay .onboarding-body p {
+  margin: 0 0 10px;
+}
+#onboarding-overlay .onboarding-body p:last-child { margin-bottom: 0; }
+#onboarding-overlay .onboarding-body strong {
+  color: var(--accent-deep);
+  font-weight: 600;
+}
+
+#onboarding-overlay .onboarding-go {
+  display: block;
+  width: 100%;
+  margin-top: 14px;
+  padding: 10px 14px;
+  background: var(--accent);
+  color: #fff;
+  border: 1px solid var(--accent-deep);
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background .15s ease, transform .1s ease;
+}
+#onboarding-overlay .onboarding-go:hover  { background: var(--accent-deep); }
+#onboarding-overlay .onboarding-go:active { transform: translateY(1px); }
+
+@media (max-width: 600px) {
+  #onboarding-overlay .onboarding-card {
+    padding: 18px 18px 14px;
+    font-size: 13px;
+    line-height: 1.65;
+  }
+  #onboarding-overlay .onboarding-title { font-size: 15.5px; }
+}

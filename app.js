@@ -1532,7 +1532,54 @@ function bindSearch() {
 }
 
 // ---------- 启动 ----------
+function showLoadingHint() {
+  const div = document.createElement('div');
+  div.id = 'loading-hint';
+  div.innerHTML = '<span class="loading-emoji">🐢</span><span class="loading-text">正在准备地图…</span>';
+  document.body.appendChild(div);
+}
+
+function hideLoadingHint() {
+  const div = document.getElementById('loading-hint');
+  if (!div) return;
+  div.classList.add('fade-out');
+  setTimeout(() => div.remove(), 300);
+}
+
+function showOnboarding() {
+  if (document.getElementById('onboarding-overlay')) return;
+  const div = document.createElement('div');
+  div.id = 'onboarding-overlay';
+  div.innerHTML = `
+    <div class="onboarding-card">
+      <div class="onboarding-title">👋 欢迎</div>
+      <div class="onboarding-body">
+        <p>这是一张<strong>交互地图</strong>——给用 AI 做东西但不懂底层的人。</p>
+        <p>玩法：<strong>点圆圈</strong>看一张卡片 → <strong>选底下的选项</strong>沿路走 → 经过的概念自动存到右边<strong>笔记本</strong>。</p>
+        <p>不用一次走完。从哪点开都行。</p>
+      </div>
+      <button class="onboarding-go" type="button">知道了，开始走</button>
+    </div>
+  `;
+  document.body.appendChild(div);
+
+  const close = () => {
+    try { localStorage.setItem('wbxyc-visited', '1'); } catch (e) {}
+    div.classList.add('fade-out');
+    setTimeout(() => div.remove(), 300);
+  };
+  div.querySelector('.onboarding-go').addEventListener('click', close);
+  // 点 overlay 空白处也关
+  div.addEventListener('click', (e) => {
+    if (e.target === div) close();
+  });
+
+  requestAnimationFrame(() => div.classList.add('visible'));
+}
+
 function init() {
+  showLoadingHint();
+
   const wrapper = $('#canvas-wrapper');
   const rect = wrapper.getBoundingClientRect();
   STATE.canvasSize = { w: rect.width, h: rect.height };
@@ -1546,7 +1593,17 @@ function init() {
     requestAnimationFrame(() => rootEntry.el.classList.add('visible'));
   });
 
-  setTimeout(() => handleNodeClick(rootEntry), 700);
+  setTimeout(() => {
+    hideLoadingHint();
+    handleNodeClick(rootEntry);
+
+    // 第一次访问 → 卡片出来后弹引导
+    let visited = false;
+    try { visited = !!localStorage.getItem('wbxyc-visited'); } catch (e) {}
+    if (!visited) {
+      setTimeout(showOnboarding, 600);
+    }
+  }, 700);
 }
 
 // ---------- 全局事件 ----------

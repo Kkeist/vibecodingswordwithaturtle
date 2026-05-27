@@ -654,7 +654,7 @@ const node_ai_helper = {
   id: "ai-helper",
   emoji: "🤖",
   title: "AI 编程助手",
-  concept: { name: "AI 编程助手", explain: "能读 / 改你项目代码、跑命令、自己 debug 的 AI 程序。" },
+  concept: { name: "AI 编程助手", explain: "能读 / 改你项目代码、跑命令、自己 debug 的 AI 程序。但它会犯错——要会回滚 + 判断何时不该信。" },
   pages: [
     { html: `
       <p>不会代码也能做东西的关键——AI 帮你写。常用几种：</p>
@@ -676,6 +676,55 @@ const node_ai_helper = {
         <li><em>v0</em>：Vercel 出的，专做前端 UI。</li>
       </ul>
       <p>底下的"大脑"都是同一批 <em>LLM</em>（Claude / GPT / Gemini）——只是套壳和能调的工具不同。</p>
+      <p><strong>⚠️ AI 改炸了怎么救场</strong>（vibecoding 最重要的一节）：</p>
+      <ul>
+        <li>动手前先 <em>git commit</em> 保存当前状态——这是「回滚」按钮</li>
+        <li>AI 改完测试不通过 / 视觉乱了 → <em>git diff</em> 看 AI 改了啥 → 不对就 <em>git checkout .</em> 全恢复 或 <em>git revert</em> 撤一次提交</li>
+        <li>大改前在 <em>新分支</em>（<em>git checkout -b try-feature</em>）做——不污染主分支</li>
+        <li>每次 AI 改完就 commit 一次——不要让它一口气改 10 个文件再 commit（撤起来痛苦）</li>
+      </ul>
+      <p><strong>⚠️ 什么时候不该信 AI</strong>：</p>
+      <ul>
+        <li>它信誓旦旦说「这库有这个函数」「这个 API 这样调」——<strong>50% 概率它在编</strong>（叫<em>幻觉</em>）。验证：自己看官方文档 / 跑一下</li>
+        <li>密钥 / 密码 / 数据库 schema / 用户数据相关——AI 给的代码先自己看一遍，别盲跑</li>
+        <li>报「我修好了」但你没跑过 → 永远自己跑一次确认，AI 经常假修</li>
+        <li>它说「这是行业最佳实践」「大家都这么做」——可能是的，但你可以追问"为什么"</li>
+        <li>涉及钱 / 隐私 / 删数据 / 不可逆操作 → 让它解释清楚再执行，不直接同意</li>
+      </ul>
+      <p><strong>跟 AI 协作的好习惯</strong>：</p>
+      <ul>
+        <li>需求拆小：一次只让它做一件事，做完测试再下一件</li>
+        <li>给上下文：贴报错原文、贴相关代码、说你已经试过什么——比"修一下"清楚十倍</li>
+        <li>不懂就让它解释：「这行 X.bind(this) 是什么意思」「为什么用 useEffect」——边做边学</li>
+        <li>AI 给的代码看不懂就让它注释——不许糊涂 commit</li>
+      </ul>
+      <div class="example-card">
+        <button class="example-toggle">📖 看真实例子</button>
+        <div class="example-content" hidden>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🤖</span>AI 是<strong>高效但会犯错的助手</strong>——你的工作是给方向 + 验证结果 + 守住 git 这条命脉</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">📱</span>在你做的产品里实际怎么用</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🛡️</span>动手前：<code>git commit -m '改前快照'</code> → AI 怎么折腾都能回到这</div>
+              <div class="ex-line"><span class="ex-emoji">🔍</span>AI 说"已修复"→ 自己跑一次 + 看 git diff → 真改对了再 commit</div>
+              <div class="ex-line"><span class="ex-emoji">🌳</span>大改用新分支：<code>git checkout -b ai-redesign</code> → 改坏了删分支不影响 main</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处（懂了能避免灾难）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">😱</span>避免 AI 一通改之后代码混乱 / 数据丢了 / 撤不回——git 永远是救命稻草</div>
+              <div class="ex-line"><span class="ex-emoji">🤔</span>识别 AI <strong>幻觉</strong>：它编出来的函数 / 库 / API → 报 <code>is not a function</code> 时第一反应「AI 编了」</div>
+              <div class="ex-line"><span class="ex-emoji">📐</span>跟 AI 协作模式：<strong>小步迭代</strong> + <strong>每步 commit</strong> + <strong>自己跑一次</strong> = 不会失控</div>
+            </div>
+          </div>
+        </div>
+      </div>
     ` },
   ],
   children: [node_git, node_prompt, node_vibe_prompt_craft, node_vibe_split_task, node_vibe_review, node_vibe_refactor],
@@ -1176,14 +1225,60 @@ const node_backup_monitor = {
 const node_framework = {
   id: "framework",
   emoji: "🧱",
-  title: "前端框架",
+  title: "前端框架 / React vs Vue",
   lightbulb: true,
-  concept: { name: "前端框架", explain: "帮你管页面状态、拆组件的工具。" },
+  concept: { name: "前端框架", explain: "帮你管页面状态、拆组件、自动同步 UI 的工具。React / Vue / Svelte 三大主流。" },
   pages: [
     { html: `
-      <p>页面一复杂——「现在选中哪个」「输入框里有什么」「侧栏开没开」「购物车有几件」——这些"状态"开始难管。</p>
-      <p>帮你管这些状态、把页面拆成组件的工具叫<em>前端框架</em>。</p>
-      <p>主流：<em>React</em>、<em>Vue</em>、<em>Svelte</em>。</p>
+      <p>页面一复杂——「现在选中哪个」「输入框里有什么」「侧栏开没开」「购物车有几件」「列表里 100 条数据」——这些<em>状态</em>开始难管。原生 JS 操作 DOM 写到几百行就一团乱。</p>
+      <p>帮你管状态、把页面拆<em>组件</em>、UI 跟数据<em>自动同步</em>的工具叫<em>前端框架</em>。</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">📦</span><span class="ei-label">数据（状态）</span>
+        <span class="ei-arrow">⟷</span>
+        <span class="ei-emoji">🪟</span><span class="ei-label">UI 自动跟着变</span>
+      </div>
+      <p><strong>框架帮你做什么</strong>：</p>
+      <ul>
+        <li><em>组件</em>化：一个按钮 / 一个卡片打包成可复用的小块（自带样式 + 行为）</li>
+        <li><em>状态</em>管理：数据变了，相关 UI 自动重画——不用自己 querySelector + textContent</li>
+        <li><em>路由</em>：单页应用里换"页面"不刷新整页（点了菜单 url 变、内容也变）</li>
+        <li><em>生态</em>：组件库（Ant Design / Element / shadcn）/ 表单 / 图表 / 拖拽 等现成轮子</li>
+      </ul>
+      <p><strong>三大主流怎么选</strong>：</p>
+      <ul>
+        <li><em>React</em>：最流行、生态最大、找轮子最容易；写法偏函数式（用 JS 表达 UI）；适合：复杂应用 + 团队 + 求职。Meta 出</li>
+        <li><em>Vue</em>：上手最温柔、模板像 HTML、中文社区超活跃；适合：个人项目 + 中小团队 + 不想被 React 折磨。尤雨溪出</li>
+        <li><em>Svelte</em>：写得最少、编译到原生 JS、跑得最快；适合：新项目 + 追新技术。社区比前两个小</li>
+      </ul>
+      <p><strong>vibecoding 实际选</strong>：用 AI 工具默认选 React（Cursor / Lovable / v0 / Bolt 都偏 React），生态最大、AI 训练数据最多、问题最容易问到。除非你已经会 Vue。</p>
+      <p>框架之上还有<em>元框架</em>：<em>Next.js</em>（React）/ <em>Nuxt</em>（Vue）/ <em>SvelteKit</em>——加了路由 + SEO + 服务端渲染，做正经站推荐用元框架不是裸框架。</p>
+      <div class="example-card">
+        <button class="example-toggle">📖 看真实例子</button>
+        <div class="example-content" hidden>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🧱</span><strong>框架</strong> = 帮你管状态 + 拆组件 + UI 自动跟数据同步——省下 90% 手动操作 DOM 的代码</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">📱</span>在你做的产品里实际怎么用</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🛒</span>购物车 → 用 React/Vue 写一个 <strong>Cart 组件</strong> → 加一件商品 → 总价 / 角标数字自动跟着变</div>
+              <div class="ex-line"><span class="ex-emoji">📋</span>表单 → 框架自动管「输入了什么 / 哪个字段错了 / 提交中」状态，不用手动同步</div>
+              <div class="ex-line"><span class="ex-emoji">🚀</span>做正经网站 → 用 <strong>Next.js</strong>（含 SEO + 服务端渲染）部署 Vercel，开箱即用</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处（懂了能干啥）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">⚡</span>页面复杂了不再越改越乱——组件化让每块代码各管各的</div>
+              <div class="ex-line"><span class="ex-emoji">🤖</span>跟 AI 说「这页面用 React 实现」→ AI 直接出组件代码，比纯 HTML/JS 清晰</div>
+              <div class="ex-line"><span class="ex-emoji">📐</span>不知道选啥就 <strong>Next.js + shadcn/ui</strong>（React 元框架 + 组件库）—— 目前 vibecoding 主流配置</div>
+            </div>
+          </div>
+        </div>
+      </div>
     ` },
   ],
   children: [node_i18n],
@@ -1292,23 +1387,64 @@ const node_database_web = {
   id: "database-web",
   emoji: "🗃️",
   title: "数据库",
-  concept: { name: "数据库", explain: "专门存数据、能快速找到的程序。" },
+  concept: { name: "数据库 / SQL / NoSQL / SQLite", explain: "专门存数据、能快速找到的程序。分 SQL（表格型）和 NoSQL（文档型）。" },
   pages: [
     { html: `
-      <p>想保存用户评论、订单、上传的图、好友列表？</p>
-      <div class="emoji-illust">
-        <span class="ei-emoji">📝</span>
-        <span class="ei-label">用户数据</span>
-        <span class="ei-arrow">→</span>
-        <span class="ei-emoji">🗃️</span>
-        <span class="ei-label">数据库（建索引）</span>
-        <span class="ei-arrow">→</span>
-        <span class="ei-emoji">🔍</span>
-        <span class="ei-label">瞬间找到</span>
-      </div>
-      <p>用 txt 文件存太慢——百万条数据找一条要扫一遍。</p>
+      <p>想保存用户评论、订单、上传的图、好友列表——存哪？用 txt 文件吗？百万条数据找一条要扫一遍，慢到没法用。</p>
       <p>专门存数据 + 能快速找的程序叫<em>数据库</em>。</p>
-      <p>常见：<em>SQLite</em>、<em>MySQL</em>、<em>PostgreSQL</em>。</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">📝</span><span class="ei-label">用户数据</span>
+        <span class="ei-arrow">→</span>
+        <span class="ei-emoji">🗃️</span><span class="ei-label">数据库（建索引）</span>
+        <span class="ei-arrow">→</span>
+        <span class="ei-emoji">🔍</span><span class="ei-label">瞬间找到</span>
+      </div>
+      <p><strong>两大类</strong>：</p>
+      <ul>
+        <li><em>SQL</em>（关系型）：数据存成<strong>表格</strong>（像 Excel），表之间有关系。用 <em>SQL 语言</em>查。代表：<em>SQLite</em> / <em>MySQL</em> / <em>PostgreSQL</em></li>
+        <li><em>NoSQL</em>（文档型）：数据存成<strong>类似 JSON 对象</strong>，结构灵活、能塞嵌套数据。代表：<em>MongoDB</em> / <em>Firestore</em></li>
+      </ul>
+      <p><strong>怎么选</strong>（不纠结的话直接看这）：</p>
+      <ul>
+        <li>数据有清晰表格结构（用户表 / 订单表 / 商品表）+ 数据之间关联多（订单关联用户、商品、地址）→ <em>SQL</em></li>
+        <li>数据结构多变 / 嵌套深（每个文档字段不一样、有时多有时少）→ <em>NoSQL</em></li>
+        <li>不知道选啥 → 选 <em>PostgreSQL</em>，最安全的默认</li>
+      </ul>
+      <p><strong>具体产品怎么选</strong>：</p>
+      <ul>
+        <li>小项目 / 单机 / 原型 → <em>SQLite</em>：一个文件搞定，零配置，性能也够</li>
+        <li>中型应用 → <em>PostgreSQL</em>：开源、功能强、社区大</li>
+        <li>要快速上线、不想运维 → <em>Supabase</em> / <em>Neon</em>（云上 PostgreSQL）/ <em>Firebase Firestore</em>（云上 NoSQL）</li>
+        <li>大流量 → <em>MySQL</em> / <em>PostgreSQL</em> + 加缓存（<em>Redis</em>）</li>
+      </ul>
+      <p>vibecoding 跟 AI 说「这数据存哪种数据库 + 给我设计表结构」→ AI 会按数据特征推荐 + 直接给建表 SQL。</p>
+      <div class="example-card">
+        <button class="example-toggle">📖 看真实例子</button>
+        <div class="example-content" hidden>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🗃️</span><strong>SQL</strong> = 数据放表格（行 / 列）；<strong>NoSQL</strong> = 数据放 JSON 文档（嵌套灵活）。选哪个看你的数据形状</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">📱</span>在你做的产品里实际怎么用</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🛒</span>电商（订单 + 用户 + 商品多关联）→ <strong>PostgreSQL</strong>（SQL，事务靠谱）</div>
+              <div class="ex-line"><span class="ex-emoji">📝</span>笔记 app（每篇结构都不一样、嵌套块）→ <strong>MongoDB</strong> 或 <strong>Firestore</strong>（NoSQL）</div>
+              <div class="ex-line"><span class="ex-emoji">🚀</span>个人项目 / Demo → <strong>SQLite</strong>（一个 .db 文件就完事，零配置）</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处（懂了能干啥）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🤔</span>AI 帮你选数据库时能判断对不对——它说"用 MongoDB 存订单"你能反问"订单要事务，不该用 PG 吗"</div>
+              <div class="ex-line"><span class="ex-emoji">⚡</span>知道 <strong>索引</strong>能让查询快几百倍 → 报"查询慢"时第一反应是"查询字段加索引"</div>
+              <div class="ex-line"><span class="ex-emoji">💸</span>用 <strong>Supabase / Neon</strong> 这类托管数据库 → 不用自己运维、有免费额度</div>
+            </div>
+          </div>
+        </div>
+      </div>
     ` },
   ],
   children: [node_auth_web],
@@ -3597,3 +3733,494 @@ node_product_types.children = [
 SHARED_NODES["tools-entry"] = node_tools_entry;
 SHARED_NODES["platform-pick"] = node_platform_pick;
 SHARED_NODES["product-types"] = node_product_types;
+
+// ============================================================
+// v15c：vibecoding 日常卡点 5 节点（DOM / 异步 / 浏览器存储 / 安全 / F12 全用法）
+// 全部 lightbulb 灯泡支线，挂在对应主线节点上
+// ============================================================
+
+const node_dom_ops = {
+  id: "dom-ops",
+  emoji: "🎯",
+  title: "操作 DOM / 让 JS 改页面",
+  lightbulb: true,
+  concept: { name: "DOM 操作", explain: "JS 选页面上的元素 → 改它的文字 / 样式 / 监听点击。AI 写的「点了按钮换颜色」就是这个。" },
+  pages: [
+    { html: `
+      <p>想做「点按钮变颜色」「输入框打字时下面实时显示」「点了卡片弹出详情」？这都是 JS 在改页面——叫<em>操作 DOM</em>。</p>
+      <p>浏览器把你的网页解析成一棵<em>DOM</em> 树（一个嵌套盒子结构）。每个标签 = 一个节点。JS 能找到任意节点，改它。</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">🌳</span><span class="ei-label">DOM 树（页面元素）</span>
+        <span class="ei-arrow">←</span>
+        <span class="ei-emoji">📜</span><span class="ei-label">JS 选 / 改 / 监听</span>
+      </div>
+      <p><strong>三件事</strong>：</p>
+      <ul>
+        <li><strong>选</strong>：<em>document.querySelector('.my-btn')</em>（按 CSS 选择器选第一个）</li>
+        <li><strong>改</strong>：<em>el.textContent</em> 改文字 / <em>el.style.color</em> 改样式 / <em>el.classList.add('active')</em> 加 class</li>
+        <li><strong>监听</strong>：<em>el.addEventListener('click', () =&gt; { ... })</em> 等用户点</li>
+      </ul>
+      <p>看 AI 写的代码里满屏 <em>querySelector</em> / <em>addEventListener</em>——这就是在操作 DOM。</p>
+      <p><strong>常见坑</strong>：</p>
+      <ul>
+        <li>JS 在元素还没出现时就选 → 选到 <em>null</em>。把 <em>&lt;script&gt;</em> 放 <em>&lt;/body&gt;</em> 前，或包在 <em>DOMContentLoaded</em> 里</li>
+        <li>用 <em>innerHTML</em> 塞用户输入 = 安全漏洞（XSS）。展示用户文字用 <em>textContent</em></li>
+        <li>监听了很多次没清理 → 重复触发。换页面前 <em>removeEventListener</em></li>
+      </ul>
+      <div class="example-card">
+        <button class="example-toggle">📖 看真实例子</button>
+        <div class="example-content" hidden>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🎯</span><strong>DOM 操作</strong> = JS 在页面上「<strong>找东西 → 改它 → 等它被点</strong>」的三件套</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">📱</span>在你做的产品里实际怎么用</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">❤️</span>点赞按钮：<code>btn.addEventListener('click', () =&gt; { count.textContent = ++n })</code></div>
+              <div class="ex-line"><span class="ex-emoji">🌓</span>切深色模式：<code>document.body.classList.toggle('dark')</code> + CSS 写 <code>.dark { ... }</code></div>
+              <div class="ex-line"><span class="ex-emoji">🔍</span>输入框边打字边过滤列表：<code>input.addEventListener('input', e =&gt; filter(e.target.value))</code></div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处（懂了能干啥）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🤖</span>AI 生成「点击按钮怎样怎样」的代码 → 你能看懂它在选哪个元素、改什么属性</div>
+              <div class="ex-line"><span class="ex-emoji">🛠️</span>想小改 AI 写的页面（换文字 / 调样式 / 加监听）→ 自己改一行就行</div>
+              <div class="ex-line"><span class="ex-emoji">📐</span>项目大了 → 升级到 <strong>React / Vue</strong>，它们替你管 DOM，但底层还是这套</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_async_basics = {
+  id: "async-basics",
+  emoji: "⏳",
+  title: "异步 / Promise / await",
+  lightbulb: true,
+  concept: { name: "异步 / Promise / async-await", explain: "调 API / 读文件不是立刻完成的——要等。「异步」代码就是「先发出去、等结果到了再继续」的写法。" },
+  pages: [
+    { html: `
+      <p>AI 写的代码里满屏 <em>async</em> / <em>await</em> / <em>.then()</em>？这就是<em>异步</em>——为了「等结果时不卡住整个程序」的写法。</p>
+      <p>调一个 API 通常要等几百毫秒。如果代码<em>同步</em>等（什么也不干就杵那）——整个页面会卡住，按钮按不动。</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">📤</span><span class="ei-label">发请求</span>
+        <span class="ei-arrow">…等…</span>
+        <span class="ei-emoji">📥</span><span class="ei-label">回来再处理</span>
+      </div>
+      <p><strong>三种写法演进</strong>（看 AI 代码会遇到全部三种）：</p>
+      <ul>
+        <li>古早：<em>回调函数</em>——结果到了调一个函数。多层套起来叫「<em>回调地狱</em>」</li>
+        <li>中期：<em>Promise</em>——一个「将来会有结果」的对象。链式 <em>.then().then()</em></li>
+        <li>现代：<em>async / await</em>——写起来像同步，实际还是异步</li>
+      </ul>
+      <p>现代写法长这样：</p>
+      <p style="font-family:monospace;font-size:12px;background:#fff5e6;padding:8px 12px;border-radius:6px;line-height:1.6;">async function 拿天气() {<br/>&nbsp;&nbsp;const res = await fetch('/api/weather'); // 等结果<br/>&nbsp;&nbsp;const data = await res.json();<br/>&nbsp;&nbsp;return data.temp;<br/>}</p>
+      <p><em>await</em> 后面跟着一个会「等」的东西（API、定时器、读文件）；它会在这停下、拿到结果再继续。</p>
+      <p><strong>常见坑</strong>：</p>
+      <ul>
+        <li>忘写 <em>await</em> → 拿到的是 Promise 对象不是真数据（打印出来是 <code>Promise { &lt;pending&gt; }</code>）</li>
+        <li>没包 <em>try / catch</em> → 异步出错变成「未捕获的 Promise rejection」，控制台一堆红字</li>
+        <li>在 <em>forEach</em> 里 await → 不会等（forEach 不认 async）。要用 <em>for...of</em> 或 <em>Promise.all</em></li>
+      </ul>
+      <div class="example-card">
+        <button class="example-toggle">📖 看真实例子</button>
+        <div class="example-content" hidden>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">⏳</span><strong>异步</strong> = 等结果时不杵那、继续干别的；<strong>await</strong> = 在这一行等，等到了再往下走</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">📱</span>在你做的产品里实际怎么用</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🤖</span>调 ChatGPT API：<code>const ans = await openai.chat(...)</code> → 等 AI 答完再显示</div>
+              <div class="ex-line"><span class="ex-emoji">🗺️</span>地图搜地址：<code>const list = await fetch('/api/search?q=' + word)</code> → 拿到列表再渲染</div>
+              <div class="ex-line"><span class="ex-emoji">💾</span>读用户上传的图片：<code>const text = await file.text()</code> → 读完再处理</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处（懂了能干啥）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🐛</span>看到 <code>Promise { &lt;pending&gt; }</code> 知道是忘 await；看到 <code>UnhandledPromiseRejection</code> 知道要加 try/catch</div>
+              <div class="ex-line"><span class="ex-emoji">⚡</span>多个独立请求一起发：<code>const [a, b] = await Promise.all([f1(), f2()])</code> 比串行快几倍</div>
+              <div class="ex-line"><span class="ex-emoji">🗣️</span>跟 AI 说「这段改成 async/await」/「这里加错误捕获」→ 沟通直接</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_browser_storage = {
+  id: "browser-storage",
+  emoji: "📦",
+  title: "浏览器存储 / 让设置记住",
+  lightbulb: true,
+  concept: { name: "浏览器存储 / localStorage / IndexedDB / cookie", explain: "用户的设置、草稿、登录状态——存浏览器里，下次进还在。不用后端也能做。" },
+  pages: [
+    { html: `
+      <p>用户调了深色模式 / 选了语言 / 写了一半的草稿——下次进来还在？这就要把数据存进<em>浏览器存储</em>。</p>
+      <p>不用后端、不用数据库——浏览器自己给你 4 种存东西的地方，按你要存的内容选：</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">📦</span><span class="ei-label">localStorage<br/>(小 / 字符串 / 永久)</span>
+        <span class="ei-arrow">·</span>
+        <span class="ei-emoji">⏱️</span><span class="ei-label">sessionStorage<br/>(关掉就没)</span>
+        <span class="ei-arrow">·</span>
+        <span class="ei-emoji">🗄️</span><span class="ei-label">IndexedDB<br/>(大 / 结构化)</span>
+        <span class="ei-arrow">·</span>
+        <span class="ei-emoji">🍪</span><span class="ei-label">cookie<br/>(给后端用)</span>
+      </div>
+      <p><strong>4 种对比 + 怎么选</strong>：</p>
+      <ul>
+        <li><em>localStorage</em>：键值对、只能存字符串（要存对象先 <em>JSON.stringify</em>）、约 5MB、永久保存。<strong>用户设置 / 主题 / 上次输入</strong> 用它</li>
+        <li><em>sessionStorage</em>：同 localStorage 但<strong>关 tab 就清空</strong>。临时表单状态、当前流程数据用它</li>
+        <li><em>IndexedDB</em>：能存大量结构化数据（图片 / 文件 / 几万条记录）、API 复杂一点。<strong>离线笔记 / 缓存 AI 对话 / 本地图库</strong> 用它</li>
+        <li><em>cookie</em>：每次请求都<strong>自动带给后端</strong>。后端用来认你是谁（登录状态）。前端通常不直接操作</li>
+      </ul>
+      <p>localStorage 用法：</p>
+      <p style="font-family:monospace;font-size:12px;background:#fff5e6;padding:8px 12px;border-radius:6px;line-height:1.6;">localStorage.setItem('theme', 'dark');&nbsp;&nbsp;// 存<br/>const t = localStorage.getItem('theme');&nbsp;&nbsp;// 读<br/>localStorage.removeItem('theme');&nbsp;&nbsp;// 删</p>
+      <p><strong>常见坑</strong>：</p>
+      <ul>
+        <li>localStorage 只能存<strong>字符串</strong>——存对象前 <em>JSON.stringify</em>，读出来 <em>JSON.parse</em></li>
+        <li>用户清浏览器数据 → 全部消失。重要数据还是要存后端</li>
+        <li>不同域名各自独立——<em>a.com</em> 存的 <em>b.com</em> 读不到</li>
+        <li>无痕 / 隐私模式下，localStorage 仍能用但<strong>关窗就清</strong></li>
+      </ul>
+      <div class="example-card">
+        <button class="example-toggle">📖 看真实例子</button>
+        <div class="example-content" hidden>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">📦</span><strong>浏览器存储</strong> = 数据存用户浏览器里、不传服务器、下次进还在——不用后端就能做「记住设置」</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">📱</span>在你做的产品里实际怎么用</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🌓</span>主题色 / 字号 / 语言 → <strong>localStorage</strong>（设置类、字符串、不变）</div>
+              <div class="ex-line"><span class="ex-emoji">📝</span>写了一半的笔记 / 大量图片 → <strong>IndexedDB</strong>（结构化、大容量）</div>
+              <div class="ex-line"><span class="ex-emoji">🛒</span>没登录的购物车 → <strong>localStorage</strong>；登录了 → 同步到<strong>后端数据库</strong></div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处（懂了能干啥）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">⚡</span>做番茄钟 / Todo / 单机工具 → 全用 localStorage，不要后端 → 部署 Vercel 免费</div>
+              <div class="ex-line"><span class="ex-emoji">🔍</span>F12 → <strong>Application 标签</strong>能看到每个网站存了啥（自己开发时 debug 必用）</div>
+              <div class="ex-line"><span class="ex-emoji">🗣️</span>跟 AI 说「这个偏好存 localStorage」→ AI 直接写存读代码，不会瞎选</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_web_security = {
+  id: "web-security",
+  emoji: "🛡️",
+  title: "安全基础 / 别被攻击",
+  lightbulb: true,
+  concept: { name: "Web 安全基础 / XSS / 密钥保护 / HTTPS", explain: "vibecoding 最容易翻车的几个安全坑：用户输入不洗就插页面、密钥传 GitHub、用 http 不用 https。" },
+  pages: [
+    { html: `
+      <p>你做的小工具如果不防一下——用户输入恶意代码会被当 JS 跑、密钥被爬虫盗刷、用户密码在网上传输被截到。这一节讲<strong>最常踩的 4 个坑</strong>。</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">💉</span><span class="ei-label">XSS</span>
+        <span class="ei-arrow">·</span>
+        <span class="ei-emoji">🔑</span><span class="ei-label">密钥外泄</span>
+        <span class="ei-arrow">·</span>
+        <span class="ei-emoji">🔓</span><span class="ei-label">用 http</span>
+        <span class="ei-arrow">·</span>
+        <span class="ei-emoji">🎭</span><span class="ei-label">CSRF</span>
+      </div>
+      <p><strong>1. <em>XSS</em>（跨站脚本）</strong>——最常翻车的：</p>
+      <ul>
+        <li>用户在评论框写 <code>&lt;script&gt;偷 cookie&lt;/script&gt;</code>，你用 <em>innerHTML</em> 直接塞页面 → 浏览器把它当代码执行</li>
+        <li><strong>防</strong>：展示用户输入用 <em>textContent</em>（自动当文字处理），不用 innerHTML；非要用就先 <em>转义</em>（把 <code>&lt;</code> 换成 <code>&amp;lt;</code>）</li>
+        <li>用 React / Vue 这类框架默认就帮你 escape，安全很多</li>
+      </ul>
+      <p><strong>2. 密钥外泄</strong>：</p>
+      <ul>
+        <li>把 OpenAI / 阿里云 / 数据库密码写代码里 → 推 GitHub → 几小时被扫到 → 几千刀账单</li>
+        <li><strong>防</strong>：所有密钥放 <em>.env</em> + <em>.gitignore</em> 排除（详见 API key 节点）</li>
+        <li>前端代码<strong>没法藏密钥</strong>——浏览器能看到全部 JS。需要密钥的请求必须经后端转发</li>
+      </ul>
+      <p><strong>3. 用 <em>http</em> 不用 <em>https</em></strong>：</p>
+      <ul>
+        <li><em>http</em>：数据明文传 → 公共 Wi-Fi 里别人能截到用户密码</li>
+        <li><em>https</em>：加密传 → 中间截到也看不懂</li>
+        <li><strong>防</strong>：部署到 Vercel / Netlify / Cloudflare Pages 自带 https。自己服务器开 <em>Let's Encrypt</em> 免费证书</li>
+      </ul>
+      <p><strong>4. <em>CSRF</em>（跨站请求伪造）</strong>——简单提：</p>
+      <ul>
+        <li>用户登录了你的网站，去另一个恶意网站，那网站偷偷以用户身份给你发请求（转账 / 改密码）</li>
+        <li><strong>防</strong>：用 <em>SameSite cookie</em>、关键操作加 CSRF token——通常框架默认就有</li>
+      </ul>
+      <p>vibecoding 时：<strong>显示用户输入用 textContent / 密钥放 .env / 部署用带 https 的平台</strong>——三件事能挡 90% 的麻烦。</p>
+      <div class="example-card">
+        <button class="example-toggle">📖 看真实例子</button>
+        <div class="example-content" hidden>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🛡️</span><strong>安全 = 别相信用户输入 / 别把密钥公开 / 别让数据明文跑</strong>。三条做到就挡掉大部分坑</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">📱</span>在你做的产品里实际怎么用</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">💬</span>评论 / 留言 / 用户简介 → 用 <code>el.textContent = userInput</code>，不用 innerHTML</div>
+              <div class="ex-line"><span class="ex-emoji">🔑</span>调 ChatGPT API → 密钥放后端 <code>.env</code>，前端通过自己后端转发，不直接暴露</div>
+              <div class="ex-line"><span class="ex-emoji">🔒</span>部署选 <strong>Vercel / Netlify / Cloudflare Pages</strong> → 自动 https</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处（懂了能避免灾难）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">😱</span>避免：用户用你 app 被偷账号 / 你账单被刷爆 / 数据被中间人窃听</div>
+              <div class="ex-line"><span class="ex-emoji">✅</span>AI 写的「直接 innerHTML 显示用户评论」→ 你能看出来这是 XSS 漏洞、要求改成 textContent</div>
+              <div class="ex-line"><span class="ex-emoji">🗣️</span>跟 AI 说「这段要防 XSS」/「密钥别写前端」→ 沟通有底，不会被忽悠</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_devtools = {
+  id: "devtools",
+  emoji: "🔧",
+  title: "F12 完整用法（不只看 log）",
+  lightbulb: true,
+  concept: { name: "浏览器 F12 / DevTools 完整用法", explain: "F12 不只是看 console.log——还能实时改样式、看每个请求、断点逐行跑、看本地存了啥。" },
+  pages: [
+    { html: `
+      <p>F12 打开的「<em>开发者工具</em>」（<em>DevTools</em>）有 6 个面板——大部分人只用 Console，其实另外 5 个每一个都救命。</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">🌳</span><span class="ei-label">Elements</span>
+        <span class="ei-arrow">·</span>
+        <span class="ei-emoji">📋</span><span class="ei-label">Console</span>
+        <span class="ei-arrow">·</span>
+        <span class="ei-emoji">📡</span><span class="ei-label">Network</span>
+        <span class="ei-arrow">·</span>
+        <span class="ei-emoji">📜</span><span class="ei-label">Sources</span>
+        <span class="ei-arrow">·</span>
+        <span class="ei-emoji">📦</span><span class="ei-label">Application</span>
+      </div>
+      <p><strong><em>Elements</em></strong>——看页面 HTML 树、实时改：</p>
+      <ul>
+        <li>点任意元素 → 右边显示它的 CSS → 直接改值看效果（不会保存，刷新就回去）</li>
+        <li>调字号 / 颜色 / 间距完美了再去代码里改，省下来回试的时间</li>
+      </ul>
+      <p><strong><em>Console</em></strong>——看 log 和报错：</p>
+      <ul>
+        <li>红字 = 报错；橙字 = 警告；白字 = log</li>
+        <li>下方输入栏能直接跑任意 JS，调当前页面的变量</li>
+      </ul>
+      <p><strong><em>Network</em></strong>——看每个 HTTP 请求（最常忽略但最有用）：</p>
+      <ul>
+        <li>页面加载 / 调 API 时显示所有请求 + 状态码 + 耗时 + 返回内容</li>
+        <li>API 拿不到数据 → 这里看 <strong>是没发出去、发出去 404、还是 200 但 body 是错的</strong>——一眼定位</li>
+        <li>慢页面 → 看哪个请求拖了几秒</li>
+      </ul>
+      <p><strong><em>Sources</em></strong>——断点逐行跑：</p>
+      <ul>
+        <li>找到代码、点行号设<em>断点</em>（<em>breakpoint</em>）→ 跑到那行会停 → 看当前所有变量值</li>
+        <li>F10 单步执行 / F11 进函数 / F8 继续跑</li>
+        <li>比一直加 console.log 强一百倍：变量值改了不用刷新</li>
+      </ul>
+      <p><strong><em>Application</em></strong>——看 / 改本地存的东西：</p>
+      <ul>
+        <li>左边树展开 <em>Local Storage</em> / <em>Session Storage</em> / <em>IndexedDB</em> / <em>Cookies</em></li>
+        <li>能看到每个域名存了啥 → 用户报"我设置没保存"时第一站</li>
+        <li>右键能直接删，模拟"清缓存"测试</li>
+      </ul>
+      <p><strong><em>Lighthouse</em></strong>（在 ⋮ 菜单里）——一键测页面性能 / 可访问性 / SEO 打分。</p>
+      <p><strong>移动端模拟</strong>：左上角 📱 图标，模拟 iPhone / 各种屏幕尺寸看响应式效果。</p>
+      <div class="example-card">
+        <button class="example-toggle">📖 看真实例子</button>
+        <div class="example-content" hidden>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🔧</span><strong>F12 = 浏览器自带的全套调试工具</strong>，5 个面板各司其职（看元素 / 看 log / 看请求 / 断点 / 看存储）</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">📱</span>在你做的产品里实际怎么用</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🎨</span>样式不对 → <strong>Elements</strong> 改 CSS 试效果 → 找到正确值再写进代码</div>
+              <div class="ex-line"><span class="ex-emoji">📡</span>调 API 没数据 → <strong>Network</strong> 看请求状态码 + 返回 → 是 401 还是 404 还是返回空</div>
+              <div class="ex-line"><span class="ex-emoji">📦</span>设置没保存 → <strong>Application → Local Storage</strong> 看到底有没有写进去</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处（懂了能干啥）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">⚡</span>不用每次靠加 console.log + 刷新——<strong>Sources 断点</strong>在原地看变量值</div>
+              <div class="ex-line"><span class="ex-emoji">🐛</span>报 bug 给 AI 能说清「Network 里这个请求返回 500，body 是 X」→ 信息精准</div>
+              <div class="ex-line"><span class="ex-emoji">📱</span><strong>移动端模拟</strong>直接在电脑测响应式 → 不用每次掏手机</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_dev_pitfalls = {
+  id: "dev-pitfalls",
+  emoji: "⚠️",
+  title: "开发常踩的坑（编码 / 路径 / 大小写）",
+  lightbulb: true,
+  concept: { name: "开发环境踩坑 / 编码 / 路径 / 跨平台差异", explain: "代码本身没问题但跑不起来——通常是编码乱码、路径写错、Windows/Mac/Linux 行为不一样。" },
+  pages: [
+    { html: `
+      <p>代码看着完全没问题但就是跑不起来 / 显示乱码 / 在你电脑 ok 别人电脑炸——大概率是这 4 个坑之一。</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">🔤</span><span class="ei-label">编码 / 乱码</span>
+        <span class="ei-arrow">·</span>
+        <span class="ei-emoji">📁</span><span class="ei-label">路径 \\ vs /</span>
+        <span class="ei-arrow">·</span>
+        <span class="ei-emoji">🔠</span><span class="ei-label">大小写敏感</span>
+        <span class="ei-arrow">·</span>
+        <span class="ei-emoji">↩️</span><span class="ei-label">换行符</span>
+      </div>
+      <p><strong>1. 文本<em>编码</em> / 乱码</strong>：</p>
+      <ul>
+        <li>中文显示成 <code>æ–‡æœ¬</code> / <code>??????</code> = 文件编码跟程序解析编码不一样</li>
+        <li>标准答案：<strong>所有文件都用 <em>UTF-8</em></strong>（没 <em>BOM</em>）保存</li>
+        <li>HTML 文件头加 <code>&lt;meta charset="UTF-8"&gt;</code></li>
+        <li>Windows 记事本默认是 ANSI / GBK——千万别用记事本编代码，用 VS Code（默认 UTF-8）</li>
+        <li>从老 Excel / Word 拷贝出来的文本可能带 BOM 头——会让某些工具炸</li>
+      </ul>
+      <p><strong>2. 文件<em>路径</em>差异</strong>：</p>
+      <ul>
+        <li>Windows 用反斜杠 <code>C:\\Users\\me\\file.txt</code>；Mac/Linux 用正斜杠 <code>/Users/me/file.txt</code></li>
+        <li>代码里写路径<strong>永远用正斜杠</strong>（Node / Python 在 Windows 上也认）或者用 <em>path.join()</em></li>
+        <li><em>相对路径</em>（<code>./data.txt</code>、<code>../config</code>）vs <em>绝对路径</em>（从根开始）——相对的是「相对当前工作目录」，跑代码的位置变了路径就找不到</li>
+        <li><code>~</code> 在 Mac/Linux 是 home 目录，Windows 不认</li>
+      </ul>
+      <p><strong>3. <em>大小写敏感</em>差异</strong>：</p>
+      <ul>
+        <li>Mac / Windows 文件系统默认<strong>不区分大小写</strong>（<code>Image.png</code> 和 <code>image.png</code> 一样）</li>
+        <li>Linux 服务器 / 部署到 Vercel-Netlify <strong>严格区分</strong>——本地能跑、上线 404</li>
+        <li>所有文件名、import 路径<strong>大小写要一致</strong>，别 <code>./Header</code> 和 <code>./header</code> 混用</li>
+      </ul>
+      <p><strong>4. <em>换行符</em>差异</strong>：</p>
+      <ul>
+        <li>Windows 用 <em>CRLF</em>（<code>\\r\\n</code>），Mac/Linux 用 <em>LF</em>（<code>\\n</code>）</li>
+        <li>跨平台协作时 git 会警告「LF will be replaced by CRLF」——一般不影响，但某些脚本（shell 文件）必须 LF 才能跑</li>
+        <li>项目根目录加 <em>.editorconfig</em> + <em>.gitattributes</em> 统一换行符</li>
+      </ul>
+      <p><strong>5. 还会撞的</strong>：环境变量没设、Node 版本不一样、文件名带空格 / 中文、时区不一致——AI 写好的代码"在我电脑跑不起来"通常是上面 5 类之一，把错误整段贴给 AI 一般能秒定位。</p>
+      <div class="example-card">
+        <button class="example-toggle">📖 看真实例子</button>
+        <div class="example-content" hidden>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">⚠️</span>「代码本身没错但跑不起来」<strong>八成是环境差异</strong>——编码 / 路径 / 大小写 / 换行符 / 版本</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">📱</span>在你做的产品里实际怎么用</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🔤</span>页面中文乱码 → 检查文件是不是 UTF-8 + HTML 有没有 <code>&lt;meta charset="UTF-8"&gt;</code></div>
+              <div class="ex-line"><span class="ex-emoji">📁</span>本地跑得动、部署 Vercel 后 404 → 检查文件名 / import 大小写是否一致</div>
+              <div class="ex-line"><span class="ex-emoji">↩️</span>shell 脚本在 Mac 不执行 → 换行符是 CRLF（Windows 格式），改成 LF</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处（懂了少踩坑）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🐛</span>遇到怪 bug 时多一个排查方向——「代码对的，是不是编码 / 路径 / 大小写错了？」</div>
+              <div class="ex-line"><span class="ex-emoji">⚙️</span>项目设好 <strong>.editorconfig + .gitattributes</strong>，团队协作或换电脑不再因为格式打架</div>
+              <div class="ex-line"><span class="ex-emoji">🚀</span>本地开发就在乎大小写一致 → 部署 Linux 服务器 100% 不翻车</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+// ============================================================
+// children 接续：5 个新节点挂到对应主线节点的灯泡支线
+// ============================================================
+node_web_trio.children = [node_fe_be, node_framework, node_dark_mode, node_dom_ops];
+node_fe_be.children = [node_api_http, node_env_apikey, node_browser_storage];
+node_api_http.children = [node_database_web, node_json_methods, node_async_basics];
+node_env_apikey.children = [node_web_security];
+node_error_debug.children = [node_console_log, node_devtools];
+node_terminal.children = [node_dev_pitfalls];
+
+// TERM_GLOSSARY 扩充：5 个新节点用到的术语
+Object.assign(TERM_GLOSSARY, {
+  // DOM 操作
+  "DOM": "Document Object Model——浏览器把网页解析成的元素树。每个标签是一个节点，JS 能找到、改它。",
+  "querySelector": "JS 选页面元素的方法，按 CSS 选择器选第一个匹配的。document.querySelector('.btn') = 找第一个 class 是 btn 的元素。",
+  "getElementById": "JS 按 id 选元素的老方法。document.getElementById('foo') = 找 id 是 foo 的那个。",
+  "addEventListener": "JS 给元素挂监听的方法。el.addEventListener('click', fn) = 点这元素时调用 fn。",
+  "event listener": "事件监听——等用户做某动作（点 / 滑 / 输入）时触发的函数。",
+  "innerHTML": "JS 读 / 写元素内部 HTML 的属性。塞用户输入有 XSS 风险。",
+  "textContent": "JS 读 / 写元素内部纯文字的属性。塞用户输入是安全的（不会当 HTML 解析）。",
+  "classList": "JS 操作元素 class 的属性。.add() 加 class、.remove() 删、.toggle() 切。",
+  "DOMContentLoaded": "浏览器解析完 HTML 触发的事件。在它之前选元素会选到 null。",
+  // 异步
+  "异步": "代码不等结果继续往下、结果到了再回来处理的写法。英文 async。",
+  "async": "异步——标记一个函数是异步的，里面可以用 await。",
+  "await": "在异步函数里等一个 Promise 解决——等到了再继续。",
+  "Promise": "「将来会有结果」的对象。可以 .then() 拿结果，也可以 await 它。",
+  "回调": "把函数 A 作为参数传给函数 B、让 B 在某时刻调 A 的写法。英文 callback。",
+  "callback": "回调——传给别的函数让它在某时刻调的函数。",
+  "回调地狱": "多层回调嵌套写成的代码——丑、难维护。Promise / async 出来就为了解决它。",
+  "同步": "代码一行一行按顺序跑、上一行没完不能跑下一行。跟异步相对。",
+  "Promise.all": "并行等多个 Promise——全部完成才往下走。比一个一个 await 快。",
+  "fetch": "浏览器内置的发 HTTP 请求函数。返回 Promise。await fetch(url) 拿响应。",
+  // 浏览器存储
+  "localStorage": "浏览器存储——键值对、字符串、约 5MB、永久保存。用户设置 / 草稿 / 主题色常用。",
+  "sessionStorage": "浏览器存储——和 localStorage 一样但关 tab 就清。临时表单状态用。",
+  "cookie": "浏览器存储——每次请求自动发给后端的小数据。后端用来认你是谁。",
+  "JSON.stringify": "把 JS 对象转成字符串——存 localStorage 之前要做。",
+  "JSON.parse": "把字符串转回 JS 对象——从 localStorage 读出来之后要做。",
+  // 安全
+  "XSS": "跨站脚本（Cross-Site Scripting）攻击。用户输入里藏 <script> → 你直接塞页面 → 被执行。防：用 textContent 不用 innerHTML。",
+  "CSRF": "跨站请求伪造。用户登录了你网站，去恶意网站、那网站偷偷以用户身份给你发请求。防：SameSite cookie / CSRF token。",
+  "sanitize": "清洗用户输入——把危险字符（<、>、引号）转义成安全形式。",
+  "转义": "把特殊字符（<、>、& 等）换成安全形式（&lt;、&gt;、&amp;），防止被当代码解析。英文 escape。",
+  "escape": "转义——见「转义」。",
+  "HTTPS": "加密版的 HTTP。数据传输用 TLS 加密，中间人截到也看不懂。所有正经网站都用。",
+  "TLS": "传输层加密协议（前身叫 SSL）。HTTPS 底下就是 TLS。",
+  "Let's Encrypt": "免费的 HTTPS 证书机构。自己服务器开 HTTPS 用它，不用花钱。",
+  "SameSite cookie": "cookie 属性——告诉浏览器「这 cookie 只有同站请求才带」，挡住 CSRF。",
+  // F12 / DevTools
+  "开发者工具": "浏览器自带的调试面板。Windows 按 F12 / Mac 按 Cmd+Option+I 打开。",
+  "DevTools": "开发者工具——见「开发者工具」。",
+  "Elements": "DevTools 的一个面板，看页面 HTML 树 + 实时改 CSS 试效果。",
+  "Console": "DevTools 的一个面板，看 console.log 和报错、也能直接跑 JS。",
+  "Network": "DevTools 的一个面板，看每个 HTTP 请求 + 状态码 + 返回 + 耗时。",
+  "Sources": "DevTools 的一个面板，看源码 + 设断点 + 单步逐行跑。",
+  "Application": "DevTools 的一个面板，看 / 改本地存的 localStorage / cookie / IndexedDB。",
+  "breakpoint": "断点——在代码某行设个停止点，跑到那会暂停让你看变量值。",
+  "断点": "见「breakpoint」。",
+  "stack trace": "调用栈——报错时显示「函数 A 调 B 调 C，错在 C」的层级。从下往上读。",
+  "调用栈": "见「stack trace」。",
+});
