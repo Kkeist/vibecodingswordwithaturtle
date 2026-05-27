@@ -612,7 +612,9 @@ function fitToScreen() {
   applyViewTransform(tx, ty, 1, true);
   // 卡片已显示（不是 openCard 首次隐藏中）才在 transition 完成后跟随 reposition
   // 否则会跟 openCard 内的延迟显示打架，造成「先错位再瞬移」
-  if (STATE.activeCardId && STATE.cardEl && STATE.cardEl.style.visibility !== 'hidden') {
+  // 隐藏状态用 left:-99999 标记（取代之前的 visibility:hidden，避免子按钮 visibility transition 闪动）
+  const offscreen = STATE.cardEl && STATE.cardEl.style.left === '-99999px';
+  if (STATE.activeCardId && STATE.cardEl && !offscreen) {
     setTimeout(() => positionCard(STATE.cardEl, STATE.nodes.get(STATE.activeCardId)), 420);
   }
 }
@@ -761,9 +763,12 @@ function openCard(nodeId) {
   card.addEventListener('click', (e) => e.stopPropagation());
 
   $('#card-root').appendChild(card);
-  // 初始隐藏：等节点 spawn transition + viewTransform 都稳定再算位置 + 显示
-  // 避免「先在错位置显示，再瞬移到正确位置」的卡顿感
-  card.style.visibility = 'hidden';
+  // 初始隐藏用 left:-99999px 而不是 visibility:hidden——
+  // visibility 变化会触发子按钮 (.card-close / .option) transition: all 里的 visibility 过渡，
+  // 导致卡片框先显示、按钮延迟 ~0.15s 才显示 = "闪一下 + 微移"。
+  // 移到屏幕外既能测量又不参与 visibility transition。
+  card.style.left = '-99999px';
+  card.style.top = '0px';
 
   STATE.cardEl = card;
   STATE.activeCardId = nodeId;
@@ -775,7 +780,6 @@ function openCard(nodeId) {
   setTimeout(() => {
     if (STATE.cardEl !== card) return;  // 期间被关 / 换了就不再动
     positionCard(card, entry);
-    card.style.visibility = '';
     card.classList.add('show');
   }, 440);
 }
@@ -784,9 +788,9 @@ function positionCard(card, entry) {
   if (!card || !entry) return;
 
   // 先清 max-height 让卡片自然测量
+  // 测量时用 left=-99999 而不是 visibility:hidden——后者会触发子元素 visibility transition 闪一下
   card.style.maxHeight = '';
-  card.style.visibility = 'hidden';
-  card.style.left = '0px';
+  card.style.left = '-99999px';
   card.style.top = '0px';
   const rect = card.getBoundingClientRect();
   const wNatural = rect.width;
@@ -858,7 +862,7 @@ function positionCard(card, entry) {
 
   card.style.left = finalX + 'px';
   card.style.top = finalY + 'px';
-  card.style.visibility = '';
+  // 不需要 visibility 切换——卡片一直 visible，靠 left 移到 -99999 / 正确位置控制显隐
 
   // 内容可继续下滑时（scrollHeight > clientHeight 且未滚到底部）显示底部"还有内容"提示
   const body = card.querySelector('.card-body');
