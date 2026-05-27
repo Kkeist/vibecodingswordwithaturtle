@@ -657,25 +657,11 @@ const node_ai_helper = {
   concept: { name: "AI 编程助手", explain: "能读 / 改你项目代码、跑命令、自己 debug 的 AI 程序。但它会犯错——要会回滚 + 判断何时不该信。" },
   pages: [
     { html: `
-      <p>不会代码也能做东西的关键——AI 帮你写。常用几种：</p>
-      <p><strong>终端里跑的（操作整个项目）</strong></p>
-      <ul>
-        <li><em>Claude Code</em>：Anthropic 出的，能读改你整个项目、跑命令、自己 debug。这个网页就是它做的。</li>
-      </ul>
-      <p><strong>带 AI 的编辑器</strong></p>
-      <ul>
-        <li><em>Cursor</em>：基于 VS Code 改的、AI 深度集成。最热门 vibe coding 工具。</li>
-        <li><em>Windsurf</em>：类似 Cursor 的 AI 编辑器。</li>
-        <li><em>GitHub Copilot</em>：微软出的 AI 代码补全插件，可装到 VS Code。</li>
-      </ul>
-      <p><strong>网页里一句话出 App</strong></p>
-      <ul>
-        <li><em>Lovable</em>：聊一句"我要个 X" 直接出可访问网址。</li>
-        <li><em>Bolt.new</em>：类似 Lovable，StackBlitz 出的。</li>
-        <li><em>Replit Agent</em>：网页 IDE + AI 一条龙。</li>
-        <li><em>v0</em>：Vercel 出的，专做前端 UI。</li>
-      </ul>
-      <p>底下的"大脑"都是同一批 <em>LLM</em>（Claude / GPT / Gemini）——只是套壳和能调的工具不同。</p>
+      <p>不会代码也能做东西的关键——AI 帮你写。按用法分三类：</p>
+      <p><strong>1. 终端 / 命令行里跑的</strong>——能读改你整个项目、跑命令、自己 debug。代表：<em>Claude Code</em>。这个网页就是它做的。</p>
+      <p><strong>2. AI 深度集成的编辑器</strong>——在写代码的同时让 AI 在编辑器里改文件。代表：<em>Cursor</em>、<em>Windsurf</em>；老牌补全插件：<em>GitHub Copilot</em>。</p>
+      <p><strong>3. 网页里一句话出 app</strong>——聊一句「我要个 X」直接给可访问网址，适合从零起原型。代表：<em>Lovable</em>、<em>Bolt.new</em>、<em>v0</em>、<em>Replit Agent</em>。</p>
+      <p>底下的「大脑」都是同一批 <em>LLM</em>（Claude / GPT / Gemini）——只是套壳和能调的工具不同。换工具不换底层模型。</p>
       <p><strong>⚠️ AI 改炸了怎么救场</strong>（vibecoding 最重要的一节）：</p>
       <ul>
         <li>动手前先 <em>git commit</em> 保存当前状态——这是「回滚」按钮</li>
@@ -739,13 +725,11 @@ const node_editor = {
     { html: `
       <p>代码本质就是文字——用记事本也能写，但极难。</p>
       <p>专门写代码用的程序叫<em>编辑器</em>，全功能的叫 <em>IDE</em>（Integrated Development Environment）。</p>
-      <p>主流：</p>
+      <p>大致分几类：</p>
       <ul>
-        <li><em>VS Code</em>：微软出的免费王者，全宇宙最流行。</li>
-        <li><em>Cursor</em>：在 VS Code 上加了深度 AI，vibe coding 首选。</li>
-        <li><em>Windsurf</em>：Cursor 竞争对手，AI 一体化。</li>
-        <li><em>Sublime Text</em>、<em>Vim</em>、<em>Emacs</em>：老牌或极客向。</li>
-        <li><em>JetBrains</em> 全家桶（IntelliJ / PyCharm / WebStorm）：付费，企业开发用得多。</li>
+        <li><strong>主流通用编辑器</strong>：<em>VS Code</em> 免费、社区最大；<em>Sublime Text</em> / <em>Vim</em> / <em>Emacs</em> 是老牌或极客向</li>
+        <li><strong>AI 深度集成的</strong>：<em>Cursor</em>、<em>Windsurf</em>—— 在编辑器内对话让 AI 改文件</li>
+        <li><strong>企业级 IDE</strong>：<em>JetBrains</em> 全家桶（IntelliJ / PyCharm / WebStorm），付费、功能全</li>
       </ul>
       <p>关键能力：<em>语法高亮</em>（不同代码块上色）、<em>自动补全</em>（敲一半弹建议）、<em>跳定义</em>（点变量直接跳到它在哪定义的）、<em>调试</em>（断点、单步执行）。</p>
     ` },
@@ -763,8 +747,8 @@ const node_tools_entry = {
       <p>不管做什么类型的项目，背后都是这一套工具。</p>
       <p>大致顺序：</p>
       <ul>
-        <li>用<em>编辑器</em>（VS Code / Cursor）写代码</li>
-        <li>让<em>AI 助手</em>（Claude / Cursor / Lovable）帮你写</li>
+        <li>用<em>编辑器</em>写代码</li>
+        <li>让<em>AI 助手</em>帮你写</li>
         <li>用 <em>Git</em> 存档每次改动</li>
         <li>把代码传到 <em>GitHub</em></li>
         <li>用<em>包管理</em>（npm / pip）装别人写好的库</li>
@@ -818,7 +802,7 @@ const node_localhost = {
             <div class="ex-story">
               <div class="ex-line"><span class="ex-emoji">🚀</span>跟教程跑 <code>npm run dev</code> → 终端冒出 <code>http://localhost:3000</code> → 在你浏览器开 = 看你刚做的网页</div>
               <div class="ex-line"><span class="ex-emoji">📱</span>把这链接发朋友 → 朋友点开是空白（他的 localhost 是他自己电脑、不是你的）</div>
-              <div class="ex-line"><span class="ex-emoji">🌐</span>要让朋友看到 → 部署到 <strong>Vercel / Netlify</strong> 拿个公网网址（比如 my-site.vercel.app）</div>
+              <div class="ex-line"><span class="ex-emoji">🌐</span>要让朋友看到 → 部署到<strong>静态托管平台</strong>拿个公网网址</div>
             </div>
           </div>
           <div class="ex-section">
@@ -1242,7 +1226,7 @@ const node_framework = {
         <li><em>组件</em>化：一个按钮 / 一个卡片打包成可复用的小块（自带样式 + 行为）</li>
         <li><em>状态</em>管理：数据变了，相关 UI 自动重画——不用自己 querySelector + textContent</li>
         <li><em>路由</em>：单页应用里换"页面"不刷新整页（点了菜单 url 变、内容也变）</li>
-        <li><em>生态</em>：组件库（Ant Design / Element / shadcn）/ 表单 / 图表 / 拖拽 等现成轮子</li>
+        <li><em>生态</em>：现成<strong>组件库</strong> + 表单 / 图表 / 拖拽 等开箱即用的轮子</li>
       </ul>
       <p><strong>三大主流怎么选</strong>：</p>
       <ul>
@@ -1250,8 +1234,8 @@ const node_framework = {
         <li><em>Vue</em>：上手最温柔、模板像 HTML、中文社区超活跃；适合：个人项目 + 中小团队 + 不想被 React 折磨。尤雨溪出</li>
         <li><em>Svelte</em>：写得最少、编译到原生 JS、跑得最快；适合：新项目 + 追新技术。社区比前两个小</li>
       </ul>
-      <p><strong>vibecoding 实际选</strong>：用 AI 工具默认选 React（Cursor / Lovable / v0 / Bolt 都偏 React），生态最大、AI 训练数据最多、问题最容易问到。除非你已经会 Vue。</p>
-      <p>框架之上还有<em>元框架</em>：<em>Next.js</em>（React）/ <em>Nuxt</em>（Vue）/ <em>SvelteKit</em>——加了路由 + SEO + 服务端渲染，做正经站推荐用元框架不是裸框架。</p>
+      <p><strong>vibecoding 实际选</strong>：默认选 React——生态最大、AI 训练数据最多、出问题最容易查到答案。多数 AI 编程工具默认就给 React 模板。除非你已经会 Vue。</p>
+      <p>框架之上还有<em>元框架</em>（React 的 <em>Next.js</em>、Vue 的 <em>Nuxt</em>、Svelte 的 <em>SvelteKit</em>）——加了路由 + SEO + 服务端渲染，做正经站推荐用元框架不是裸框架。</p>
       <div class="example-card">
         <button class="example-toggle">📖 看真实例子</button>
         <div class="example-content" hidden>
@@ -1266,7 +1250,7 @@ const node_framework = {
             <div class="ex-story">
               <div class="ex-line"><span class="ex-emoji">🛒</span>购物车 → 用 React/Vue 写一个 <strong>Cart 组件</strong> → 加一件商品 → 总价 / 角标数字自动跟着变</div>
               <div class="ex-line"><span class="ex-emoji">📋</span>表单 → 框架自动管「输入了什么 / 哪个字段错了 / 提交中」状态，不用手动同步</div>
-              <div class="ex-line"><span class="ex-emoji">🚀</span>做正经网站 → 用 <strong>Next.js</strong>（含 SEO + 服务端渲染）部署 Vercel，开箱即用</div>
+              <div class="ex-line"><span class="ex-emoji">🚀</span>做正经网站 → 用<strong>元框架</strong>（含 SEO + 服务端渲染）部署到静态托管平台，开箱即用</div>
             </div>
           </div>
           <div class="ex-section">
@@ -1274,7 +1258,7 @@ const node_framework = {
             <div class="ex-story">
               <div class="ex-line"><span class="ex-emoji">⚡</span>页面复杂了不再越改越乱——组件化让每块代码各管各的</div>
               <div class="ex-line"><span class="ex-emoji">🤖</span>跟 AI 说「这页面用 React 实现」→ AI 直接出组件代码，比纯 HTML/JS 清晰</div>
-              <div class="ex-line"><span class="ex-emoji">📐</span>不知道选啥就 <strong>Next.js + shadcn/ui</strong>（React 元框架 + 组件库）—— 目前 vibecoding 主流配置</div>
+              <div class="ex-line"><span class="ex-emoji">📐</span>不知道选啥就 <strong>React 元框架 + 一个组件库</strong>—— 目前 vibecoding 主流配置</div>
             </div>
           </div>
         </div>
@@ -1410,12 +1394,12 @@ const node_database_web = {
         <li>数据结构多变 / 嵌套深（每个文档字段不一样、有时多有时少）→ <em>NoSQL</em></li>
         <li>不知道选啥 → 选 <em>PostgreSQL</em>，最安全的默认</li>
       </ul>
-      <p><strong>具体产品怎么选</strong>：</p>
+      <p><strong>具体怎么选</strong>：</p>
       <ul>
         <li>小项目 / 单机 / 原型 → <em>SQLite</em>：一个文件搞定，零配置，性能也够</li>
         <li>中型应用 → <em>PostgreSQL</em>：开源、功能强、社区大</li>
-        <li>要快速上线、不想运维 → <em>Supabase</em> / <em>Neon</em>（云上 PostgreSQL）/ <em>Firebase Firestore</em>（云上 NoSQL）</li>
-        <li>大流量 → <em>MySQL</em> / <em>PostgreSQL</em> + 加缓存（<em>Redis</em>）</li>
+        <li>要快速上线、不想自己运维 → 用<strong>托管数据库服务</strong>（云上的 PostgreSQL / MySQL / NoSQL 都有，多数有免费额度）</li>
+        <li>大流量 → 关系型数据库 + 加一层<strong>内存缓存</strong>（高频读的数据放缓存里、不每次都查库）</li>
       </ul>
       <p>vibecoding 跟 AI 说「这数据存哪种数据库 + 给我设计表结构」→ AI 会按数据特征推荐 + 直接给建表 SQL。</p>
       <div class="example-card">
@@ -1430,8 +1414,8 @@ const node_database_web = {
           <div class="ex-section">
             <div class="ex-section-title"><span class="ex-section-icon">📱</span>在你做的产品里实际怎么用</div>
             <div class="ex-story">
-              <div class="ex-line"><span class="ex-emoji">🛒</span>电商（订单 + 用户 + 商品多关联）→ <strong>PostgreSQL</strong>（SQL，事务靠谱）</div>
-              <div class="ex-line"><span class="ex-emoji">📝</span>笔记 app（每篇结构都不一样、嵌套块）→ <strong>MongoDB</strong> 或 <strong>Firestore</strong>（NoSQL）</div>
+              <div class="ex-line"><span class="ex-emoji">🛒</span>电商（订单 + 用户 + 商品多关联）→ <strong>关系型 SQL 数据库</strong>（事务靠谱、关联好查）</div>
+              <div class="ex-line"><span class="ex-emoji">📝</span>笔记 app（每篇结构都不一样、嵌套块）→ <strong>NoSQL 文档数据库</strong>（结构灵活）</div>
               <div class="ex-line"><span class="ex-emoji">🚀</span>个人项目 / Demo → <strong>SQLite</strong>（一个 .db 文件就完事，零配置）</div>
             </div>
           </div>
@@ -1440,7 +1424,7 @@ const node_database_web = {
             <div class="ex-story">
               <div class="ex-line"><span class="ex-emoji">🤔</span>AI 帮你选数据库时能判断对不对——它说"用 MongoDB 存订单"你能反问"订单要事务，不该用 PG 吗"</div>
               <div class="ex-line"><span class="ex-emoji">⚡</span>知道 <strong>索引</strong>能让查询快几百倍 → 报"查询慢"时第一反应是"查询字段加索引"</div>
-              <div class="ex-line"><span class="ex-emoji">💸</span>用 <strong>Supabase / Neon</strong> 这类托管数据库 → 不用自己运维、有免费额度</div>
+              <div class="ex-line"><span class="ex-emoji">💸</span>用<strong>托管数据库服务</strong> → 不用自己运维、多数有免费额度</div>
             </div>
           </div>
         </div>
@@ -1547,7 +1531,7 @@ const node_fe_be = {
             <div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处（懂了能干啥）</div>
             <div class="ex-story">
               <div class="ex-line"><span class="ex-emoji">🐛</span>页面卡了 / 按钮没反应 → 找前端；提交后数据丢了 / 别人看不到 → 找后端，不会冤枉</div>
-              <div class="ex-line"><span class="ex-emoji">⚡</span>纯展示工具（番茄钟 / 计算器 / 单页 portfolio）只要前端，部署 Vercel 免费用</div>
+              <div class="ex-line"><span class="ex-emoji">⚡</span>纯展示工具（番茄钟 / 计算器 / 单页 portfolio）只要前端，部署到静态托管平台免费用</div>
               <div class="ex-line"><span class="ex-emoji">💰</span>要存数据 / 多人共享 / 收钱 → 必须有后端 → 估算服务器成本</div>
             </div>
           </div>
@@ -3916,7 +3900,7 @@ const node_browser_storage = {
           <div class="ex-section">
             <div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处（懂了能干啥）</div>
             <div class="ex-story">
-              <div class="ex-line"><span class="ex-emoji">⚡</span>做番茄钟 / Todo / 单机工具 → 全用 localStorage，不要后端 → 部署 Vercel 免费</div>
+              <div class="ex-line"><span class="ex-emoji">⚡</span>做番茄钟 / Todo / 单机工具 → 全用 localStorage，不要后端 → 部署到静态托管平台免费</div>
               <div class="ex-line"><span class="ex-emoji">🔍</span>F12 → <strong>Application 标签</strong>能看到每个网站存了啥（自己开发时 debug 必用）</div>
               <div class="ex-line"><span class="ex-emoji">🗣️</span>跟 AI 说「这个偏好存 localStorage」→ AI 直接写存读代码，不会瞎选</div>
             </div>
@@ -3962,7 +3946,7 @@ const node_web_security = {
       <ul>
         <li><em>http</em>：数据明文传 → 公共 Wi-Fi 里别人能截到用户密码</li>
         <li><em>https</em>：加密传 → 中间截到也看不懂</li>
-        <li><strong>防</strong>：部署到 Vercel / Netlify / Cloudflare Pages 自带 https。自己服务器开 <em>Let's Encrypt</em> 免费证书</li>
+        <li><strong>防</strong>：部署到带 https 的<strong>静态托管平台</strong>（多数主流的都默认开 https）。自己服务器开 <em>Let's Encrypt</em> 免费证书</li>
       </ul>
       <p><strong>4. <em>CSRF</em>（跨站请求伪造）</strong>——简单提：</p>
       <ul>
@@ -3984,7 +3968,7 @@ const node_web_security = {
             <div class="ex-story">
               <div class="ex-line"><span class="ex-emoji">💬</span>评论 / 留言 / 用户简介 → 用 <code>el.textContent = userInput</code>，不用 innerHTML</div>
               <div class="ex-line"><span class="ex-emoji">🔑</span>调 ChatGPT API → 密钥放后端 <code>.env</code>，前端通过自己后端转发，不直接暴露</div>
-              <div class="ex-line"><span class="ex-emoji">🔒</span>部署选 <strong>Vercel / Netlify / Cloudflare Pages</strong> → 自动 https</div>
+              <div class="ex-line"><span class="ex-emoji">🔒</span>部署选<strong>带 https 的静态托管平台</strong> → 自动加密、不用自己配证书</div>
             </div>
           </div>
           <div class="ex-section">
@@ -4224,3 +4208,703 @@ Object.assign(TERM_GLOSSARY, {
   "stack trace": "调用栈——报错时显示「函数 A 调 B 调 C，错在 C」的层级。从下往上读。",
   "调用栈": "见「stack trace」。",
 });
+
+// ============================================================
+// v15d：二轮严重漏 8 节点（CSS layout / 表单 / WebSocket / 分页 / db 迁移 / AI 迭代 / 项目结构 / git 协作）
+// ============================================================
+
+const node_css_layout = {
+  id: "css-layout",
+  emoji: "📐",
+  title: "CSS 布局 / Flexbox / Grid",
+  lightbulb: true,
+  concept: { name: "CSS 布局 / Flexbox / Grid", explain: "页面元素怎么横着排 / 竖着排 / 居中 / 拉伸 / 换行——靠 Flexbox 和 Grid 两套布局方式。" },
+  pages: [
+    { html: `
+      <p>看 AI 写的网页 HTML 没问题但布局乱了？想把按钮居中 / 三个卡片横着排 / 头像跟名字平齐？这都靠<em>CSS 布局</em>——主流就两套：<em>Flexbox</em> 和 <em>Grid</em>。</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">📦</span><span class="ei-label">Flexbox<br/>(一行 / 一列)</span>
+        <span class="ei-arrow">vs</span>
+        <span class="ei-emoji">🎯</span><span class="ei-label">Grid<br/>(行 × 列网格)</span>
+      </div>
+      <p><strong><em>Flexbox</em>（弹性盒子）</strong>——管<strong>一行</strong>或<strong>一列</strong>里多个元素的排列。容器 + 里面的小孩。</p>
+      <p style="font-family:monospace;font-size:12px;background:#fff5e6;padding:8px 12px;border-radius:6px;line-height:1.6;">.container {<br/>&nbsp;&nbsp;display: flex;&nbsp;&nbsp;/* 横排 */<br/>&nbsp;&nbsp;justify-content: center;&nbsp;&nbsp;/* 主轴居中 */<br/>&nbsp;&nbsp;align-items: center;&nbsp;&nbsp;/* 交叉轴居中 */<br/>&nbsp;&nbsp;gap: 12px;&nbsp;&nbsp;/* 元素间距 */<br/>}</p>
+      <p>关键属性：</p>
+      <ul>
+        <li><em>flex-direction</em>: <em>row</em>（横）/ <em>column</em>（竖）</li>
+        <li><em>justify-content</em>: 主轴排列（<em>flex-start</em> / <em>center</em> / <em>space-between</em> / <em>space-around</em>）</li>
+        <li><em>align-items</em>: 交叉轴排列（<em>center</em> / <em>flex-start</em> / <em>stretch</em>）</li>
+        <li><em>gap</em>: 元素之间间距</li>
+        <li><em>flex-wrap</em>: <em>wrap</em> 让超出的换行</li>
+      </ul>
+      <p><strong><em>Grid</em>（网格）</strong>——管<strong>多行 × 多列</strong>的二维布局。</p>
+      <p style="font-family:monospace;font-size:12px;background:#fff5e6;padding:8px 12px;border-radius:6px;line-height:1.6;">.container {<br/>&nbsp;&nbsp;display: grid;<br/>&nbsp;&nbsp;grid-template-columns: 1fr 2fr 1fr;&nbsp;&nbsp;/* 三列 */<br/>&nbsp;&nbsp;gap: 12px;<br/>}</p>
+      <p><strong>怎么选</strong>：</p>
+      <ul>
+        <li>横排导航 / 居中按钮 / 列表项 → <em>Flexbox</em></li>
+        <li>整页 layout（侧栏 + 内容 + 头尾）/ 网格卡片 / 复杂二维结构 → <em>Grid</em></li>
+        <li>两个混用：外层 Grid 划区、每个区里面用 Flex 排小元素，最常见</li>
+      </ul>
+      <p><strong>居中</strong>——前端最古老的痛点。现代答案：</p>
+      <p style="font-family:monospace;font-size:12px;background:#fff5e6;padding:8px 12px;border-radius:6px;line-height:1.6;">.center {<br/>&nbsp;&nbsp;display: flex;<br/>&nbsp;&nbsp;justify-content: center;<br/>&nbsp;&nbsp;align-items: center;<br/>}</p>
+      <p>跟 AI 说「这块用 flex 横排居中 + gap 12」/「这页 grid 三栏，侧栏 240 内容 1fr」→ AI 直接出布局代码。</p>
+      <div class="example-card">
+        <button class="example-toggle">📖 看真实例子</button>
+        <div class="example-content" hidden>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">📐</span><strong>Flexbox</strong> = 一行 / 一列里管排列；<strong>Grid</strong> = 二维网格划区——大部分页面两个混用</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">📱</span>在你做的产品里实际怎么用</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🍔</span>顶栏（logo 左 + 菜单中 + 头像右）→ <strong>Flex</strong> + <code>justify-content: space-between</code></div>
+              <div class="ex-line"><span class="ex-emoji">🖼️</span>商品卡片网格（手机 1 列 / 平板 2 列 / 电脑 4 列）→ <strong>Grid</strong> + <code>grid-template-columns: repeat(auto-fit, minmax(200px, 1fr))</code></div>
+              <div class="ex-line"><span class="ex-emoji">🎯</span>按钮里 icon + 文字平齐 → <strong>Flex</strong> + <code>align-items: center; gap: 6px</code></div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处（懂了能干啥）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🐛</span>看 AI 写的 CSS 能看懂布局思路——「这里 flex-direction: column」是竖排</div>
+              <div class="ex-line"><span class="ex-emoji">🛠️</span>布局乱了能自己救——F12 Elements 里直接改 <code>justify-content</code> 试效果</div>
+              <div class="ex-line"><span class="ex-emoji">📐</span><strong>居中</strong>不再是世纪难题：flex + center center 就行</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_form_validation = {
+  id: "form-validation",
+  emoji: "📝",
+  title: "表单 / 数据校验",
+  lightbulb: true,
+  concept: { name: "表单 / 数据校验 / 前后端双重验证", explain: "用户填的表单要校验——前端给即时提示提升体验，后端必须再验一次（前端能被绕过）。" },
+  pages: [
+    { html: `
+      <p>做注册 / 登录 / 评论 / 提交反馈——避不开表单。三件事最容易翻车：<strong>校验 / 提交 / 错误提示</strong>。</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">⌨️</span><span class="ei-label">用户填</span>
+        <span class="ei-arrow">→</span>
+        <span class="ei-emoji">✅</span><span class="ei-label">前端校验<br/>(即时提示)</span>
+        <span class="ei-arrow">→</span>
+        <span class="ei-emoji">📤</span><span class="ei-label">提交</span>
+        <span class="ei-arrow">→</span>
+        <span class="ei-emoji">🛡️</span><span class="ei-label">后端再验<br/>(权威)</span>
+      </div>
+      <p><strong>1. <em>HTML5 自带校验</em>（最省事）</strong>：</p>
+      <p style="font-family:monospace;font-size:12px;background:#fff5e6;padding:8px 12px;border-radius:6px;line-height:1.6;">&lt;input type="email" required&gt;<br/>&lt;input type="number" min="1" max="99"&gt;<br/>&lt;input type="text" pattern="\\d{11}" title="11 位手机号"&gt;</p>
+      <p>常用属性：<em>required</em>（必填）/ <em>type</em>（email / url / tel / number / date）/ <em>min</em> / <em>max</em> / <em>minlength</em> / <em>maxlength</em> / <em>pattern</em>（正则）。提交时浏览器自动拦截 + 浮出错误提示，零 JS。</p>
+      <p><strong>2. JS 自定义校验</strong>（需要更复杂规则时）：</p>
+      <ul>
+        <li>监听 <em>input</em> 事件 → 边输入边显示「密码强度」/「邮箱已被注册」</li>
+        <li>监听 <em>submit</em> 事件 → 验证全字段 → <em>e.preventDefault()</em> 拦截不通过的提交</li>
+        <li>错误信息显示在字段下方（红字小提示），不要用 <em>alert</em></li>
+      </ul>
+      <p><strong>3. <em>后端校验</em>必须再做一次</strong>（关键铁律）：</p>
+      <ul>
+        <li>前端校验<strong>能被绕过</strong>——直接用 F12 改 HTML / 用 curl 发请求 / 用 Postman 模拟</li>
+        <li>后端必须独立验一遍：必填 / 类型 / 长度 / 格式 / 业务规则（用户名是否已存在）</li>
+        <li>校验失败返回 <em>400 Bad Request</em> + 哪个字段错了 + 错在哪</li>
+      </ul>
+      <p><strong>常见坑</strong>：</p>
+      <ul>
+        <li>只信前端 → 攻击者直接发非法数据进数据库</li>
+        <li>提交时整个表单 disable / loading 状态忘了 → 用户重复点提交、产生重复订单</li>
+        <li>错误信息「输入有误」太笼统 → 用户不知道改哪——必须具体（「邮箱格式不对，应该是 a@b.com」）</li>
+        <li>密码框不显示输入字符（<em>type="password"</em>）但要给「显示密码」按钮选项</li>
+        <li>移动端：<em>type="number"</em> 弹数字键盘；<em>type="email"</em> 弹邮箱键盘——体验差一截</li>
+      </ul>
+      <p><strong>常用库</strong>：每个框架都有自家表单库 + schema 校验库。前后端共用同一份 schema 定义最省心（写一次、前后端都用，校验规则永远一致）。</p>
+      <div class="example-card">
+        <button class="example-toggle">📖 看真实例子</button>
+        <div class="example-content" hidden>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">📝</span><strong>前端校验</strong> = 用户体验（即时反馈）；<strong>后端校验</strong> = 安全（前端能被绕过）。两个都要做</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">📱</span>在你做的产品里实际怎么用</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">📧</span>注册：<code>type="email" required minlength="6"</code> → 浏览器自动验 → 后端再独立验一遍才存数据库</div>
+              <div class="ex-line"><span class="ex-emoji">💬</span>评论框：JS 监听字数边输入边显示「还剩 N 字」/「超出 N 字不能提交」</div>
+              <div class="ex-line"><span class="ex-emoji">🔒</span>提交按钮：点了立刻 <code>disabled = true</code> + 显示「提交中…」→ 收到响应再恢复，防重复提交</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处（懂了能干啥）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">😱</span>避免被攻击：用户在 F12 改 minlength → 后端有验证拦下来，数据库不进脏数据</div>
+              <div class="ex-line"><span class="ex-emoji">⚡</span>用 HTML5 自带属性 → 零 JS 实现 70% 校验需求</div>
+              <div class="ex-line"><span class="ex-emoji">🗣️</span>跟 AI 说「这个表单前后端共享一份 schema 校验」→ AI 直接出代码</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_websocket_realtime = {
+  id: "websocket-realtime",
+  emoji: "📡",
+  title: "WebSocket / 实时推送",
+  lightbulb: true,
+  concept: { name: "WebSocket / 长连接 / 服务器推送", explain: "做聊天 / 通知 / 实时协作要「服务器主动推消息给前端」——不是前端每秒问一次。WebSocket 就为这个。" },
+  pages: [
+    { html: `
+      <p>做聊天、新消息通知、协作编辑、实时分数榜——需要服务器<strong>主动告诉</strong>前端「有新东西了」。普通 HTTP 做不到（前端不问，服务器没法说）。</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">📱</span><span class="ei-label">前端</span>
+        <span class="ei-arrow">⟷</span>
+        <span class="ei-emoji">📡</span><span class="ei-label">WebSocket<br/>(双向 持久 通道)</span>
+        <span class="ei-arrow">⟷</span>
+        <span class="ei-emoji">🖥️</span><span class="ei-label">服务器</span>
+      </div>
+      <p><em>WebSocket</em>：前后端建立一个<strong>持久双向通道</strong>，谁都能随时给对方发消息（不像 HTTP 必须前端先问）。</p>
+      <p>普通 HTTP vs WebSocket：</p>
+      <ul>
+        <li>HTTP：前端问一次 → 服务器答一次 → 连接断。要再要数据再问</li>
+        <li>WebSocket：建一次连接 → 一直开 → 双方随时收发消息</li>
+      </ul>
+      <p>前端用法（浏览器内置）：</p>
+      <p style="font-family:monospace;font-size:12px;background:#fff5e6;padding:8px 12px;border-radius:6px;line-height:1.6;">const ws = new WebSocket('wss://example.com/chat');<br/>ws.onmessage = (e) =&gt; { 显示新消息(e.data) };<br/>ws.send('我也要发消息');</p>
+      <p><strong>常见替代方案</strong>（不一定都要上 WebSocket）：</p>
+      <ul>
+        <li><em>轮询</em>（polling）：前端每 N 秒发一次普通请求问「有新东西吗」。最 low 但最简单——刷消息不频繁场景够用</li>
+        <li><em>长轮询</em>（long polling）：请求过去服务器先不回，有新东西才回。比轮询省请求</li>
+        <li><em>SSE</em>（Server-Sent Events）：单向（服务器推前端）、用普通 HTTP、浏览器内置 <em>EventSource</em>。<strong>只要服务器推前端不需要前端推回去就用 SSE</strong>（AI 流式输出常用）</li>
+        <li><em>WebSocket</em>：真正双向 + 高频。聊天 / 协作 / 游戏</li>
+      </ul>
+      <p><strong>常用方案</strong>：</p>
+      <ul>
+        <li>自己搭：Node 用 <em>ws</em> 或 <em>socket.io</em>（含自动重连 + 房间 + 兼容性）</li>
+        <li>不想自己运维：用<strong>托管的实时推送服务</strong>（这类服务封装好连接管理、扩容、断线重连）</li>
+      </ul>
+      <p><strong>常见坑</strong>：</p>
+      <ul>
+        <li>连接会断（网络切换 / Wi-Fi 弱）→ 必须有<strong>自动重连</strong>逻辑（socket.io 自带）</li>
+        <li>同一用户多端开多个连接 → 后端要识别 + 同步状态</li>
+        <li>消息可能丢（重连期间）→ 关键消息要有<strong>确认 ack</strong>机制</li>
+        <li>消息洪水攻击 / 限流 → 必须挡，不然单用户能拖垮服务</li>
+      </ul>
+      <div class="example-card">
+        <button class="example-toggle">📖 看真实例子</button>
+        <div class="example-content" hidden>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">📡</span><strong>WebSocket</strong> = 前后端之间挖一条持久双向通道、双方随时收发消息——不是每次都新建连接</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">📱</span>在你做的产品里实际怎么用</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">💬</span>聊天 → <strong>WebSocket</strong>（自己搭用 socket.io，或用<strong>托管的实时推送服务</strong>）</div>
+              <div class="ex-line"><span class="ex-emoji">🤖</span>AI 流式回答（一字一字出来）→ <strong>SSE</strong>（OpenAI / Anthropic API 都用这个）</div>
+              <div class="ex-line"><span class="ex-emoji">📊</span>看板每 30 秒刷新一次数据 → 普通<strong>轮询</strong> setInterval fetch 就够了，不用上 WebSocket</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处（懂了能选对方案）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">💸</span>不会上来就上 WebSocket——刷得不频繁就轮询，省运维 + 服务器成本</div>
+              <div class="ex-line"><span class="ex-emoji">🛠️</span>用<strong>托管的实时推送服务</strong>几行代码搞定，不用自己搭服务器</div>
+              <div class="ex-line"><span class="ex-emoji">🗣️</span>跟 AI 说「这个用 SSE 不用 WebSocket」/「加自动重连 + ack 机制」→ 沟通有底</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_db_migration = {
+  id: "db-migration",
+  emoji: "🔧",
+  title: "数据库 schema 变更 / 迁移",
+  lightbulb: true,
+  concept: { name: "数据库 schema 迁移", explain: "改库结构（加字段 / 删字段 / 改类型）—— vibecoding 频繁改、改错就丢数据。要用迁移工具不要手改。" },
+  pages: [
+    { html: `
+      <p>vibecoding 早期常改数据库结构——加字段 / 改类型 / 拆表。每改一次：开发库随便改，但<strong>生产库有用户真数据</strong>，乱改会丢。</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">📝</span><span class="ei-label">改 schema</span>
+        <span class="ei-arrow">→</span>
+        <span class="ei-emoji">📄</span><span class="ei-label">生成迁移文件</span>
+        <span class="ei-arrow">→</span>
+        <span class="ei-emoji">▶️</span><span class="ei-label">在各环境跑迁移</span>
+        <span class="ei-arrow">→</span>
+        <span class="ei-emoji">↩️</span><span class="ei-label">出错能回滚</span>
+      </div>
+      <p><em>迁移</em>（<em>migration</em>）= 一份「数据库结构怎么变」的 SQL 脚本，能正向跑（应用新结构）也能反向跑（回滚到旧结构）。</p>
+      <p><strong>常用迁移工具</strong>：每种语言 / ORM 都有自己的迁移工具——核心流程都是「改 schema → 生成迁移文件 → 跑迁移」三步。Node 生态用 ORM 的（如 Prisma / Drizzle）自带；Python / Ruby / Java 的 web 框架也都自带。SQL 原生有跨语言的独立工具。</p>
+      <p><strong>常见操作风险等级</strong>：</p>
+      <ul>
+        <li>🟢 加新字段（允许 null）：安全。老数据没值默认 null</li>
+        <li>🟢 加索引：安全（PG 用 <em>CREATE INDEX CONCURRENTLY</em> 避免锁表）</li>
+        <li>🟡 加新表：安全</li>
+        <li>🟡 加字段 + 设默认值：要看表多大——上百万行可能锁表</li>
+        <li>🔴 改字段类型（int → varchar）：可能丢数据、要先迁移数据再删旧字段</li>
+        <li>🔴 删字段 / 删表：<strong>数据没了就没了</strong>。改前先备份、改后留 grace period 不真删</li>
+        <li>🔴 改字段名：先<em>加新字段</em> + 双写 + 数据迁移 + 删旧 —— 不要一刀切重命名</li>
+      </ul>
+      <p><strong>安全工作流</strong>（vibecoding 救命）：</p>
+      <ul>
+        <li>先在<strong>开发库</strong>跑迁移，跑通了 + 测试通过</li>
+        <li>跑到<strong>预发布</strong>（staging）环境，用接近生产的数据再验</li>
+        <li>生产环境跑前<strong>必备份</strong>（cloudflare D1 / Supabase / Neon 都自动有 backup，确认开了）</li>
+        <li>生产跑迁移选<strong>低流量时段</strong>（凌晨）</li>
+        <li>大改（删字段 / 改类型）分两次部署：先「兼容旧+新」、稳定后再「删旧」</li>
+      </ul>
+      <p><strong>跟 AI 说</strong>「改这个字段从 int 到 varchar，给我安全迁移方案」→ AI 会给「加新字段 → 双写 → 数据迁移 → 切换 → 删旧」的多步方案，不是直接 <code>ALTER COLUMN TYPE</code>。</p>
+      <div class="example-card">
+        <button class="example-toggle">📖 看真实例子</button>
+        <div class="example-content" hidden>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🔧</span><strong>迁移文件</strong> = 数据库结构变更的脚本（能正向跑 / 反向跑）—— 改 schema 不直接动数据库，先生成迁移文件再跑</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">📱</span>在你做的产品里实际怎么用</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">📝</span>用户表加「头像 URL」字段 → 在 ORM schema 里加一行 → 跑工具的「生成迁移」命令自动出 SQL</div>
+              <div class="ex-line"><span class="ex-emoji">🚀</span>部署到生产：CI 里跑迁移命令（只应用待跑的迁移、不会改 schema 文件）</div>
+              <div class="ex-line"><span class="ex-emoji">↩️</span>改错了：用工具的回滚命令 + 写一份反向迁移文件</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处（懂了避免大事故）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">😱</span>避免：直接进生产数据库 <code>ALTER TABLE DROP COLUMN</code> 删字段 → 用户数据没了</div>
+              <div class="ex-line"><span class="ex-emoji">🛡️</span>每次 schema 变化都有<strong>版本记录</strong> + 能回滚 → AI 改炸了不慌</div>
+              <div class="ex-line"><span class="ex-emoji">📐</span>大改字段用「双写过渡」模式 → 用户感知不到、数据不丢</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_ai_iter = {
+  id: "ai-iter",
+  emoji: "🔄",
+  title: "AI 上下文管理 + 迭代修代码",
+  lightbulb: true,
+  concept: { name: "AI 上下文窗口 / 长会话失忆 / 迭代修代码", explain: "AI 会忘前面说过的话（上下文窗口满了）+ 一次给的代码常跑不动要循环修。要懂这两个机制才能高效用 AI。" },
+  pages: [
+    { html: `
+      <p>跟 AI 聊久了它「忘」了 20 分钟前的设定？AI 给的代码跑不动改了 5 轮还在错？—— 这两个是 vibecoding 最日常的痛，要懂背后机制。</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">🪟</span><span class="ei-label">上下文窗口<br/>(满了就忘)</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🔄</span><span class="ei-label">迭代修代码<br/>(报错 → 改 → 再跑)</span>
+      </div>
+      <p><strong>1. <em>上下文窗口</em></strong>：AI 一次能「记住」的对话长度有限——超过就<strong>开始忘前面</strong>（不是从最旧的一字一字忘，是模型注意力分散）。</p>
+      <ul>
+        <li>Claude / GPT-4 的上下文从几万到几百万 token 不等（1 中文字 ≈ 1.5 token）</li>
+        <li>整个项目的代码贴进去就占大量 token——还剩多少容量给你后续聊</li>
+        <li>聊久了 AI 突然「重写了之前已经定的功能」「忘了你说过不要 X」= 上下文满 / 注意力散</li>
+      </ul>
+      <p><strong>怎么避</strong>：</p>
+      <ul>
+        <li>聊久了把关键设定 / 需求 <strong>重申一次</strong>（贴上面定的规则）</li>
+        <li>太长就<strong>开新对话</strong>，第一句把项目 + 规则 + 当前要做的事一次说清</li>
+        <li>用支持<strong>项目记忆</strong>的工具——把规则写在项目根目录的规则文件里（不同工具叫法不同），AI 每次自动加载</li>
+        <li>大改前<strong>总结一下当前状态</strong>让 AI 复述，确认双方一致再动手</li>
+      </ul>
+      <p><strong>2. <em>迭代修代码</em>的标准流程</strong>：</p>
+      <p>AI 给的代码<strong>第一次跑通率约 40%</strong>——剩下要循环修。错误流程会修到崩溃。</p>
+      <p><strong>正确流程</strong>：</p>
+      <ol style="padding-left:20px;margin:8px 0;">
+        <li><strong>跑一次</strong>看具体报错（不要直接说"不工作"）</li>
+        <li>把<strong>报错原文整段复制</strong>给 AI（含 stack trace + 出错文件 + 行号）</li>
+        <li>同时说明<strong>你已经试过什么</strong>（"我看了 line 23 没问题"）</li>
+        <li>AI 给方案 → <strong>看懂再跑</strong>（看不懂让它解释）</li>
+        <li>跑通 → <strong>立刻 git commit</strong>（保存状态）</li>
+        <li>跑不通 → 把新报错再贴回去 + 「之前你改的没解决，新错是 X」</li>
+        <li><strong>5 轮还没修好 → 停下重新看问题</strong>：可能根因方向就错了</li>
+      </ol>
+      <p><strong>错误流程</strong>（最常踩）：</p>
+      <ul>
+        <li>「AI 你的代码不工作」—— AI 没信息只能瞎猜，越改越糟</li>
+        <li>AI 改了立刻接着改 + 不 commit —— 5 轮后想回原版回不去</li>
+        <li>没看懂直接 yes —— AI 把 working 代码改成错的</li>
+        <li>同一对话改一个 bug 改 30 轮 —— 上下文早溢出 + AI 在自己绕圈，开新对话</li>
+      </ul>
+      <p><strong>给 AI 报错的标准格式</strong>：</p>
+      <p style="font-family:monospace;font-size:12px;background:#fff5e6;padding:8px 12px;border-radius:6px;line-height:1.6;">我跑了 X 操作（具体步骤）<br/>期望：Y<br/>实际：Z<br/>报错原文：<br/>[整段贴]<br/>我已试过：A / B 都不行</p>
+      <div class="example-card">
+        <button class="example-toggle">📖 看真实例子</button>
+        <div class="example-content" hidden>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🔄</span>AI 的<strong>上下文是有限的</strong> + <strong>代码常跑不通要循环修</strong> —— 懂机制才能持续高效合作</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">📱</span>在你做的产品里实际怎么用</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🪟</span>聊 30 轮后 AI 重写了之前定的功能 → 不要怪它、是上下文散了 → 开新对话 + 第一句重申规则</div>
+              <div class="ex-line"><span class="ex-emoji">📋</span>修 bug：永远贴<strong>报错原文 + 复现步骤 + 已试过什么</strong>，不要只说"不工作"</div>
+              <div class="ex-line"><span class="ex-emoji">💾</span>AI 改完跑通 → 立刻 <code>git commit</code> → 下一次改炸了能回到这</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处（懂了不被 AI 折磨）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">⚡</span>修 bug 5 轮内 80% 能修好 —— 不会陷入「改了又错改了又错」的循环</div>
+              <div class="ex-line"><span class="ex-emoji">📐</span>项目级规则写进根目录的规则文件 —— AI 每次自动遵守、不用重复说</div>
+              <div class="ex-line"><span class="ex-emoji">🛑</span>5 轮还不行 → 知道要停 + 重新看问题，不浪费时间 + token</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_project_structure = {
+  id: "project-structure",
+  emoji: "📂",
+  title: "package.json + 项目文件夹结构",
+  lightbulb: true,
+  concept: { name: "package.json / 项目文件结构", explain: "项目根目录的 package.json 是「项目说明书」；文件夹按层次组织能让 AI 和你自己都不晕。" },
+  pages: [
+    { html: `
+      <p>打开 AI 给你创建的项目——根目录一堆文件不知道哪个是哪个，<em>package.json</em> 里一堆字段读不懂。这一节理清。</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">📋</span><span class="ei-label">package.json<br/>(项目说明书)</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">📂</span><span class="ei-label">src / public / tests<br/>(代码分类)</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">⚙️</span><span class="ei-label">config 文件<br/>(各工具的设置)</span>
+      </div>
+      <p><strong><em>package.json</em> 完整解读</strong>：</p>
+      <p style="font-family:monospace;font-size:12px;background:#fff5e6;padding:8px 12px;border-radius:6px;line-height:1.6;">{<br/>&nbsp;&nbsp;"name": "my-app",<br/>&nbsp;&nbsp;"version": "1.0.0",<br/>&nbsp;&nbsp;"scripts": { "dev": "vite", "build": "vite build" },<br/>&nbsp;&nbsp;"dependencies": { "react": "^18.2.0" },<br/>&nbsp;&nbsp;"devDependencies": { "vite": "^5.0.0" }<br/>}</p>
+      <ul>
+        <li><em>scripts</em>：自定义命令。<code>npm run dev</code> 等于跑 <code>vite</code>。<code>npm test</code> 跑测试。<strong>第一次看新项目先看这里——知道怎么启动</strong></li>
+        <li><em>dependencies</em>：<strong>跑代码必须的</strong>库（React / Vue / Express 等），会进部署包</li>
+        <li><em>devDependencies</em>：<strong>开发时才用的</strong>（构建工具 / 测试工具 / TypeScript / ESLint），不进部署包</li>
+        <li><em>^1.2.3</em> = 允许小版本升（1.2.3 ~ 1.x.x）；<em>~1.2.3</em> = 只允许补丁版（1.2.x）；<em>1.2.3</em> = 锁死</li>
+      </ul>
+      <p><strong><em>package-lock.json</em> / <em>pnpm-lock.yaml</em></strong>：锁死每个包的<strong>实际安装版本</strong>。<strong>必须提交进 git</strong>——保证团队 / 部署装出来的版本一致。</p>
+      <p><strong>典型项目文件夹结构</strong>（React / Next.js 项目）：</p>
+      <p style="font-family:monospace;font-size:12px;background:#fff5e6;padding:8px 12px;border-radius:6px;line-height:1.6;">my-app/<br/>├─ src/<br/>│&nbsp;&nbsp;├─ components/&nbsp;&nbsp;&nbsp;# 可复用 UI 组件<br/>│&nbsp;&nbsp;├─ pages/ (或 app/)&nbsp;&nbsp;# 路由对应的页面<br/>│&nbsp;&nbsp;├─ hooks/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# 自定义 React hooks<br/>│&nbsp;&nbsp;├─ utils/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# 工具函数（formatDate / debounce 等）<br/>│&nbsp;&nbsp;├─ api/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# 调后端接口的函数<br/>│&nbsp;&nbsp;├─ types/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# TypeScript 类型定义<br/>│&nbsp;&nbsp;└─ styles/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# 全局样式 / CSS<br/>├─ public/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# 静态资源（图片 / favicon）<br/>├─ tests/&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# 测试文件<br/>├─ .env&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# 环境变量（不传 git）<br/>├─ .gitignore&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# git 忽略哪些文件<br/>├─ package.json&nbsp;&nbsp;&nbsp;&nbsp;# 项目说明书<br/>└─ README.md&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# 项目说明</p>
+      <p><strong>常见配置文件</strong>（不用全懂、但要认得）：</p>
+      <ul>
+        <li><em>vite.config.js</em> / <em>next.config.js</em>：构建工具配置</li>
+        <li><em>tsconfig.json</em>：TypeScript 配置</li>
+        <li><em>tailwind.config.js</em>：Tailwind CSS 配置</li>
+        <li><em>eslint.config.js</em> / <em>.eslintrc</em>：代码检查规则</li>
+        <li><em>.prettierrc</em>：代码格式化规则</li>
+        <li><em>.editorconfig</em>：跨编辑器的统一配置（缩进 / 换行符）</li>
+      </ul>
+      <p><strong>整理原则</strong>：一类东西放一个文件夹（components 只放组件、utils 只放工具函数）；不知道放哪 → 先放最像的、超过 3 个再单独拆。</p>
+      <div class="example-card">
+        <button class="example-toggle">📖 看真实例子</button>
+        <div class="example-content" hidden>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">📂</span><strong>package.json</strong> = 项目说明书（怎么跑 + 用啥库）；<strong>文件夹结构</strong> = 让代码各归各位、不迷路</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">📱</span>在你做的产品里实际怎么用</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🚀</span>拿到 AI 创建的项目 → 看 <code>package.json scripts</code> → 找 <code>dev</code> 跑 <code>npm run dev</code> 启动</div>
+              <div class="ex-line"><span class="ex-emoji">📦</span>装新库：<code>npm install xxx</code>（生产） / <code>npm install -D xxx</code>（开发用）</div>
+              <div class="ex-line"><span class="ex-emoji">📂</span>新建一个按钮组件 → 放 <code>src/components/Button.tsx</code>，不是乱扔根目录</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处（懂了不会乱）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🔍</span>新项目 5 分钟读懂结构 + 知道怎么跑——不慌</div>
+              <div class="ex-line"><span class="ex-emoji">📐</span>跟 AI 说「新组件放 <code>src/components/</code>，工具函数放 <code>src/utils/</code>」→ AI 不会乱放</div>
+              <div class="ex-line"><span class="ex-emoji">💾</span><strong>lock 文件提交进 git</strong> → 团队装出来版本一致、不会「我电脑能跑你电脑跑不动」</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+const node_git_collab = {
+  id: "git-collab",
+  emoji: "🌿",
+  title: "Git 协作 / 分支 / PR / 解冲突",
+  lightbulb: true,
+  concept: { name: "Git 协作 / 分支 / PR / merge conflict", explain: "多人改同一项目要分支 + PR 流程。AI 改也要在分支里。冲突就两人改了同一段代码——手动选保留谁。" },
+  pages: [
+    { html: `
+      <p>跟别人协作（或者跟 AI 协作大改时）—— 直接在 main 上乱改会互相覆盖 / 改坏没法回滚。要走<em>分支</em> + <em>PR</em> + <em>code review</em> 流程。</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">🌳</span><span class="ei-label">main 主干<br/>(稳定的)</span>
+        <span class="ei-arrow">←</span>
+        <span class="ei-emoji">🌿</span><span class="ei-label">分支<br/>(改的)</span>
+        <span class="ei-arrow">→</span>
+        <span class="ei-emoji">📬</span><span class="ei-label">PR<br/>(请求合并)</span>
+        <span class="ei-arrow">→</span>
+        <span class="ei-emoji">👀</span><span class="ei-label">Review<br/>(看一下)</span>
+      </div>
+      <p><strong>分支基础</strong>：</p>
+      <ul>
+        <li><em>git checkout -b feat-login</em>：基于当前分支创建并切换到新分支 <em>feat-login</em></li>
+        <li>在新分支上随便改 + commit —— 不影响 main</li>
+        <li><em>git push -u origin feat-login</em>：把新分支推到远程</li>
+        <li>改完去 GitHub 开 <em>Pull Request</em>（PR）：「请求把 feat-login 合到 main」</li>
+        <li>合并后删分支：<em>git branch -d feat-login</em> + GitHub 上点 Delete branch</li>
+      </ul>
+      <p><strong>命名习惯</strong>：</p>
+      <ul>
+        <li><em>feat-xxx</em>：新功能</li>
+        <li><em>fix-xxx</em>：修 bug</li>
+        <li><em>refactor-xxx</em>：重构</li>
+        <li><em>docs-xxx</em>：文档</li>
+      </ul>
+      <p><strong>PR / Code Review 流程</strong>：</p>
+      <ol style="padding-left:20px;margin:8px 0;">
+        <li>开 PR：写清楚<strong>改了什么 + 为什么 + 怎么测</strong>，截图 / 录屏帮 reviewer 快速理解</li>
+        <li>reviewer 看代码 + 留 comments（哪行哪个有问题）</li>
+        <li>讨论 / 提交修改 push 到同一分支 → PR 自动更新</li>
+        <li>reviewer 同意 → 点 Approve</li>
+        <li>合并：<em>Squash and merge</em>（推荐——把分支多个 commit 合成 1 个进 main，历史干净）</li>
+      </ol>
+      <p><strong>Code review 看什么</strong>（vibecoding 让 AI / 朋友帮 review 时也参考）：</p>
+      <ul>
+        <li>🔴 Blocker：安全漏洞 / 删数据风险 / 明显 bug / 改坏了已有功能</li>
+        <li>🟡 应该改：命名不清 / 重复代码 / 缺测试 / 性能差</li>
+        <li>🟢 建议：风格 / 注释 / 锦上添花</li>
+      </ul>
+      <p><strong><em>merge conflict</em>（合并冲突）</strong> —— 两人 / 两分支改了<strong>同一段代码</strong>：</p>
+      <p>git 不知道选谁，文件里会变成：</p>
+      <p style="font-family:monospace;font-size:12px;background:#fff5e6;padding:8px 12px;border-radius:6px;line-height:1.6;">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD<br/>你的版本<br/>=======<br/>对方的版本<br/>&gt;&gt;&gt;&gt;&gt;&gt;&gt; main</p>
+      <p><strong>解冲突</strong>：</p>
+      <ol style="padding-left:20px;margin:8px 0;">
+        <li>编辑器打开冲突文件——会有「接受当前 / 接受对方 / 都保留 / 比较」按钮</li>
+        <li>选对要保留的内容 → 删 <code>&lt;&lt;&lt;&lt;</code> <code>====</code> <code>&gt;&gt;&gt;&gt;</code> 标记</li>
+        <li>保存文件</li>
+        <li><code>git add 该文件</code> + <code>git commit</code> 完成合并</li>
+        <li>不确定选哪个 → 找对方一起看，不要瞎选</li>
+      </ol>
+      <p><strong>vibecoding 单人但用 AI 时</strong>：大改前 <code>git checkout -b ai-redesign</code> 在分支上让 AI 改，改坏了删分支 main 不受影响——把 AI 当成「另一个开发者」走分支流程。</p>
+      <div class="example-card">
+        <button class="example-toggle">📖 看真实例子</button>
+        <div class="example-content" hidden>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🌿</span><strong>分支 = 隔离区</strong>，在分支上改不影响 main；<strong>PR = 请求合并</strong>；<strong>冲突 = 两个人改同段代码、要选保留谁</strong></div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">📱</span>在你做的产品里实际怎么用</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">✨</span>新功能：<code>git checkout -b feat-search</code> → 改 + commit → push → 在 GitHub 开 PR → review → 合并</div>
+              <div class="ex-line"><span class="ex-emoji">🤖</span>让 AI 大改：先 <code>git checkout -b ai-refactor</code> → AI 改在分支里 → 改炸了删分支没事</div>
+              <div class="ex-line"><span class="ex-emoji">⚡</span>冲突：编辑器打开冲突文件 → 点「接受当前」/「接受对方」/「都保留」按钮 → 保存 → commit</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处（懂了协作不慌）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🛡️</span>main 永远稳定 + 可部署，实验性改动都在分支</div>
+              <div class="ex-line"><span class="ex-emoji">👀</span>PR 是<strong>讨论代码的地方</strong>——能跟同事 / AI / 自己未来的你 review</div>
+              <div class="ex-line"><span class="ex-emoji">↩️</span>合并错了：<code>git revert</code> 撤这次合并、main 回到合并前</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
+
+// ============================================================
+// children 接续：8 个新节点挂到对应主线节点的灯泡支线
+// ============================================================
+node_web_trio.children = [node_fe_be, node_framework, node_dark_mode, node_dom_ops, node_css_layout, node_form_validation];
+node_api_http.children = [node_database_web, node_json_methods, node_async_basics, node_websocket_realtime];
+node_database_web.children = [node_auth_web, node_db_pagination, node_db_migration];
+node_ai_helper.children = [node_git, node_prompt, node_vibe_prompt_craft, node_vibe_split_task, node_vibe_review, node_vibe_refactor, node_ai_iter];
+node_npm.children = [node_platform_pick, node_project_structure];
+node_git.children = [node_github, node_git_collab];
+
+// TERM_GLOSSARY 二轮扩充
+Object.assign(TERM_GLOSSARY, {
+  // CSS 布局
+  "Flexbox": "CSS 布局方式——管一行或一列里多个元素的排列（横排 / 居中 / 拉伸 / 间距）。",
+  "Grid": "CSS 布局方式——二维网格（多行 × 多列），适合整页 layout。",
+  "flex": "见 Flexbox。CSS 设 display: flex 让一个容器变成 flex 布局。",
+  "grid": "见 Grid。CSS 设 display: grid 让一个容器变成 grid 布局。",
+  "justify-content": "Flexbox / Grid 属性——主轴上的排列方式（开头 / 居中 / 两端 / 平均分）。",
+  "align-items": "Flexbox / Grid 属性——交叉轴上的对齐方式（顶 / 中 / 底 / 拉伸）。",
+  "gap": "Flexbox / Grid 属性——子元素之间的间距。",
+  "flex-direction": "Flexbox 属性——主轴方向（row 横排 / column 竖排）。",
+  "flex-wrap": "Flexbox 属性——子元素超出容器时是否换行。",
+  "grid-template-columns": "Grid 属性——定义列的宽度和数量。",
+  // 表单
+  "表单": "页面里让用户填东西的组件（输入框 / 选择框 / 按钮）。英文 form。",
+  "校验": "检查用户输入是否符合规则（必填 / 格式 / 长度）。英文 validation。",
+  "validation": "校验——检查数据是否符合规则。",
+  "required": "HTML input 属性——必填、留空不让提交。",
+  "pattern": "HTML input 属性——用正则定义合法格式。",
+  "zod": "TypeScript schema 校验库，前后端能共用同一份 schema。",
+  // WebSocket
+  "WebSocket": "前后端建立的持久双向通道，双方随时发消息。聊天 / 协作 / 推送用。",
+  "wss": "WebSocket 加密协议（相当于 https 之于 http）。",
+  "SSE": "Server-Sent Events——单向（服务器推前端）、用普通 HTTP、浏览器内置 EventSource。AI 流式输出常用。",
+  "EventSource": "浏览器内置的 SSE 客户端 API。",
+  "轮询": "前端每 N 秒主动问服务器一次「有新数据吗」。英文 polling。",
+  "polling": "轮询——见上。",
+  "长轮询": "前端请求过去服务器先不回，有新东西才回。比普通轮询省请求。",
+  "socket.io": "Node 上常用的 WebSocket 库，含自动重连 + 房间 + 兼容性回退。",
+  "Pusher": "托管的 WebSocket / 实时推送服务，省得自己搭。",
+  "Ably": "类似 Pusher，托管的实时推送服务。",
+  // 分页
+  "分页": "列表数据太多时分批返回——offset / cursor 两种方式。英文 pagination。",
+  "pagination": "分页——见上。",
+  "offset": "分页方式：跳过前 N 条拿 M 条。SQL: LIMIT M OFFSET N。",
+  "cursor": "分页方式：「拿比某个 id / 时间更早 / 更晚的 M 条」。无限滚动用。",
+  "索引": "数据库给某字段建的「快速查找表」，让按这字段查询从慢扫变快查。英文 index。",
+  "index": "索引——见上。",
+  "MeiliSearch": "轻量级开源全文搜索引擎，比 SQL LIKE 强多了。",
+  "Algolia": "托管的搜索服务，几行代码加搜索。",
+  // db 迁移
+  "迁移": "数据库结构变更的脚本（能正向 / 反向跑）。英文 migration。",
+  "migration": "迁移——见上。",
+  "Prisma": "现代化的 Node ORM + 迁移工具，schema 变更自动生成迁移 SQL。",
+  "Drizzle": "另一个流行的 Node ORM，比 Prisma 更接近 SQL。",
+  "ORM": "Object-Relational Mapping——用对象 / 类操作数据库，不写裸 SQL。Prisma / Drizzle / TypeORM。",
+  "schema": "数据库 / 数据的结构定义（哪些表 / 表里哪些字段 / 字段类型）。",
+  "ALTER TABLE": "SQL 命令——改表结构（加 / 删 / 改字段）。",
+  // AI 迭代
+  "上下文窗口": "AI 一次能「记住」的对话长度上限。超过会开始忘前面。英文 context window。",
+  "context window": "上下文窗口——见上。",
+  "token": "AI 处理文本的最小单位。1 中文字 ≈ 1.5 token。",
+  "幻觉": "AI 编造不存在的事实（函数 / API / 数据）。英文 hallucination。",
+  "hallucination": "幻觉——见上。",
+  "CLAUDE.md": "Claude Code 的项目规范文件——放项目里 Claude 每次自动加载。",
+  ".cursorrules": "Cursor 的项目规范文件——类似 CLAUDE.md。",
+  // 项目结构
+  "package.json": "Node 项目的「说明书」文件——名字 / 版本 / 脚本 / 依赖都在里面。",
+  "dependencies": "package.json 字段——跑代码必须的库（生产用）。",
+  "devDependencies": "package.json 字段——只有开发时用的库（构建 / 测试 / lint）。",
+  "scripts": "package.json 字段——自定义命令。npm run dev 就是跑这里定义的命令。",
+  "lock 文件": "package-lock.json / pnpm-lock.yaml / yarn.lock——锁死每个包的实际安装版本，必须提交进 git。",
+  "package-lock.json": "npm 的 lock 文件——锁住每个依赖的具体版本。",
+  "node_modules": "npm install 装的依赖文件夹，几百兆，不进 git。",
+  "tsconfig.json": "TypeScript 项目的配置文件。",
+  ".gitignore": "告诉 git 哪些文件不要追踪（node_modules / .env / build 输出 等）。",
+  // git 协作
+  "分支": "git 里的「平行线」——在分支上改不影响 main。英文 branch。",
+  "branch": "分支——见上。",
+  "main": "git 默认主分支名（以前叫 master）。",
+  "master": "git 旧的默认主分支名（现在多用 main）。",
+  "PR": "Pull Request——「请求把分支合并到 main」的流程。GitHub / GitLab 标准协作方式。",
+  "Pull Request": "见 PR。",
+  "Code Review": "代码评审——合并前别人看你的代码、提意见。",
+  "merge conflict": "合并冲突——两个分支改了同一段代码，git 不知道选谁，要手动解决。",
+  "合并冲突": "见 merge conflict。",
+  "Squash and merge": "PR 合并方式——把分支上的多个 commit 合成 1 个再合到 main，历史干净。",
+  "git revert": "撤一次已经 commit 的改动——会产生一个反向 commit、不破坏历史。",
+  "git rebase": "把分支的 commit「移到」另一个分支头部——历史更线性、但操作有风险。",
+});
+
+const node_db_pagination = {
+  id: "db-pagination",
+  emoji: "📑",
+  title: "分页 / 排序 / 筛选",
+  lightbulb: true,
+  concept: { name: "分页 / 排序 / 筛选", explain: "列表多了不能一次全发——分页（offset / cursor）+ 排序 + 多条件筛选。" },
+  pages: [
+    { html: `
+      <p>评论 1000 条、商品 5 万件、订单 30 万行——一次全发前端会卡死，数据库也会撑爆。要<strong>分页</strong>。</p>
+      <div class="emoji-illust">
+        <span class="ei-emoji">📋</span><span class="ei-label">大列表</span>
+        <span class="ei-arrow">→</span>
+        <span class="ei-emoji">📑</span><span class="ei-label">分页（一次 N 条）</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🔼</span><span class="ei-label">排序</span>
+        <span class="ei-arrow">+</span>
+        <span class="ei-emoji">🔎</span><span class="ei-label">筛选</span>
+      </div>
+      <p><strong>两种分页方式</strong>：</p>
+      <ul>
+        <li><em>offset / limit</em>（页码型）：<code>SELECT ... LIMIT 20 OFFSET 40</code>——跳过前 40 拿 20 条。前端「上一页 / 下一页 / 第 N 页」常用。<strong>坑</strong>：offset 越大查询越慢（数据库要数过去）；用户翻页时如果有新数据插入会出现重复 / 漏数据</li>
+        <li><em>cursor</em>（游标型）：「给我比 id=1234 更早的 20 条」<code>WHERE id &lt; 1234 ORDER BY id DESC LIMIT 20</code>——无限滚动 / Feed 流常用。<strong>优点</strong>：性能稳定 + 不会重复漏；<strong>缺点</strong>：不能跳到「第 50 页」</li>
+      </ul>
+      <p><strong>怎么选</strong>：</p>
+      <ul>
+        <li>「商品列表 / 后台管理 / 用户能跳页」→ <em>offset</em>（用户体验直觉）</li>
+        <li>「朋友圈 / 消息列表 / 无限滚动」→ <em>cursor</em>（性能稳定 + 无重复）</li>
+        <li>数据多 + 性能要求高 → 一律 <em>cursor</em></li>
+      </ul>
+      <p><strong>排序</strong>：</p>
+      <ul>
+        <li>排序字段必须建<em>索引</em>——没索引时按 1 万条排序还能撑，10 万就开始卡</li>
+        <li>常见：按时间倒序（最新）/ 按热度 / 按价格 / 按距离</li>
+        <li>多字段排序：<code>ORDER BY 推荐分 DESC, 时间 DESC</code></li>
+      </ul>
+      <p><strong>筛选</strong>：</p>
+      <ul>
+        <li>单字段：<code>WHERE status = 'paid'</code></li>
+        <li>多字段组合：<code>WHERE category = '书' AND price &lt; 50 AND rating &gt;= 4</code></li>
+        <li>全文搜索：用<strong>专门的全文搜索引擎</strong>（PostgreSQL 自带的 tsvector 也可以），不要用 <code>LIKE '%关键词%'</code>（慢 + 不智能）</li>
+        <li>多条件 + 分页 + 排序<strong>一起用</strong>是正常的：<code>WHERE ... ORDER BY ... LIMIT ... OFFSET ...</code></li>
+      </ul>
+      <p><strong>前端通常长这样</strong>：</p>
+      <p style="font-family:monospace;font-size:12px;background:#fff5e6;padding:8px 12px;border-radius:6px;line-height:1.6;">GET /api/posts?page=2&amp;size=20&amp;sort=time_desc&amp;tag=React</p>
+      <p>后端解析这些 query 参数 → 拼 SQL → 返回「这一页的数据 + 总数 + 当前页 + 还有没有更多」的对象。</p>
+      <p>跟 AI 说「这个列表加 cursor 分页 + 按时间倒序 + 按 tag 筛选」→ AI 直接给前后端代码。</p>
+      <div class="example-card">
+        <button class="example-toggle">📖 看真实例子</button>
+        <div class="example-content" hidden>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💡</span>原理（一句话）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">📑</span><strong>分页</strong>（一次 N 条不撑爆）+ <strong>排序</strong>（怎么排）+ <strong>筛选</strong>（要哪些）——大列表标配三件套</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">📱</span>在你做的产品里实际怎么用</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">🛒</span>商品列表（用户能跳第 5 页）→ <strong>offset 分页</strong> + 按销量排 + 按品类筛</div>
+              <div class="ex-line"><span class="ex-emoji">📜</span>朋友圈无限滚动 → <strong>cursor 分页</strong>（不会刷出重复）</div>
+              <div class="ex-line"><span class="ex-emoji">🔎</span>搜索框：<code>WHERE name LIKE '%词%'</code> 慢 → 上<strong>专门的全文搜索引擎</strong>（很多有免费额度）</div>
+            </div>
+          </div>
+          <div class="ex-section">
+            <div class="ex-section-title"><span class="ex-section-icon">💪</span>给你带来什么好处（懂了能干啥）</div>
+            <div class="ex-story">
+              <div class="ex-line"><span class="ex-emoji">⚡</span>列表慢 → 第一反应「排序 / 筛选字段加索引」「offset 大了换 cursor」</div>
+              <div class="ex-line"><span class="ex-emoji">🐛</span>无限滚动出现重复 / 漏数据 → 知道是 offset 在数据变化时的固有问题、换 cursor</div>
+              <div class="ex-line"><span class="ex-emoji">🗣️</span>跟 AI 说「分页 + 排序 + 筛选组合 query」→ AI 直接出代码不会乱写</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    ` },
+  ],
+  children: [],
+};
