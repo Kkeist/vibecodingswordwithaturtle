@@ -1866,3 +1866,39 @@ body {
   .node, .card, .link-path, .notebook-panel { transition-duration: 0.15s; }
 }
 
+
+/* ========== 哐哐工作室标注（个人站：https://kkkb.pages.dev/） ========== */
+.kk-credit-text p:nth-of-type(2),
+.kk-credit-text p:nth-of-type(3) { display: inline; }
+.kk-credit {
+  /* 头像在文字左边、上下居中 */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  box-sizing: border-box;
+  min-height: 84px;
+  margin: 0 16px 16px;
+  padding: 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg-soft);
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--text-soft);
+}
+.kk-credit-avatar {
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border-radius: 8px;
+  object-fit: cover;
+}
+.kk-credit-text { flex: 1; min-width: 0; }
+.kk-credit-link {
+  display: inline;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.kk-credit-link:hover { color: var(--accent-deep); }
