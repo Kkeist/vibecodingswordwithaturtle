@@ -165,7 +165,7 @@ function renderLink(parent, child) {
   path.dataset.to = child.id;
   path.setAttribute('d', `M ${parent.x} ${parent.y} L ${parent.x} ${parent.y}`);
   svg.appendChild(path);
-  // 给每条连线随机一个曲线偏向 + 强度，让多条曲线看着自然不一样（宝宝"随意的曲线"）
+  // 给每条连线随机一个曲线偏向 + 强度，让多条曲线看着自然不一样
   const info = {
     el: path, parent, child,
     curveSign: Math.random() < 0.5 ? -1 : 1,
@@ -208,10 +208,10 @@ function updateLinkPath(linkInfo) {
   const y2 = parent.y + dy * ((dist - endPull) / dist);
 
   if (isDirect) {
-    // 直流（带箭头）= 直线（宝宝原话：箭头必须是直线哦，不能是弯的）
+    // 直流（带箭头）= 直线（箭头必须是直线，不能是弯的）
     el.setAttribute('d', `M ${x1} ${y1} L ${x2} ${y2}`);
   } else {
-    // 分叉（非箭头）= 随意曲线（宝宝原话：非箭头都是随意的曲线）
+    // 分叉（非箭头）= 随意曲线
     // 用法线方向偏置控制点，让任意角度的连线都有真正的弧度（水平方向不退化）
     const segDist = Math.hypot(x2 - x1, y2 - y1) || 1;
     const sign = linkInfo.curveSign || 1;
@@ -231,7 +231,7 @@ function updateLinkPath(linkInfo) {
 // 子节点通过卡片里的选项点击逐个 spawn（chain 流程化）
 function handleNodeClick(entry) {
   // toggle 一致性：再点同节点 = 关卡片（不是 reposition / re-open）
-  // 宝宝累积铁律：所有 open/close 类按钮再点必须关闭
+  // 约定：所有 open/close 类按钮再点一次必须关闭
   if (STATE.activeCardId === entry.id && STATE.cardEl) {
     closeCard();
     return;
@@ -410,8 +410,8 @@ function bindNotebook() {
       const input = $('.notebook-search-input');
       if (input) setTimeout(() => input.focus({ preventScroll: true }), 350);
     }
-    // 注意：笔记本开/关 **不重新定位卡片**。宝宝原话「笔记本已出现就会遮挡，所以不要打开
-    // 笔记本的时候换那个 box 的位置」——遮挡是接受的代价，瞬移才是更糟的体验
+    // 注意：笔记本开/关 **不重新定位卡片**：笔记本出现时会遮挡卡片，这是接受的代价，
+    // 卡片瞬移换位置才是更糟的体验
   });
   // 笔记本搜索框：input 事件实时过滤
   const input = $('.notebook-search-input');
@@ -812,7 +812,7 @@ function positionCard(card, entry) {
   const maxAvailH = Math.max(160, viewH - topReserve - bottomReserve - 16);
 
   // 限制卡片最大高度不超 viewport 可用区域，强保证不上下出画
-  // 字号不缩（宝宝原话：手机字小是绝对禁止）；过长内容由 card-body 自身处理
+  // 字号不缩（手机上字太小不可接受）；过长内容由 card-body 自身处理
   let h = hNatural;
   if (hNatural > maxAvailH) {
     card.style.maxHeight = maxAvailH + 'px';
@@ -916,7 +916,7 @@ function setTailPosition(tail, side, cardX, cardY, w, h, nodeX, nodeY, scale) {
 }
 
 function closeCard(silent) {
-  // 主卡片关闭 → example 第二张卡也一起关（宝宝原话：例子在原始被关闭的时候也会被一起关闭）
+  // 主卡片关闭 → example 第二张卡也一起关
   closeExampleModalSync();
   if (STATE.cardEl) {
     const el = STATE.cardEl;

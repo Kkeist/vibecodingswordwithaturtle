@@ -302,7 +302,7 @@ body {
   display: flex;
   flex-direction: column;
   /* 高度由 JS positionCard 设置 max-height 防止上下出画。当 max-height 触发：
-     header / footer 固定高，body 弹性占剩余空间内"可见内容尽量多"——但宝宝禁止可滚动框
+     header / footer 固定高，body 弹性占剩余空间内"可见内容尽量多"——但不允许出现可滚动的框
      所以 body 用 overflow: hidden 兜底（视觉切掉而不是滚动）；同时分 page 让内容不至于超长 */
   overflow: hidden;
 }

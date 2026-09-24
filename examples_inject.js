@@ -1,5 +1,5 @@
-// example HTML 批量注入（v14）—— 全部我自己写
-// 铁律：(1) 绝不预设用户懂/不懂；(2) 绝不嘲讽；(3) 描述事实 + 场景，不评价用户
+// example HTML 批量注入（v14）
+// 原则：(1) 绝不预设用户懂/不懂；(2) 绝不嘲讽；(3) 描述事实 + 场景，不评价用户
 // 用法：index.html 在 data.js 后加载本文件，injectExamples 把 example 追加到对应节点 pages[0].html
 
 const __EXAMPLE_BY_ID__ = {
